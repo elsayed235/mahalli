@@ -3,6 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#070D0B" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#F6F7F2" media="(prefers-color-scheme: light)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="محلّي">
 <title>محلّي</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 40 40%27%3E%3Crect width=%2740%27 height=%2740%27 rx=%2712%27 fill=%27%230B6B47%27/%3E%3Cpath d=%27M9.5 16.5h21l-2.2-6.2H11.7z%27 fill=%27none%27 stroke=%27%23fff%27 stroke-width=%272.4%27 stroke-linejoin=%27round%27/%3E%3Cpath d=%27M11.5 21.5v8.5h17v-8.5%27 fill=%27none%27 stroke=%27%23fff%27 stroke-width=%272.4%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3Crect x=%2717.2%27 y=%2724%27 width=%275.6%27 height=%276%27 rx=%271.2%27 fill=%27%23fff%27/%3E%3C/svg%3E">
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -2061,6 +2067,51 @@ body{font-size:16px;line-height:1.75}
 .ps-step .ps-live i{width:8px;height:8px;margin:0;box-shadow:0 0 0 3px color-mix(in srgb,var(--pc) 22%,transparent)}
 @media (max-width:900px){.ps-win{font-size:19px;margin-bottom:8px}.ps-cost{font-size:13px;margin-top:10px;padding-top:9px}}
 
+/* ---------- catalog search: one strong field, need filters, live counts ---------- */
+.xp .filters{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;margin-bottom:18px}
+.srch{position:relative}
+.srch .search{flex:none;width:100%}
+.srch .search input{font-size:16px;padding-block:14px;padding-inline:46px 84px;border-radius:16px}
+.srch .search svg{inset-inline-start:16px;width:19px;height:19px}
+.q-kbd{position:absolute;inset-inline-end:14px;font:600 12px var(--f-mono);color:var(--faint);border:1px solid var(--line2);border-radius:6px;padding:1px 7px;pointer-events:none}
+.srch:focus-within .q-kbd,.srch .q-x:not([hidden]) ~ .q-kbd{display:none}
+.q-x{position:absolute;inset-inline-end:10px;display:grid;place-items:center;width:30px;height:30px;border:0;border-radius:50%;background:color-mix(in srgb,var(--ink) 8%,transparent);color:var(--dim);cursor:pointer}
+.q-x svg{position:static;width:14px;height:14px}
+.search input::-webkit-search-cancel-button{display:none}
+.q-sug{position:absolute;z-index:5;inset-inline:0;top:calc(100% + 8px);max-height:min(420px,60vh);overflow-y:auto;padding:8px;border-radius:18px;background:var(--surface);border:1px solid var(--line2);box-shadow:0 24px 60px -24px rgba(0,0,0,.5)}
+.sg-h{display:flex;justify-content:space-between;align-items:center;padding:8px 10px 6px;font-size:12px;font-weight:700;color:var(--faint)}
+.sg-clr{all:unset;cursor:pointer;font-size:12px;color:var(--em)}
+.sg-i{all:unset;box-sizing:border-box;width:100%;cursor:pointer;display:flex;align-items:center;gap:12px;padding:9px 10px;border-radius:12px;font-size:14px}
+.sg-i:hover,.sg-i.act{background:color-mix(in srgb,var(--em) 12%,transparent)}
+.sg-ic{width:16px;height:16px;color:var(--faint);flex:none}
+.sg-app img{width:38px;height:46px;flex:none;border-radius:8px;object-fit:cover;background:var(--bg2)}
+.sg-app b{display:block;font-size:14px;font-weight:600}
+.sg-app small{display:block;font-size:12px;color:var(--dim)}
+.sg-all{justify-content:center;color:var(--em);font-weight:600;margin-top:4px;border-top:1px solid var(--line);border-radius:0 0 12px 12px}
+.sg-pop{display:flex;flex-wrap:wrap;gap:6px;padding:2px 8px 8px}
+mark{background:color-mix(in srgb,var(--em) 26%,transparent);color:inherit;border-radius:4px;padding:0 1px}
+.frow{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
+.f-lbl{font-size:13px;font-weight:700;color:var(--dim)}
+.frow .needs{flex:1;min-width:0}
+.chip.zero{opacity:.45}
+.sort{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--dim);margin-inline-start:auto}
+.sort select{appearance:none;-webkit-appearance:none;font:inherit;font-weight:600;color:var(--ink);background:var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3a0' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat;background-size:14px;background-position:left 10px center;border:1px solid var(--line2);border-radius:10px;padding:7px 12px 7px 30px;cursor:pointer}
+[dir="ltr"] .sort select{background-position:right 10px center;padding:7px 30px 7px 12px}
+.active{display:flex;flex-wrap:wrap;gap:6px}
+.af{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:99px;font-size:12px;font-weight:600;background:color-mix(in srgb,var(--em) 14%,transparent);color:var(--ink)}
+.af span{font-size:14px;line-height:1;color:var(--dim)}
+.af:hover span{color:var(--ink)}
+.af-clear{all:unset;cursor:pointer;font-size:12px;font-weight:600;color:var(--em);padding:5px 6px}
+.empty p{margin:0 auto 14px;max-width:46ch}
+.empty-sug{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px;margin-bottom:18px;font-size:13px}
+.empty-cta{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+/* loading: a soft shimmer until each poster arrives */
+@keyframes shim{from{background-position:150% 0}to{background-position:-50% 0}}
+.cimg:not(.ok),.mq-c:not(.ok),.ph-img:not(.ok),.sg-app:not(.ok) img{background-image:linear-gradient(100deg,transparent 30%,color-mix(in srgb,var(--ink) 7%,transparent) 50%,transparent 70%);background-size:200% 100%;animation:shim 1.4s linear infinite}
+.err img{opacity:0}
+@media (prefers-reduced-motion:reduce){.cimg,.mq-c,.ph-img,.sg-app img{animation:none!important}}
+@media (max-width:640px){.srch .search input{padding-block:12px}.q-kbd{display:none}.sort{margin-inline-start:0}.frow .needs{flex:1 1 100%;order:3}.f-lbl{order:1}.sort{order:2}}
+
 /* ---------- side drawer, legal reader, FAQ "show all" ---------- */
 .menu-btn{display:inline-flex}
 .drw{position:fixed;inset:0;z-index:60}
@@ -2109,6 +2160,98 @@ body{font-size:16px;line-height:1.75}
   .ph-close .ph-cta .btn{flex:1 1 100%}
   .b-wa{flex:1 1 100%}
 }
+/* ==========================================================================
+   APP MODE (phones): the site behaves like a premium native app —
+   a quiet top bar, a bottom tab bar, a search field on home, quick-action tiles,
+   list rows for apps, press feedback and safe areas.
+   ========================================================================== */
+.h-search{display:none}
+.tabbar .tb{all:unset}
+@media (max-width:640px){
+  html{-webkit-tap-highlight-color:transparent}
+  body{padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+  button,a,.card,.aud-b,.hsec,.chip{touch-action:manipulation;-webkit-user-select:none;user-select:none}
+
+  /* top bar: brand + language + theme; search and menu live in the tab bar */
+  .hdr{padding-top:calc(6px + env(safe-area-inset-top,0px))}
+  .hdr-in{min-height:52px;border-radius:16px}
+  .hdr.scrolled .hdr-in{min-height:50px}
+  .hdr #searchBtn,.hdr #menuBtn{display:none}
+  .brand{font-size:19px}
+
+  /* bottom tab bar */
+  .mdock.tabbar{left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(5,1fr);align-items:end;gap:0;padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));border-radius:22px 22px 0 0;border-width:1px 0 0;transform:none;opacity:1;box-shadow:0 -12px 34px -22px rgba(0,0,0,.55)}
+  .tabbar .tb{box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:3px;min-height:52px;padding:4px 2px;border-radius:14px;font-size:10.5px;font-weight:600;color:var(--faint);transition:color .2s,transform .15s}
+  .tabbar .tb svg{width:23px;height:23px}
+  .tabbar .tb.on{color:var(--em)}
+  .tabbar .tb.on svg{stroke-width:2.3}
+  .tabbar .tb:active{transform:scale(.92)}
+  .tabbar .tb:focus-visible{outline:2px solid var(--em);outline-offset:-2px}
+  .tabbar .tb-main{color:var(--ink)}
+  .tb-fab{display:grid;place-items:center;width:50px;height:50px;margin-top:-26px;margin-bottom:3px;border-radius:17px;background:var(--btn);color:var(--on-btn);box-shadow:0 0 0 4px var(--bg),0 12px 24px -10px rgba(6,90,58,.75)}
+  .tb-fab svg{width:24px;height:24px}
+
+  /* hero: an app home screen */
+  .hero-in{padding-top:8px;gap:18px}
+  .eyebrow{font-size:11.5px}
+  .h1{font-size:clamp(34px,10vw,42px);line-height:1.18}
+  .lede{font-size:15px;line-height:1.75;margin-bottom:14px}
+  .h-search{all:unset;box-sizing:border-box;display:flex;align-items:center;gap:10px;width:100%;min-height:52px;padding:0 16px;margin-bottom:12px;border-radius:16px;background:var(--surface);border:1px solid var(--line2);color:var(--faint);font-size:15px;cursor:text;box-shadow:0 10px 24px -20px rgba(0,0,0,.6)}
+  .h-search svg{width:20px;height:20px;color:var(--em);flex:none}
+  .h-search:active{transform:scale(.985)}
+  .hcta{gap:10px}
+  .hcta #cta1{display:none}
+  .hcta .btn-main{min-height:54px;border-radius:16px;font-size:16px}
+  .h-trust{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-inline:-16px;padding-inline:16px;gap:8px}
+  .h-trust::-webkit-scrollbar{display:none}
+  .h-trust li{flex:none;padding:7px 12px;border-radius:99px;background:var(--surface);border:1px solid var(--line);font-size:12px}
+  .h-art{width:84%}
+
+  /* sections read like app screens: tighter rhythm, compact headings */
+  .sec{padding-block:36px}
+  .h2{font-size:clamp(24px,7vw,30px);line-height:1.3}
+  .sh{margin-bottom:16px}
+  .sh p{font-size:14px}
+
+  /* "which one are you": quick-action tiles */
+  #who{padding-block:22px 30px}
+  #who .aud-q{font-size:17px;font-family:var(--f-display);margin-bottom:12px}
+  .aud-g{grid-template-columns:1fr 1fr;gap:10px}
+  .aud-b{flex-direction:column;align-items:flex-start;gap:12px;padding:14px;min-height:132px;border-radius:20px}
+  .aud-b > svg{padding:9px;border-radius:12px}
+  .aud-b b{font-size:14.5px;line-height:1.4}
+  .aud-b small{font-size:12px;margin-top:3px}
+  .aud-b .arr{display:none}
+  .aud-b:active{transform:scale(.97)}
+
+  /* app listing: rows with a poster thumbnail, clear title, two-line value, chevron */
+  #homeCards,#cards{grid-template-columns:1fr;gap:10px}
+  #homeCards .card,#cards .card{display:grid;grid-template-columns:92px minmax(0,1fr);align-items:center;padding:8px;border-radius:20px;--rx:0deg!important;--ry:0deg!important}
+  #homeCards .card .cimg,#cards .card .cimg{width:92px;aspect-ratio:4/5;border-radius:14px}
+  #homeCards .card .cgo,#cards .card .cgo,#homeCards .card .cshare,#cards .card .cshare,#homeCards .card .cact,#cards .card .cact{display:none}
+  #homeCards .card .cb,#cards .card .cb{position:relative;padding:4px 14px 4px 26px;gap:4px}
+  [dir="ltr"] #homeCards .card .cb,[dir="ltr"] #cards .card .cb{padding:4px 26px 4px 14px}
+  #homeCards .card .cb::after,#cards .card .cb::after{content:"";position:absolute;top:50%;inset-inline-end:6px;width:8px;height:8px;border-top:2px solid var(--faint);border-left:2px solid var(--faint);transform:translateY(-50%) rotate(-45deg)}
+  [dir="ltr"] #homeCards .card .cb::after,[dir="ltr"] #cards .card .cb::after{border-left:0;border-right:2px solid var(--faint);transform:translateY(-50%) rotate(45deg)}
+  #homeCards .card .cmeta,#cards .card .cmeta{font-size:11px;padding:3px 9px}
+  #homeCards .card h3,#cards .card h3{font-size:15.5px;line-height:1.4;margin:2px 0 0}
+  #homeCards .card .pr,#cards .card .pr{display:-webkit-box!important;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin:0;font-size:12.5px;line-height:1.6;color:var(--dim)}
+  #homeCards .card:active,#cards .card:active{transform:scale(.98)}
+  .hsecs{gap:8px}
+  .more-all .btn{width:100%;min-height:52px;border-radius:16px}
+  #products .sh .xp-open{min-height:38px;padding:0 12px;font-size:13px}
+
+  /* catalog sheet: full-height app screen */
+  .xp-panel{height:calc(100dvh - 8px - env(safe-area-inset-top,0px));border-radius:24px 24px 0 0}
+  .xp-scroll{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
+  /* the tab bar stays on top of the catalog, like a native app; product details still cover it */
+  .mdock.tabbar{z-index:47}
+
+  /* universal press feedback */
+  .btn:active,.chip:active,.hsec:active,.drw-secs button:active,.drw-all:active{transform:scale(.97)}
+  .toast{bottom:calc(88px + env(safe-area-inset-bottom,0px))}
+}
+@media (max-width:640px) and (prefers-reduced-motion:reduce){.tabbar .tb:active,.btn:active,.card:active,.aud-b:active{transform:none}}
 </style>
 </head>
 <body>
@@ -2120,6 +2263,7 @@ body{font-size:16px;line-height:1.75}
     <nav class="nav" id="nav"></nav>
     <div class="tools">
       <button class="lang-sw" id="langBtn" type="button"><i aria-hidden="true"></i><span lang="ar">ع</span><span lang="en">EN</span></button>
+      <button class="tbtn" id="searchBtn" type="button" data-xp=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
       <button class="tbtn" id="themeBtn" type="button"><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
       <button class="btn btn-main btn-sm cta-d" type="button" data-demo=""></button>
       <button class="tbtn menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="drw"><span class="hb" aria-hidden="true"><i></i><i></i><i></i></span></button>
@@ -2151,6 +2295,7 @@ body{font-size:16px;line-height:1.75}
       <p class="eyebrow" id="eyebrow"></p>
       <h1 class="h1"><span class="l1" id="h1a"></span><span class="l2"><span id="h1b"></span> <span id="h1c"></span><svg class="swoosh" viewBox="0 0 300 30" preserveAspectRatio="none" aria-hidden="true"><path d="M4 23C70 9 170 3 296 11"/></svg></span></h1>
       <p class="lede" id="lede"></p>
+      <button class="h-search" type="button" data-tab="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg><span id="hSearchT"></span></button>
       <div class="hcta"><button class="btn btn-main" id="cta2" type="button" data-demo=""></button><a href="#products" class="btn btn-ghost" id="cta1"></a></div>
       <ul class="h-trust" id="hTrust"></ul>
     </div>
@@ -2164,8 +2309,11 @@ body{font-size:16px;line-height:1.75}
   <div class="xp-panel">
     <div class="xp-top"><div><span class="kick" id="xpKick"></span><h2 class="h2" id="xpTitle"></h2></div><span class="count" id="count"></span><button class="xp-x" id="xpClose" type="button" data-xpclose=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
     <div class="filters">
+      <div class="srch" id="srch"><label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input id="q" type="search" autocomplete="off" enterkeyhint="search" role="combobox" aria-expanded="false" aria-controls="qSug" aria-autocomplete="list"><kbd class="q-kbd" aria-hidden="true">/</kbd><button class="q-x" id="qClear" type="button" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M7 7l10 10M17 7 7 17"/></svg></button></label>
+        <div class="q-sug" id="qSug" role="listbox" hidden></div></div>
       <div class="chips" id="sectors"></div>
-      <label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input id="q" type="search" autocomplete="off"></label>
+      <div class="frow"><span class="f-lbl" id="needLbl"></span><div class="chips needs" id="needs"></div><label class="sort"><span id="sortLbl"></span><select id="sort"></select></label></div>
+      <div class="active" id="active" hidden></div>
     </div>
     <div class="xp-scroll" id="xpScroll"><div class="grid" id="cards"></div><nav class="pager" id="pager"></nav></div>
   </div>
@@ -2178,7 +2326,13 @@ body{font-size:16px;line-height:1.75}
   <div class="mcard doc-c"><button class="mx-btn" type="button" data-dclose id="docX"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button><div id="docB"></div></div>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
-<nav class="mdock" id="mdock"><button class="btn btn-ghost" type="button" data-xp="" id="dkBrowse"></button><button class="btn btn-main" type="button" data-demo="" id="dkDemo"></button></nav>
+<nav class="mdock tabbar" id="mdock">
+  <button class="tb on" type="button" data-tab="home" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 10.5 12 4l8.5 6.5V19a1.5 1.5 0 0 1-1.5 1.5h-4v-6h-6v6H5A1.5 1.5 0 0 1 3.5 19z"/></svg><span id="tbHome"></span></button>
+  <button class="tb" type="button" data-tab="apps"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="6.5" height="6.5" rx="1.8"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.8"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.8"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.8"/></svg><span id="tbApps"></span></button>
+  <button class="tb tb-main" type="button" data-demo=""><i class="tb-fab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M8 3v4M16 3v4M3.5 10h17M8.8 14.6l2.1 2.1 4.4-4.4"/></svg></i><span id="tbDemo"></span></button>
+  <button class="tb" type="button" data-tab="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg><span id="tbSearch"></span></button>
+  <button class="tb" type="button" data-tab="menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5.5" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="18.5" cy="12" r="1.4"/></svg><span id="tbMenu"></span></button>
+</nav>
 
 <section class="sec" id="who"><div class="wrap">
   <div class="aud"><span class="aud-q" id="audQ"></span><div class="aud-g" id="audG"></div></div>
@@ -2894,6 +3048,9 @@ const PRICES=['','',''];
 const REVIEWS=[];
 
 const root=document.documentElement;
+const IMGBOX='.cimg,.mq-c,.ph-img,.sg-app';
+document.addEventListener('load',e=>{const b=e.target.tagName==='IMG'&&e.target.closest(IMGBOX);if(b)b.classList.add('ok')},true);
+document.addEventListener('error',e=>{const b=e.target.tagName==='IMG'&&e.target.closest(IMGBOX);if(b)b.classList.add('ok','err')},true);
 const FAQ_TOP=5; /* questions shown on the home page before "show all" */
 window.LANG='ar';
 try{const l=localStorage.getItem('mh-lang');if(l==='en'||l==='ar')window.LANG=l;const th=localStorage.getItem('mh-theme');if(th==='light'||th==='dark')root.dataset.theme=th}catch(e){}
@@ -2906,7 +3063,7 @@ const IC={pen:'<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 
 const svg=(k,cls='')=>`<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[k]}</svg>`;
 
 const T={
-ar:{brand:'محلّي',stCost:'والنتيجة كل يوم: وقت يضيع، ومال يضيع، وعملاء يذهبون لغيرك.',dAll:'تصفح كل البرامج',dApps:'برنامجًا جاهزًا',dSecs:'الأقسام',dPage:'في الصفحة',dContact:'تواصل معنا',dLegal:'معلومات قانونية',faqAll:n=>`عرض كل الأسئلة (${n})`,faqLess:'عرض أقل',docUpd:'آخر تحديث: أكتوبر ٢٠٢٦',
+ar:{brand:'محلّي',tbHome:'الرئيسية',tbApps:'البرامج',tbDemo:'اطلب عرضًا',tbSearch:'بحث',tbMenu:'المزيد',tabsAria:'التنقل الرئيسي',searchAria:'ابحث في البرامج',sugAria:'اقتراحات البحث',clearQ:'مسح البحث',needLbl:'أحتاج:',needs:{book:'حجوزات ومواعيد',pay:'مدفوعات وحسابات',team:'متابعة الفريق',track:'متابعة الطلبات والحالات'},sortLbl:'ترتيب',sortRel:'الأنسب',sortAz:'أبجديًا',found:(n,q)=>`نتائج «${q}»: <b>${n}</b>`,popLbl:'الأكثر بحثًا',recent:'عمليات بحثك الأخيرة',clearRecent:'مسح',popular:['عيادة','مطعم','حجز مواعيد','ورشة','مدفوعات','مدرسة','صالون','إيجارات'],seeAll:q=>`اعرض كل النتائج لـ «${q}»`,clearAll:'مسح الكل',removeF:'إزالة',emptyQ:q=>`لا يوجد برنامج جاهز لـ «${q}» حتى الآن، لكن يمكننا بناؤه لك.`,emptyTry:'جرّب:',waCustom:'مرحبًا، أبحث عن برنامج لـ: ',customBtn:'اطلب برنامجًا مخصصًا',stCost:'والنتيجة كل يوم: وقت يضيع، ومال يضيع، وعملاء يذهبون لغيرك.',dAll:'تصفح كل البرامج',dApps:'برنامجًا جاهزًا',dSecs:'الأقسام',dPage:'في الصفحة',dContact:'تواصل معنا',dLegal:'معلومات قانونية',faqAll:n=>`عرض كل الأسئلة (${n})`,faqLess:'عرض أقل',docUpd:'آخر تحديث: أكتوبر ٢٠٢٦',
  docs:{terms:{t:'الشروط والأحكام',s:[
  ['عن الخدمة','محلّي تقدّم برامج جاهزة للأنشطة التجارية، يستلمها العميل كاملة: لوحة تحكم وموقع ويب وتطبيق موبايل، إلى جانب خدمات مرتبطة بها مثل الاسم والهوية والبرمجة والرفع على المتاجر والإعلانات.'],
  ['العرض التجريبي والاتفاق','العرض التجريبي مجاني وبدون أي التزام. يبدأ التنفيذ بعد الاتفاق على عرض سعر مكتوب يحدد البرنامج والباقة والمدة والتكلفة.'],
@@ -2955,7 +3112,7 @@ ar:{brand:'محلّي',stCost:'والنتيجة كل يوم: وقت يضيع، �
  mTitle:'اطلب عرضًا تجريبيًا',mSub:'اترك بياناتك وسنتواصل معك عبر واتساب.',lName:'الاسم',lBiz:'اسم النشاط',lCountry:'الدولة',lPhone:'رقم الجوال',lProduct:'البرنامج',lMsg:'أضف ملاحظة (اختياري)',fNote:'بدون أي التزام. نكمل معك المحادثة على واتساب.',rvKick:'تجارب أصحاب الأنشطة',rvTitle:'أصحاب أنشطة بدأوا معنا',pFrom:'يبدأ من',social:{facebook:'فيسبوك',instagram:'إنستجرام',tiktok:'تيك توك',linkedin:'لينكدإن'},countries:['مصر','السعودية','الإمارات','الكويت','قطر','الأردن','المغرب','دولة عربية أخرى','دولة أخرى'],noProd:'لم أحدد بعد',submit:'إرسال عبر واتساب',err:'اكتب الاسم ورقم الجوال.',
  dTitle:'رسالتك جاهزة',dSub:'اضغط الزر لإرسالها عبر واتساب، أو انسخها وأرسلها بطريقتك.',wa:'إرسال عبر واتساب',copyMsg:'نسخ الرسالة',copied:'تم النسخ',
  msg:(f)=>`مرحبًا، أريد عرضًا تجريبيًا.\nالاسم: ${f.name}\nالدولة: ${f.country}\nالجوال: ${f.phone}\nالبرنامج: ${f.product}${f.msg?`\nملاحظات: ${f.msg}`:''}`,close:'إغلاق'},
-en:{brand:'Mahali',stCost:'The result, every day: lost time, lost money, and customers who go elsewhere.',dAll:'Browse all apps',dApps:'ready-made apps',dSecs:'Categories',dPage:'On this page',dContact:'Contact us',dLegal:'Legal',faqAll:n=>`Show all questions (${n})`,faqLess:'Show less',docUpd:'Last updated: October 2026',
+en:{brand:'Mahali',tbHome:'Home',tbApps:'Apps',tbDemo:'Demo',tbSearch:'Search',tbMenu:'More',tabsAria:'Main navigation',searchAria:'Search the apps',sugAria:'Search suggestions',clearQ:'Clear search',needLbl:'I need:',needs:{book:'Bookings & appointments',pay:'Payments & accounts',team:'Team follow-up',track:'Order & status tracking'},sortLbl:'Sort',sortRel:'Best match',sortAz:'A–Z',found:(n,q)=>`<b>${n}</b> results for “${q}”`,popLbl:'Popular searches',recent:'Your recent searches',clearRecent:'Clear',popular:['clinic','restaurant','booking','workshop','payments','school','salon','rent'],seeAll:q=>`See all results for “${q}”`,clearAll:'Clear all',removeF:'Remove',emptyQ:q=>`No ready-made app for “${q}” yet, but we can build it for you.`,emptyTry:'Try:',waCustom:'Hello, I am looking for an app for: ',customBtn:'Request a custom app',stCost:'The result, every day: lost time, lost money, and customers who go elsewhere.',dAll:'Browse all apps',dApps:'ready-made apps',dSecs:'Categories',dPage:'On this page',dContact:'Contact us',dLegal:'Legal',faqAll:n=>`Show all questions (${n})`,faqLess:'Show less',docUpd:'Last updated: October 2026',
  docs:{terms:{t:'Terms and conditions',s:[
  ['About the service','Mahali provides ready-made apps for businesses, delivered complete: a dashboard, a website and a mobile app, plus related services such as naming, identity, development, store publishing and ads.'],
  ['Demo and agreement','The demo is free and comes with no commitment. Work starts once we agree on a written quote that sets the app, the plan, the timeline and the cost.'],
@@ -3314,7 +3471,9 @@ function renderStatic(){
   $('#pKick').textContent=t('pKick');$('#audQ').textContent=t('audQ');$('#audG').innerHTML=t('aud').map(([ic,h,d,a,m],i)=>`<div class="aud-i"><button type="button" class="aud-b" aria-describedby="audm${i}" ${a==='go'?'data-go="#jrG" data-pulse="#journey .jr-own"':a==='solo'?'data-go="#jrG" data-pulse="#jrSolo"':'data-xp=""'}>${svg(ic)}<span><b>${h}</b><small>${d}</small></span><span class="arr" aria-hidden="true">←</span></button><div class="aud-pop" id="audm${i}" role="tooltip"><p>${m}</p><span>${t('audGo')} <span class="arr" aria-hidden="true">←</span></span></div></div>`).join('');$('#jrKick').textContent=t('jrKick');$('#jrTitle').textContent=t('jrTitle');$('#jrSub').innerHTML=t('jrSub');$('#jrG').innerHTML=t('jr').map(([ic,h,d],i)=>`<li style="--k:${i}"><button type="button" class="jr-b" aria-expanded="false" aria-controls="jrp${i}"><span class="jr-n">${svg(ic)}<b>${D(String(i+1).padStart(2,'0'))}</b></span><span class="jr-tt">${h}</span><span class="jr-d">${d}</span></button><div class="jr-pop" id="jrp${i}" role="region" aria-label="${h}"><b>${h}</b><p>${t('jrMore')[i]}</p><span class="jr-tag">${svg('hshield').replace('hshield','')}${t('jrTag')}</span></div></li>`).join('');$('#jrSolo').innerHTML=`<span>${t('jrSolo')}</span><a class="btn btn-ghost" href="${waLink(t('waSolo'))}" target="_blank" rel="noopener">${svg('wa')}${t('jrSoloB')}</a>`;$('#jrOwnK').textContent=t('jrOwnK');$('#jrOwnT').textContent=t('jrOwnT');$('#jrOwnD').textContent=t('jrOwnD');$('#jrOwnB').innerHTML=svg('wa')+t('jrOwnB');$('#jrOwnB').href=waLink(t('waOwn'));$('#probQ').textContent=t('probQ');$('#probG').innerHTML=t('probs').map(x=>`<button type="button" class="prob" data-prob="${x}">${x}</button>`).join('');$('#sysKick').textContent=t('sysKick');$('#sysTitle').textContent=t('sysTitle');$('#sysSub').innerHTML=t('sysSub');$('#sysNote').textContent=t('sysNote');$('#sysCallT').textContent=t('sysCallT');$('#sysCallS').textContent=t('sysCallS');$('#sysArt').innerHTML=sysArt();$('#xpKick').textContent=t('xpKick');$('#xpTitle').textContent=t('xpTitle');$('#xpClose').setAttribute('aria-label',t('close')||'×');
   document.querySelectorAll('.xp-open').forEach(b=>b.innerHTML=b.classList.contains('xp-big')?`${t('viewAll')} <b class="xp-n">${D(P.length)}</b> <span class="ar" aria-hidden="true">←</span>`:`${svg('grid')}${t('viewAll')}`);
   {const cnt={};P.forEach(p=>cnt[p.s]=(cnt[p.s]||0)+1);$('#homeSecs').innerHTML=Object.entries(S).map(([k,v])=>`<button type="button" class="hsec" data-xp="${k}"><span>${v[LANG]}</span><b>${D(cnt[k])}</b></button>`).join('')}$('#pTitle').textContent=t('pTitle');$('#pSub').textContent=t('pSub');
-  $('#q').placeholder=t('search');$('#q').setAttribute('aria-label',t('search'));
+  $('#q').placeholder=t('search');$('#q').setAttribute('aria-label',t('searchAria'));$('#qSug').setAttribute('aria-label',t('sugAria'));$('#qClear').setAttribute('aria-label',t('clearQ'));$('#searchBtn').setAttribute('aria-label',t('searchAria'));
+  $('#needLbl').textContent=t('needLbl');$('#needs').innerHTML=Object.entries(t('needs')).map(([k,l])=>`<button type="button" class="chip" data-need="${k}" aria-pressed="false">${l} <b></b></button>`).join('');
+  $('#sortLbl').textContent=t('sortLbl');$('#sort').innerHTML=`<option value="rel">${t('sortRel')}</option><option value="az">${t('sortAz')}</option>`;$('#sort').value=state.sort;
   const counts={};P.forEach(p=>counts[p.s]=(counts[p.s]||0)+1);
   $('#sectors').innerHTML=`<button type="button" class="chip" data-sec="">${t('all')} <b>${D(P.length)}</b></button>`+Object.entries(S).map(([k,v])=>`<button type="button" class="chip" data-sec="${k}">${v[LANG]} <b>${D(counts[k])}</b></button>`).join('');
   $('#cSteps').innerHTML=t('cSteps').map((x,i)=>`<li><b>${D(i+1)}</b>${x}</li>`).join('');
@@ -3327,7 +3486,7 @@ function renderStatic(){
    $('#plansG').querySelectorAll('.plan').forEach((el,i)=>{const v=tx(PRICES[i]);if(v)el.querySelector('.ps').insertAdjacentHTML('afterend',`<div class="pfrom"><small>${t('pFrom')}</small><b>${v}</b></div>`)})}
   $('#faqG').innerHTML=t('faq').map(([q,a],i)=>`<details class="fq${i===0?' show':''}"${i===0?' open':''}><summary><span>${q}</span><svg class="fq-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><div class="fq-a"><div><p>${a}</p></div></div></details>`).join('');$('#fSub').textContent=t('fSub');
   {const n=t('faq').length,all=$('#faq').classList.contains('all');$('#faqMore').parentElement.hidden=n<=FAQ_TOP;$('#faqMore').textContent=all?t('faqLess'):t('faqAll')(D(n));$('#faqMore').setAttribute('aria-expanded',String(all))}
-  $('#cTitle').textContent=t('cTitle');$('#dkBrowse').innerHTML=svg('grid')+t('cta1');$('#dkDemo').textContent=t('demo');$('#mdock').setAttribute('aria-label',t('demo'));$('#cSub').textContent=t('cSub');
+  $('#cTitle').textContent=t('cTitle');['Home','Apps','Demo','Search','Menu'].forEach(k=>$('#tb'+k).textContent=t('tb'+k));$('#mdock').setAttribute('aria-label',t('tabsAria'));$('#hSearchT').textContent=t('search');$('#cSub').textContent=t('cSub');
   $('#footG').innerHTML=`<div><a class="brand" href="#top">${$('.hdr .brand svg').outerHTML}<span>${t('brand')}</span></a><p>${t('fDesc')}</p></div>
    <div><h4>${t('fSectors')}</h4><ul>${Object.entries(S).map(([k,v])=>`<li><a href="#products" data-sec-link="${k}">${v[LANG]}</a></li>`).join('')}</ul></div>
    <div><h4>${t('fCompany')}</h4><ul>${t('fLinks').map(([h,l])=>`<li><a href="${h}">${l}</a></li>`).join('')}</ul></div>
@@ -3346,23 +3505,116 @@ function renderStatic(){
 }
 
 /* ===== Catalog ===== */
-const state={sec:null,q:'',page:1,list:[]};const PER=12,HOME=[1,8,26,7,2,35,27,24];const grid=$('#cards');let cards=[];
+const state={sec:null,q:'',page:1,list:[],need:[],sort:'rel'};let cardBy={};const PER=12,HOME=[1,8,26,7,2,35,27,24];const grid=$('#cards');let cards=[];
 const revealIO=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');revealIO.unobserve(e.target)}}),{rootMargin:'0px 0px -6% 0px'});
 function cardFx(list){list.forEach(c=>{c.classList.add('rv');revealIO.observe(c);const n=+c.dataset.n,img=c.querySelector('.fg');if(PC[n])return;const go=()=>{const v=pcOf(img);if(v){PC[n]=v;document.querySelectorAll('.card[data-n="'+n+'"]').forEach(x=>x.style.setProperty('--pc',v))}};img.complete&&img.naturalWidth?go():img.addEventListener('load',go,{once:true})})}
 // cursor spotlight + gentle tilt (mouse only)
 document.addEventListener('pointermove',e=>{if(e.pointerType!=='mouse')return;const c=e.target.closest&&e.target.closest('.card');if(!c)return;const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;c.style.setProperty('--mx',(x*100).toFixed(1)+'%');c.style.setProperty('--my',(y*100).toFixed(1)+'%');if(!matchMedia('(prefers-reduced-motion: reduce)').matches){c.style.setProperty('--ry',((x-.5)*6).toFixed(2)+'deg');c.style.setProperty('--rx',((.5-y)*6).toFixed(2)+'deg')}});
 document.addEventListener('pointerout',e=>{const c=e.target.closest&&e.target.closest('.card');if(c&&!c.contains(e.relatedTarget)){c.style.removeProperty('--rx');c.style.removeProperty('--ry')}});
 function renderCards(){$('#homeCards').innerHTML=HOME.map((n,k)=>card(P[n-1],k)).join('');cardFx([...$('#homeCards').querySelectorAll('.card')]);
-  grid.innerHTML=P.map(card).join('')+`<div class="empty" id="empty" hidden><b>${t('emptyT')}</b>${t('emptyD')} <button type="button" class="chip" id="reset" style="display:inline-flex">${t('reset')}</button></div>`;cards=[...grid.querySelectorAll('.card')];cardFx(cards);apply()}
+  grid.innerHTML=P.map(card).join('')+`<div class="empty" id="empty" hidden><b>${t('emptyT')}</b><p id="emptyD"></p><div class="empty-sug" id="emptySug"></div><div class="empty-cta"><button type="button" class="btn btn-ghost" id="reset">${t('reset')}</button><a class="btn btn-main" id="emptyWa" target="_blank" rel="noopener">${svg('wa')}${t('customBtn')}</a></div></div>`;cards=[...grid.querySelectorAll('.card')];cardBy={};cards.forEach(c=>cardBy[c.dataset.n]=c);cardFx(cards);apply()}
+/* ===== Search: Arabic-aware matching (hamza, ta marbuta, diacritics, "al-"), synonyms, typo tolerance ===== */
+const norm=s=>String(s||'').toLowerCase().replace(/[ً-ْٰـ]/g,'').replace(/[أإآٱ]/g,'ا').replace(/ة/g,'ه').replace(/ى/g,'ي').replace(/ؤ/g,'و').replace(/ئ/g,'ي').replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/[^\p{L}\p{N}\s]/gu,' ');
+const stem=w=>w.length>4?w.replace(/^(وال|بال|كال|فال|لل|ال)/,''):w.length>3?w.replace(/^ال/,''):w;
+const toks=s=>norm(s).split(/\s+/).filter(Boolean).map(stem);
+// words people type for the same need; any one of them finds the others
+const SYN=[['عياده','دكتور','طبيب','مريض','مرضي','كشف','اسنان','صيدليه','دواء','clinic','doctor','patient','dental','pharmacy'],
+  ['مطعم','كافيه','مقهي','قهوه','اكل','طاوله','منيو','قائمه','مشروبات','restaurant','cafe','coffee','menu','food','table'],
+  ['حجز','حجوزات','مواعيد','موعد','دور','جدول','booking','book','appointment','schedule','queue'],
+  ['فلوس','مدفوعات','دفع','تحصيل','حسابات','فواتير','فاتوره','اجل','ديون','عربون','payment','payments','invoice','billing','credit','debt'],
+  ['مخزون','بضاعه','منتجات','مستودع','stock','inventory','products'],
+  ['ورشه','صيانه','تصليح','فني','فنيين','مصنع','سيارات','سياره','workshop','repair','maintenance','factory','car'],
+  ['مدرسه','دروس','طلاب','تعليم','سنتر','اكاديميه','مذاكره','school','students','tutoring','academy','education'],
+  ['عقار','عقارات','ايجار','ايجارات','شقه','ملاك','سكان','عماره','property','rent','landlord','building','real'],
+  ['رياضه','جيم','نادي','ملعب','كوره','gym','club','sport','sports','pitch','football'],
+  ['تجميل','صالون','حلاق','ليزر','بيوتي','beauty','salon','barber','laser'],
+  ['مبيعات','بيع','متجر','اونلاين','تاجر','sales','store','shop','online','seller'],
+  ['فريق','موظفين','عمال','مندوب','مناديب','team','staff','workers','rep','reps']].map(g=>g.map(w=>stem(norm(w))));
+const synOf=w=>{const g=SYN.find(g=>g.includes(w));return g?g.filter(x=>x!==w):[]};
+const NEEDS={book:/حجز|موعد|مواعيد|دور|جدول|جلس|booking|book|schedul|appoint|queue|turn/,
+  pay:/دفع|مدفوع|تحصيل|فاتور|حساب|اجل|عربون|رصيد|ايجار|اشتراك|سعر|تحويل|pay|invoice|balance|rent|deposit|credit|collect|price|transfer/,
+  team:/فني|مندوب|موظف|عامل|مدرب|حارس|فريق|حلاق|مساعد|technician|rep|staff|coach|guard|worker|barber|team/,
+  track:/تتبع|متابع|مرحل|حاله|تقرير|تنبيه|تذكير|track|status|report|remind|alert|progress/};
+const W8={name:6,brand:5,who:3,sec:3,ft:2,so:1.5,pr:1.5};
+const IDX=P.map(p=>{const f={name:[p.ar.name,p.en.name],brand:[p.brand],who:[p.ar.who,p.en.who],sec:[S[p.s].ar,S[p.s].en],ft:[...p.ar.ft,...p.en.ft],so:[p.ar.so,p.en.so],pr:[p.ar.pr,p.en.pr]};
+  const words={};for(const k in f)words[k]=[...new Set(toks(f[k].join(' ')))];const all=norm(Object.values(f).flat().join(' '));
+  return {words,name:norm(p.ar.name+' '+p.en.name+' '+p.brand),need:new Set(Object.keys(NEEDS).filter(k=>NEEDS[k].test(all)))}});
+function lev1(a,b){if(Math.abs(a.length-b.length)>1)return false;let i=0,j=0,e=0;while(i<a.length&&j<b.length){if(a[i]===b[j]){i++;j++;continue}if(++e>1)return false;if(a.length>b.length)i++;else if(b.length>a.length)j++;else{i++;j++}}return e+(a.length-i)+(b.length-j)<=1}
+// typo tolerance only for words the catalog does not contain at all (so "عيادة" never drifts to "قيادة")
+const VOCAB=[...new Set(IDX.flatMap(x=>Object.values(x.words).flat()))],known=new Map();
+const isKnown=q=>{if(!known.has(q))known.set(q,VOCAB.some(w=>w.startsWith(q)));return known.get(q)};
+function hit(q,w){if(w===q)return 1;if(q.length>=2&&w.startsWith(q))return .85;if(q.length>=3&&w.includes(q))return .6;if(w.length>=3&&q.length-w.length<=1&&q.startsWith(w))return .7;if(q.length>=4&&!isKnown(q)&&lev1(q,w))return .5;return 0}
+function score(n,qt,raw){const ix=IDX[n-1];let sum=0,dir=true;
+  for(const q of qt){const alts=[[q,1],...synOf(q).map(s=>[s,.55])];let best=0,bd=false;
+    for(const k in ix.words)for(const w of ix.words[k])for(const [a,m] of alts){const h=hit(a,w);if(h&&(m===1||h>=.85)){const v=h*m*W8[k];if(v>best){best=v;bd=m===1&&h>=.6}}}
+    if(!best)return {s:0,d:false};sum+=best;dir=dir&&bd}
+  if(raw&&ix.name.includes(norm(raw).trim()))sum+=6;return {s:sum,d:dir}} // d: every word found as typed, not via a synonym or a typo
+// highlight typed words in the original text, ignoring diacritics and hamza/ta-marbuta spelling
+const VAR={'ا':'[اأإآٱ]','ه':'[هة]','ي':'[يىئ]','و':'[وؤ]'};
+const escH=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]);
+function mark(text,qt){const parts=qt.filter(q=>q.length>=2).map(q=>[...q].map(c=>(VAR[c]||c.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'))).join('[\\u064B-\\u0652\\u0670\\u0640]*'));
+  if(!parts.length)return escH(text);try{return escH(text).replace(new RegExp('('+parts.join('|')+')','giu'),'<mark>$1</mark>')}catch(e){return escH(text)}}
+const recent={get(){try{return JSON.parse(localStorage.getItem('mh-recent')||'[]')}catch(e){return[]}},add(q){q=q.trim();if(q.length<2)return;try{localStorage.setItem('mh-recent',JSON.stringify([q,...recent.get().filter(x=>x!==q)].slice(0,5)))}catch(e){}},clear(){try{localStorage.removeItem('mh-recent')}catch(e){}}};
+
 function visible(){return state.list.length?state.list:P.map(p=>p.n)}
-function apply(keepPage){const q=state.q.trim().toLowerCase();if(!keepPage)state.page=1;
-  const okN=new Set(P.filter(p=>{const hay=[p.ar.name,p.ar.so,p.ar.who,p.en.name,p.en.so,p.en.who,p.brand,S[p.s].ar,S[p.s].en].join(' ').toLowerCase();return (!state.sec||p.s===state.sec)&&(!q||hay.includes(q))}).map(p=>p.n));state.list=P.map(p=>p.n).filter(n=>okN.has(n));const n=state.list.length,pages=Math.max(1,Math.ceil(n/PER));state.page=Math.min(state.page,pages);
-  const onPage=new Set(state.list.slice((state.page-1)*PER,state.page*PER));
-  cards.forEach(c=>{const v=onPage.has(+c.dataset.n);if(v&&c.hidden){c.classList.remove('in');revealIO.observe(c)}c.hidden=!v});
-  $('#count').innerHTML=t('showing')(D(n),D(P.length));$('#empty').hidden=n>0;pager(pages);
-  document.querySelectorAll('[data-sec]').forEach(b=>b.setAttribute('aria-pressed',String((b.dataset.sec||null)===state.sec)))}
+function apply(keepPage){if(!keepPage)state.page=1;const qt=toks(state.q);
+  let base=P.map(p=>{const r=qt.length?score(p.n,qt,state.q):{s:1,d:true};return {n:p.n,s:r.s,d:r.d}}).filter(r=>r.s>0);
+  {const top=Math.max(0,...base.map(r=>r.s));base=base.filter(r=>r.d||r.s>=top*.35)} // weak echoes of a strong match are noise
+  const bySec=r=>!state.sec||P[r.n-1].s===state.sec,byNeed=(r,skip)=>state.need.every(k=>k===skip||IDX[r.n-1].need.has(k));
+  let rows=base.filter(r=>bySec(r)&&byNeed(r));
+  if(state.sort==='az')rows.sort((a,b)=>L(P[a.n-1]).name.localeCompare(L(P[b.n-1]).name,LANG));else if(qt.length)rows.sort((a,b)=>b.s-a.s||a.n-b.n);
+  state.list=rows.map(r=>r.n);const n=state.list.length,pages=Math.max(1,Math.ceil(n/PER));state.page=Math.min(state.page,pages);
+  const onPage=new Set(state.list.slice((state.page-1)*PER,state.page*PER)),emp=$('#empty');
+  state.list.forEach(k=>grid.insertBefore(cardBy[k],emp));
+  cards.forEach(c=>{const k=+c.dataset.n,v=onPage.has(k);if(v&&c.hidden){c.classList.remove('in');revealIO.observe(c)}c.hidden=!v;
+    if(v){const o=L(P[k-1]);c.querySelector('h3').innerHTML=mark(o.name,qt);c.querySelector('.pr').innerHTML=mark(o.so,qt)}});
+  // live counts: each chip shows what you would get if you picked it
+  $('#sectors').querySelectorAll('[data-sec]').forEach(b=>{const k=b.dataset.sec||null;const c=base.filter(r=>(!k||P[r.n-1].s===k)&&byNeed(r)).length;b.querySelector('b').textContent=D(c);b.classList.toggle('zero',!c);b.setAttribute('aria-pressed',String(k===state.sec))});
+  $('#needs').querySelectorAll('[data-need]').forEach(b=>{const k=b.dataset.need,on=state.need.includes(k);const c=base.filter(r=>bySec(r)&&byNeed(r,k)&&IDX[r.n-1].need.has(k)).length;b.querySelector('b').textContent=D(c);b.classList.toggle('zero',!c&&!on);b.setAttribute('aria-pressed',String(on))});
+  $('#count').innerHTML=state.q.trim()?t('found')(D(n),escH(state.q.trim())):t('showing')(D(n),D(P.length));
+  emp.hidden=n>0;if(!n){$('#emptyD').textContent=state.q.trim()?t('emptyQ')(state.q.trim()):t('emptyD');$('#emptyWa').href=waLink(t('waCustom')+(state.q.trim()||''));
+    $('#emptySug').innerHTML=`<span>${t('emptyTry')}</span>`+t('popular').slice(0,4).map(x=>`<button type="button" class="chip" data-sq="${escH(x)}">${escH(x)}</button>`).join('')}
+  const act=[];if(state.q.trim())act.push(['q',`«${escH(state.q.trim())}»`]);if(state.sec)act.push(['sec',S[state.sec][LANG]]);state.need.forEach(k=>act.push(['need:'+k,t('needs')[k]]));
+  $('#active').hidden=!act.length;$('#active').innerHTML=act.map(([k,l])=>`<button type="button" class="af" data-af="${k}" aria-label="${t('removeF')}: ${l}">${l}<span aria-hidden="true">×</span></button>`).join('')+(act.length>1?`<button type="button" class="af-clear" data-af="all">${t('clearAll')}</button>`:'');
+  $('#qClear').hidden=!state.q;pager(pages);syncHash()}
+function resetAll(){state.sec=null;state.q='';state.need=[];state.sort='rel';$('#q').value='';$('#sort').value='rel';apply()}
+function syncHash(){if(xp.hidden)return;const u=new URLSearchParams();if(state.q.trim())u.set('q',state.q.trim());if(state.sec)u.set('sec',state.sec);if(state.need.length)u.set('need',state.need.join(','));if(state.sort!=='rel')u.set('sort',state.sort);
+  const h='#apps'+(u.toString()?'?'+u:'');if(location.hash!==h)try{history.replaceState(null,'',location.pathname+location.search+h)}catch(e){}}
+function readHash(){const m=/^#apps(?:\?(.*))?$/.exec(location.hash);if(!m)return false;const u=new URLSearchParams(m[1]||'');
+  openXP(S[u.get('sec')]?u.get('sec'):'');state.q=u.get('q')||'';$('#q').value=state.q;state.need=(u.get('need')||'').split(',').filter(k=>NEEDS[k]);state.sort=u.get('sort')==='az'?'az':'rel';$('#sort').value=state.sort;apply();return true}
+
+// suggestions: recent and popular searches when empty, best matching apps while typing
+let sugI=-1;const sug=$('#qSug'),qIn=$('#q');
+function sugShow(){const q=qIn.value.trim();let h='';
+  if(!q){const r=recent.get();if(r.length)h+=`<div class="sg-h"><span>${t('recent')}</span><button type="button" class="sg-clr" data-sgclear="">${t('clearRecent')}</button></div>`+r.map(x=>`<button type="button" class="sg-i" role="option" data-sq="${escH(x)}">${svg('trend').replace('<svg','<svg class="sg-ic"')}<span>${escH(x)}</span></button>`).join('');
+    h+=`<div class="sg-h"><span>${t('popLbl')}</span></div><div class="sg-pop">`+t('popular').map(x=>`<button type="button" class="chip" role="option" data-sq="${escH(x)}">${escH(x)}</button>`).join('')+'</div>'}
+  else{const qt=toks(q);const all=P.map(p=>({p,...score(p.n,qt,q)})).filter(r=>r.s>0).sort((a,b)=>b.s-a.s);const top=all.filter(r=>r.d||r.s>=(all[0]?all[0].s:0)*.35).slice(0,5);
+    h+=top.map(({p})=>`<button type="button" class="sg-i sg-app" role="option" data-open="${p.n}" data-sgsave=""><img src="${p.img}" alt="" loading="lazy"><span><b>${mark(L(p).name,qt)}</b><small>${S[p.s][LANG]}</small></span></button>`).join('');
+    h+=`<button type="button" class="sg-i sg-all" role="option" data-sgall="">${t('seeAll')(escH(q))}</button>`}
+  sug.innerHTML=h;sugI=-1;sug.hidden=!h;qIn.setAttribute('aria-expanded',String(!sug.hidden))}
+function sugHide(){sug.hidden=true;sugI=-1;qIn.setAttribute('aria-expanded','false');qIn.removeAttribute('aria-activedescendant')}
+function sugMove(d){const it=[...sug.querySelectorAll('[role=option]')];if(!it.length)return;sugI=(sugI+d+it.length)%it.length;it.forEach((x,i)=>{x.classList.toggle('act',i===sugI);x.id='sg'+i});qIn.setAttribute('aria-activedescendant','sg'+sugI);it[sugI].scrollIntoView({block:'nearest'})}
+function runQ(q){qIn.value=q;state.q=q;recent.add(q);apply();sugHide()}
+let qT=0;qIn.addEventListener('input',()=>{clearTimeout(qT);qT=setTimeout(()=>{state.q=qIn.value;apply();sugShow()},110)});
+qIn.addEventListener('focus',sugShow);
+qIn.addEventListener('keydown',e=>{if(e.key==='ArrowDown'){e.preventDefault();if(sug.hidden)sugShow();sugMove(1)}else if(e.key==='ArrowUp'){e.preventDefault();sugMove(-1)}
+  else if(e.key==='Enter'){e.preventDefault();const a=sug.querySelector('.act');if(a){a.click();return}recent.add(qIn.value);sugHide();if(matchMedia('(pointer:coarse)').matches)qIn.blur()}
+  else if(e.key==='Escape'&&!sug.hidden){e.stopPropagation();sugHide()}});
+document.addEventListener('pointerdown',e=>{if(!sug.hidden&&!e.target.closest('#srch'))sugHide()});
+sug.addEventListener('mousedown',e=>e.preventDefault());
+sug.addEventListener('click',e=>{if(e.target.closest('[data-sgclear]')){recent.clear();sugShow();qIn.focus();return}
+  if(e.target.closest('[data-sgall]')){recent.add(qIn.value);sugHide();return}
+  if(e.target.closest('[data-sgsave]')){recent.add(qIn.value);sugHide()}});
+$('#xp').addEventListener('click',e=>{const s=e.target.closest('[data-sq]');if(s){runQ(s.dataset.sq);return}
+  const f=e.target.closest('[data-af]');if(f){const k=f.dataset.af;if(k==='all')return resetAll();if(k==='q'){state.q='';qIn.value=''}else if(k==='sec')state.sec=null;else state.need=state.need.filter(x=>'need:'+x!==k);apply();return}
+  const nd=e.target.closest('[data-need]');if(nd){const k=nd.dataset.need;state.need=state.need.includes(k)?state.need.filter(x=>x!==k):[...state.need,k];apply()}});
+$('#qClear').addEventListener('click',()=>{qIn.value='';state.q='';apply();qIn.focus()});
+$('#sort').addEventListener('change',e=>{state.sort=e.target.value;apply()});
 $('#sectors').addEventListener('click',e=>{const b=e.target.closest('[data-sec]');if(!b)return;state.sec=b.dataset.sec||null;apply()});
-$('#q').addEventListener('input',e=>{state.q=e.target.value;apply()});
+// "/" or Ctrl/⌘+K opens search from anywhere
+document.addEventListener('keydown',e=>{const typing=e.target.closest&&e.target.closest('input,textarea,select,[contenteditable]');
+  if((e.key==='/'&&!typing)||((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k')){e.preventDefault();if(xp.hidden)openXP('');else qIn.focus()}});
+
 function pager(pages){const pg=$('#pager');if(pages<2){pg.innerHTML='';return}const cur=state.page,arr=LANG==='ar'?['→','←']:['←','→'];
   let h=`<button class="pg pg-nav" type="button" data-pg="${cur-1}" ${cur===1?'disabled':''} aria-label="${t('prev')}">${arr[0]}</button>`;
   for(let i=1;i<=pages;i++)h+=`<button class="pg${i===cur?' on':''}" type="button" data-pg="${i}" aria-label="${t('page')} ${D(i)}"${i===cur?' aria-current="page"':''}>${D(i)}</button>`;
@@ -3377,8 +3629,8 @@ document.addEventListener('click',e=>{if(!e.target.closest('#jrG'))document.quer
 $('#pager').addEventListener('click',e=>{const b=e.target.closest('[data-pg]');if(!b||b.disabled)return;state.page=+b.dataset.pg;apply(true);$('#xpScroll').scrollTo({top:0,behavior:'smooth'})});
 /* ===== Explorer: all apps with filters + pages ===== */
 const xp=$('#xp');let xpFrom=null;
-function openXP(sec,from){xpFrom=from||null;state.sec=sec||null;state.q='';$('#q').value='';apply();xp.hidden=false;xp.offsetHeight;xp.classList.add('open');root.style.overflow='hidden';setTimeout(()=>$('#q').focus({preventScroll:true}),350)}
-function closeXP(){if(xp.hidden)return;xp.classList.remove('open');root.style.overflow='';setTimeout(()=>{xp.hidden=true;if(xpFrom&&document.contains(xpFrom))xpFrom.focus({preventScroll:true})},matchMedia('(prefers-reduced-motion: reduce)').matches?0:420)}
+function openXP(sec,from){xpFrom=from||null;if(typeof tabOn==='function')tabOn('apps');state.sec=sec||null;state.q='';state.need=[];state.sort='rel';$('#q').value='';$('#sort').value='rel';xp.hidden=false;apply();xp.hidden=false;xp.offsetHeight;xp.classList.add('open');root.style.overflow='hidden';setTimeout(()=>$('#q').focus({preventScroll:true}),350)}
+function closeXP(){if(xp.hidden)return;sugHide();if(typeof tabOn==='function')tabOn('home');if(/^#apps/.test(location.hash))try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}xp.classList.remove('open');root.style.overflow='';setTimeout(()=>{xp.hidden=true;if(xpFrom&&document.contains(xpFrom))xpFrom.focus({preventScroll:true})},matchMedia('(prefers-reduced-motion: reduce)').matches?0:420)}
 document.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g){const el=document.querySelector(g.dataset.go);if(el){goTo(el);const pl=g.dataset.pulse&&document.querySelector(g.dataset.pulse);if(pl)setTimeout(()=>{pl.classList.remove('pulse');pl.offsetWidth;pl.classList.add('pulse')},900)}return}const o=e.target.closest('[data-xp]');if(o){openXP(o.dataset.xp,o);return}if(e.target.closest('[data-xpclose]'))closeXP()});
 
 /* ===== Global clicks ===== */
@@ -3386,7 +3638,7 @@ document.addEventListener('click',e=>{
   const sb=e.target.closest('[data-share]');if(sb&&sb.dataset.share){e.preventDefault();e.stopPropagation();shareP(+sb.dataset.share);return}
   const dm=e.target.closest('[data-demo]');if(dm){e.preventDefault();e.stopPropagation();closeMenu();openDemo(dm.dataset.demo,dm.dataset.plan);return}
   const op=e.target.closest('[data-open]');if(op){openP(+op.dataset.open,op);return}
-  if(e.target.id==='reset'){state.sec=null;state.q='';$('#q').value='';apply();return}
+  if(e.target.id==='reset'){resetAll();return}
   const sl=e.target.closest('[data-sec-link]');if(sl){state.sec=sl.dataset.secLink;apply()}
   const c=e.target.closest('.card');if(c){openP(+c.dataset.n,c);return}
   const bay=e.target.closest('.bay');if(bay){openP(+bay.dataset.n,bay);return}
@@ -3395,6 +3647,13 @@ document.addEventListener('keydown',e=>{const c=e.target.closest&&e.target.close
 $('#hart').addEventListener('pointerover',e=>{const b=e.target.closest('.bay');if(b&&+b.dataset.i!==rotI){setShop(+b.dataset.i);startRot()}});
 
 /* ===== Mobile menu ===== */
+/* phone tab bar: home, apps, demo, search, more */
+function tabOn(k){document.querySelectorAll('#mdock .tb[data-tab]').forEach(b=>{const on=b.dataset.tab===k;b.classList.toggle('on',on);if(on)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')})}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-tab]');if(!b)return;const k=b.dataset.tab;
+  if(k==='home'){closeMenu();closeXP();tabOn('home');scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})}
+  else if(k==='apps'){closeMenu();if(xp.hidden)openXP('',b);tabOn('apps')}
+  else if(k==='search'){closeMenu();if(xp.hidden)openXP('',b);else $('#q').focus();tabOn('search')}
+  else if(k==='menu'){drw.hidden?openMenu():closeMenu()}});
 /* the menu is a side drawer on every screen: sections, every category, contact and the legal pages */
 const drw=$('#drw'),menuBtn=$('#menuBtn');
 function openMenu(){drw.hidden=false;drw.offsetHeight;drw.classList.add('open');menuBtn.setAttribute('aria-expanded','true');root.style.overflow='hidden';setTimeout(()=>$('#drwX').focus({preventScroll:true}),60)}
@@ -3495,7 +3754,7 @@ renderStatic();renderCards();startRot();
     toggle()});
   f.addEventListener('keydown',e=>{if(e.key!=='ArrowLeft'&&e.key!=='ArrowRight')return;e.preventDefault();featShow(fi+(e.key===(LANG==='ar'?'ArrowLeft':'ArrowRight')?1:-1),true)});
   new IntersectionObserver(([en])=>f.classList.toggle('off',!en.isIntersecting),{threshold:.25}).observe(f)}
-const m=/^#product-(\d+)$/.exec(location.hash);if(m)openP(+m[1],null);if(/^#(terms|privacy)$/.test(location.hash))openDoc(location.hash.slice(1));
+const m=/^#product-(\d+)$/.exec(location.hash);if(m)openP(+m[1],null);if(/^#(terms|privacy)$/.test(location.hash))openDoc(location.hash.slice(1));readHash();
 new IntersectionObserver(([e])=>$('#top').classList.toggle('paused',!e.isIntersecting),{threshold:0}).observe($('#top'));
 {const io=new IntersectionObserver(es=>es.forEach(e=>{e.target.classList.toggle('paused',!e.isIntersecting);if(e.isIntersecting&&e.target.id==='contact')e.target.classList.add('go')}),{threshold:.25});['#system','#contact'].forEach(q=>io.observe($(q)))}
 tipsInit();
