@@ -1,10 +1,9 @@
 <!doctype html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#070D0B" media="(prefers-color-scheme: dark)">
-<meta name="theme-color" content="#F6F7F2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#F6F7F2">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -15,7 +14,7 @@
 <meta name="description" content="برامج جاهزة للأنشطة التجارية في مصر والوطن العربي">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;500;600;700&family=Aref+Ruqaa:wght@700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 
 <style>
 /* Layout: product-company site for businesses in Egypt and the Arab world. "Midnight Emerald": deep ink-green night, vivid emerald→lime as the brand gradient, gold as the detail accent, frosted-glass cards, aurora light behind the hero and bands; product posters carry the colour. Readex Pro for display, IBM Plex Sans Arabic for text. Header → hero (glowing line-art storefronts + poster marquee) → featured product → catalog → how → why → plans → FAQ → contact. Product pages open as a full sheet. */
@@ -1137,22 +1136,7 @@ body{font-size:16px;line-height:1.75}
 /* details entrance: the hero stays put on open; scrolling zooms the poster to fill the stage ("enter the app") */
 .ph-enter{position:relative;z-index:2}
 .pe-veil{position:absolute;inset:0;z-index:3;pointer-events:none;opacity:0;border-radius:32px;background:radial-gradient(60% 70% at 25% 30%,color-mix(in srgb,var(--pc) 14%,transparent),transparent 70%),color-mix(in srgb,var(--pc) 5%,var(--surface))}
-@media (min-width:901px){
-  .ph-enter{height:calc(100dvh - 64px + 46vh)}
-  .pe-stick{position:sticky;top:64px;height:calc(100dvh - 80px);display:flex;align-items:center;overflow:clip;border-radius:32px}
-  .pe-stick .ph-hero{width:100%;padding-block:0}
-  .pe-stick .ph-img{max-height:calc(100dvh - 120px);will-change:transform;transform-origin:center;z-index:2}
-  .pe-stick .ph-info{will-change:transform,opacity}
-}
-@media (prefers-reduced-motion:reduce){.ph-enter{height:auto}.pe-stick{position:relative;top:0;height:auto}}
-/* hand-off: the story stage is pulled up under the entrance so it is pinned in the exact same spot the moment the zoom ends;
-   it stays hidden until then, and its content fades in over the identical background — no empty panel in between */
-@media (min-width:901px) and (prefers-reduced-motion:no-preference){
-  .ph-enter + .ph-story{margin-top:calc(-1 * (100dvh - 80px));z-index:3}
-  .ph-story.wait .ps-stick{visibility:hidden}
-  .ph-story .ps-cam,.ph-story .ps-tx{transition:opacity .45s cubic-bezier(.2,.8,.2,1)}
-  .ph-story.wait .ps-cam,.ph-story.wait .ps-tx{opacity:0}
-}
+
 
 /* story v2: content-sized track, solid cards (no blur over the moving stroke), features build up in pairs */
 .ph-story{height:auto;margin-block:0 8px}
@@ -2252,6 +2236,114 @@ mark{background:color-mix(in srgb,var(--em) 26%,transparent);color:inherit;borde
   .toast{bottom:calc(88px + env(safe-area-inset-bottom,0px))}
 }
 @media (max-width:640px) and (prefers-reduced-motion:reduce){.tabbar .tb:active,.btn:active,.card:active,.aud-b:active{transform:none}}
+
+/* ---------- type pass: Arabic-safe headings, readable minimum sizes ---------- */
+/* Arabic letters join, so no negative tracking anywhere; one weight (600) keeps headings simple in both languages */
+.h1,.h2,.ph-info h2,.blk-h h3,.mcard h2,.bw,.faq-h .h2,.sys-h .h2,.jr-h .h2,.sx-tx .h2,.tr-t h3,.ph-close h3,.ps-win{letter-spacing:0;font-weight:600}
+:root[lang="ar"] .h1{line-height:1.3}
+:root[lang="ar"] .h2,:root[lang="ar"] .ph-info h2{line-height:1.4}
+.kick,.card .cmeta,.ph-info .cmeta,.hsec b,.jr-tag,.plan .tag,.sx-card small,.b-kick{font-size:13px}
+.more,.prob,.aud-b small,.foot-g h4,.foot-legal a,.plan .ps,.btn-sm,#copy,#footNote,.b-steps li b,.sx-call small,#probQ{font-size:14px}
+@media (max-width:640px){.g-growth{display:none}.kick,#homeCards .card .cmeta,#cards .card .cmeta{font-size:12px}}
+/* the latin brand label under Arabic names was noise; the mockups still carry each brand */
+.en{display:none!important}
+.lede b{padding-inline:0}
+.g-growth .gnum > span{white-space:nowrap}:root[lang="ar"] .g-growth .gnum > span{direction:rtl;unicode-bidi:isolate}.g-growth .gnum small{font-size:.55em;font-weight:600}
+/* header nav: never wrap a label onto two lines */
+.nav a{white-space:nowrap}
+@media (max-width:1200px){.nav a{padding:8px 10px;font-size:13.5px}}
+@media (max-width:1080px){.nav{display:none}}
+
+/* ---------- complete system: quieter backdrop, more air ---------- */
+.sx-art .sx-lv{opacity:.35;transform:scale(.78);transform-origin:50% 100%}
+.sx-art .sx-arc{opacity:.55;-webkit-mask-image:linear-gradient(#000 55%,transparent);mask-image:linear-gradient(#000 55%,transparent)}
+.sx-tx .h2{font-size:clamp(28px,3.2vw,40px)}
+.sx-tx > p{margin-top:16px}
+.sx-call{margin-top:28px;padding:16px 20px}
+.sx-call b{font-weight:600}
+.sx-tx .sys-note{margin-top:20px;font-weight:500}
+
+/* ---------- phase 2: one WhatsApp button per screen, the single-stage strip links quietly ---------- */
+.jr-link{font-weight:600;color:var(--em-ink);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:5px;white-space:nowrap}
+.jr-link:hover{text-decoration-thickness:2px}
+/* eight home picks: four across or two across, never a 3-3-2 grid with a gap */
+@media (min-width:901px){#homeCards{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (min-width:641px) and (max-width:900px){#homeCards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* ===== hero v2: photo art, live cards on top, feature strip ===== */
+#hart.v2{aspect-ratio:1536/860;container-type:inline-size;max-width:none}
+/* reach past the column toward the page edge only when the screen has room for it */
+/* the art reaches in under the headline (where it is faded out) and, on wide screens, out toward the page edge */
+@media (min-width:901px){#hart.v2{width:120%;margin-inline-start:-20%}}
+@media (min-width:1400px){#hart.v2{width:132%;margin-inline-end:-12%}}
+@media (max-width:900px){#hart.v2{width:100%;margin-inline:auto;max-width:640px}}
+#hart.v2 .h-photo{position:absolute;inset:0;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 96%,transparent),linear-gradient(transparent,#000 7%,#000 91%,transparent);-webkit-mask-composite:source-in;
+  mask-image:linear-gradient(90deg,transparent,#000 6%,#000 96%,transparent),linear-gradient(transparent,#000 7%,#000 91%,transparent);mask-composite:intersect}
+#hart.v2 .h-photo img{display:block;width:100%;height:100%;object-fit:cover}
+:root[data-theme="dark"] #hart.v2 .h-photo img{filter:brightness(.82) saturate(.92)}
+:root[data-theme="dark"][dir="rtl"] #hart.v2 .h-photo{-webkit-mask-image:linear-gradient(90deg,transparent,#000 16%,#000 66%,transparent),linear-gradient(transparent,#000 16%,#000 82%,transparent);mask-image:linear-gradient(90deg,transparent,#000 16%,#000 66%,transparent),linear-gradient(transparent,#000 16%,#000 82%,transparent)}
+:root[data-theme="dark"][dir="ltr"] #hart.v2 .h-photo{-webkit-mask-image:linear-gradient(90deg,transparent,#000 34%,#000 88%,transparent),linear-gradient(transparent,#000 16%,#000 82%,transparent);mask-image:linear-gradient(90deg,transparent,#000 34%,#000 88%,transparent),linear-gradient(transparent,#000 16%,#000 82%,transparent)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #hart.v2 .h-photo img{filter:brightness(.82) saturate(.92)}}
+/* cards sit exactly on the labels painted in the photo, so they stay still and opaque */
+#hart.v2 .gcard{inset:auto}
+/* cards float over the sky and the counter */
+#hart.v2 .gcard:not(.g-badge){border-radius:1.6cqw}
+#hart.v2 .g-growth{display:block;inset-inline-end:14%;top:4%;width:24%;padding:1.5cqw 1.7cqw 0;overflow:hidden}
+#hart.v2 .g-growth .gt{font-size:max(11px,1.75cqw);gap:1cqw}
+#hart.v2 .g-growth .gnum{font-size:max(17px,3.4cqw);gap:.6cqw}
+#hart.v2 .g-growth .gnum svg{width:2cqw;height:2cqw}
+#hart.v2 .g-growth .gi{width:3cqw;height:3cqw}
+#hart.v2 .g-growth .chart{width:calc(100% + 3.4cqw);margin:.4cqw -1.7cqw 0;height:6.5cqw}
+#hart.v2 .g-chip{display:flex;align-items:center;gap:1cqw;padding:.9cqw 1.4cqw;font-size:max(11px,1.7cqw);--d:-2s}
+#hart.v2 .g-chip i{display:grid;place-items:center;width:4.4cqw;height:4.4cqw;border-radius:50%;background:color-mix(in srgb,var(--h-g2) 14%,transparent);color:var(--h-g2);flex:none}
+#hart.v2 .g-chip svg{width:2.6cqw;height:2.6cqw}
+#hart.v2 .g-chip b{font-weight:700;white-space:nowrap}
+#hart.v2 .g-safe{inset-inline-start:25%;top:7%}
+#hart.v2 .g-easy{inset-inline-start:21%;top:44%;--d:-4s}
+#hart.v2 .g-badge{right:10%;bottom:4%;animation:gfloat 6s ease-in-out infinite;font-size:max(11px,1.7cqw);padding:1.2cqw 1.6cqw;gap:1.2cqw}
+#hart.v2 .g-badge > svg{width:3cqw;height:3cqw;padding:.7cqw}
+#hart.v2 .g-badge b{font-size:max(12px,1.9cqw)}#hart.v2 .g-badge small{font-size:max(10px,1.45cqw)}
+/* the photo melts into the page on the side facing the headline: a long fade on that edge,
+   plus a blurred mirror of the photo that carries its colors softly in behind the text */
+.hero:has(#hart.v2) .h-copy{position:relative;z-index:2}
+#hart.v2 .h-photo{z-index:1}
+[dir="rtl"] #hart.v2 .h-photo{-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 72%,transparent),linear-gradient(transparent,#000 7%,#000 91%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 72%,transparent),linear-gradient(transparent,#000 7%,#000 91%,transparent)}
+[dir="ltr"] #hart.v2 .h-photo{-webkit-mask-image:linear-gradient(90deg,transparent,#000 28%,#000 96%,transparent),linear-gradient(transparent,#000 7%,#000 91%,transparent);mask-image:linear-gradient(90deg,transparent,#000 28%,#000 96%,transparent),linear-gradient(transparent,#000 7%,#000 91%,transparent)}
+#hart.v2 .h-glow{position:absolute;z-index:0;top:-6%;bottom:-6%;inset-inline-start:-58%;width:78%;pointer-events:none;
+  background:url(img/hero-art.jpg) no-repeat;background-size:auto 100%;filter:blur(38px) saturate(1.15);opacity:.5;transform:scaleX(-1)}
+[dir="rtl"] #hart.v2 .h-glow{background-position:right center;-webkit-mask-image:linear-gradient(90deg,transparent,#000 70%),linear-gradient(transparent,#000 22%,#000 78%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,#000 70%),linear-gradient(transparent,#000 22%,#000 78%,transparent);mask-composite:intersect}
+[dir="ltr"] #hart.v2 .h-glow{background-position:left center;-webkit-mask-image:linear-gradient(270deg,transparent,#000 70%),linear-gradient(transparent,#000 22%,#000 78%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(270deg,transparent,#000 70%),linear-gradient(transparent,#000 22%,#000 78%,transparent);mask-composite:intersect}
+:root[data-theme="dark"] #hart.v2 .h-glow{opacity:.28;filter:blur(38px) brightness(.7)}
+@media (max-width:900px){#hart.v2 .h-glow{display:none}}
+/* the photo already has a skyline */
+.hero:has(#hart.v2) .h-sky{opacity:.25}
+/* feature strip: tagline + card */
+.h-foot2{gap:clamp(18px,3vw,48px);padding-block:clamp(4px,1vw,12px) clamp(26px,3vw,40px)}
+.h-foot2 .hfeat{flex:1;justify-content:space-around;padding:clamp(14px,1.6vw,22px) clamp(8px,1.2vw,16px);border-radius:24px;background:var(--h-glass);border:1px solid var(--h-glass-b);box-shadow:var(--h-glass-sh);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.h-foot2 .hfeat li{flex:0 1 auto;min-width:0}
+.h-foot2 .hfeat li > span{display:block;min-width:0}
+.h-foot2 .hfeat small{white-space:normal}
+@media (min-width:1241px){.h-foot2 .hfeat small{white-space:nowrap}}
+.h-foot2 .hfeat svg{width:26px;height:26px;padding:10px;box-sizing:content-box;border-radius:50%;background:color-mix(in srgb,var(--h-g2) 10%,transparent)}
+.h-foot2 .h-tag{order:0;padding:0 0 18px;font:700 clamp(24px,2.3vw,34px)/1.35 'Aref Ruqaa','Readex Pro',serif;color:var(--h-g2);transform:rotate(-4deg);max-width:9.5em;white-space:normal;text-align:center}
+[dir="ltr"] .h-foot2 .h-tag{font-family:'Readex Pro',sans-serif;font-style:italic;font-size:clamp(18px,1.7vw,24px);transform:rotate(-3deg)}
+.h-foot2 .h-tag::after{inset-inline:10% 4%;height:4px;bottom:4px;transform:skewY(-3deg)}
+@media (max-width:1240px){.h-foot2 .hfeat{order:3}}
+@media (max-width:900px){.h-foot2 .h-tag{transform:rotate(-3deg);max-width:none}.h-foot2 .hfeat{display:grid;grid-template-columns:1fr 1fr;gap:18px 0}}
+@media (max-width:640px){
+  #hart.v2 .g-growth{display:block}
+  #hart.v2 .g-chip{padding:5px 8px;gap:5px}
+  #hart.v2 .g-badge small{display:none}
+  #hart.v2 .g-growth{width:36%;inset-inline-end:5%}
+  #hart.v2 .g-easy{display:none}
+  #hart.v2 .g-growth .chart{height:9cqw}
+  #hart.v2 .g-badge{padding:6px 9px}
+  .h-foot2 .hfeat{padding:16px 6px;gap:16px 0}
+  .h-foot2 .hfeat li{flex-direction:column;text-align:center;gap:8px}
+  .h-foot2 .hfeat svg{width:22px;height:22px;padding:8px}
+  .h-foot2 .hfeat b,.h-foot2 .hfeat small{white-space:normal}
+}
 </style>
 </head>
 <body>
@@ -2259,7 +2351,7 @@ mark{background:color-mix(in srgb,var(--em) 26%,transparent);color:inherit;borde
 <div id="app">
 <header class="hdr">
   <div class="wrap hdr-in">
-    <a class="brand" href="#top" aria-label="Mahali"><span class="bmark" aria-hidden="true"><svg viewBox="0 0 40 40"><defs><linearGradient id="bmG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0A6B48"/><stop offset=".55" stop-color="#12A574"/><stop offset="1" stop-color="#8ED14B"/></linearGradient></defs><rect width="40" height="40" rx="12" fill="url(#bmG)"/><path d="M9.5 16.5h21l-2.2-6.2H11.7z" fill="none" stroke="#fff" stroke-width="2.1" stroke-linejoin="round"/><path d="M9.5 16.5c0 1.9 1.3 3 2.6 3s2.6-1.1 2.6-3c0 1.9 1.3 3 2.6 3s2.6-1.1 2.6-3c0 1.9 1.3 3 2.6 3s2.6-1.1 2.6-3c0 1.9 1.3 3 2.6 3s2.6-1.1 2.6-3" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round"/><path d="M11.5 21.5v8.5h17v-8.5" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/><rect x="17.2" y="24" width="5.6" height="6" rx="1.2" fill="#fff"/></svg></span><span class="bword"><span id="brandTx"></span><small>Business Apps</small></span></a>
+    <a class="brand" href="#top" aria-label="Mahalli"><span class="bmark" aria-hidden="true"><svg viewBox="0 0 40 40"><defs><linearGradient id="bmG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0A6B48"/><stop offset=".55" stop-color="#12A574"/><stop offset="1" stop-color="#8ED14B"/></linearGradient></defs><rect width="40" height="40" rx="12" fill="url(#bmG)"/><path d="M9.5 16.5h21l-2.2-6.2H11.7z" fill="none" stroke="#fff" stroke-width="2.1" stroke-linejoin="round"/><path d="M9.5 16.5c0 1.9 1.3 3 2.6 3s2.6-1.1 2.6-3c0 1.9 1.3 3 2.6 3s2.6-1.1 2.6-3c0 1.9 1.3 3 2.6 3s2.6-1.1 2.6-3c0 1.9 1.3 3 2.6 3s2.6-1.1 2.6-3" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round"/><path d="M11.5 21.5v8.5h17v-8.5" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/><rect x="17.2" y="24" width="5.6" height="6" rx="1.2" fill="#fff"/></svg></span><span class="bword"><span id="brandTx"></span><small>Business Apps</small></span></a>
     <nav class="nav" id="nav"></nav>
     <div class="tools">
       <button class="lang-sw" id="langBtn" type="button"><i aria-hidden="true"></i><span lang="ar">ع</span><span lang="en">EN</span></button>
@@ -2301,6 +2393,7 @@ mark{background:color-mix(in srgb,var(--em) 26%,transparent);color:inherit;borde
     </div>
     <div class="h-art" id="hart"></div>
   </div>
+  <div class="wrap h-foot h-foot2"><p class="h-tag" id="hTag"></p><ul class="hfeat" id="hFeat"></ul></div>
   <div class="marq"><div class="marq-t" id="marq"></div></div>
 </section>
 
@@ -2338,6 +2431,13 @@ mark{background:color-mix(in srgb,var(--em) 26%,transparent);color:inherit;borde
   <div class="aud"><span class="aud-q" id="audQ"></span><div class="aud-g" id="audG"></div></div>
 </div></section>
 
+<section class="sec" id="system"><div class="wrap"><div class="sx">
+  <div class="sx-tx"><span class="kick" id="sysKick"></span><h2 class="h2" id="sysTitle"></h2><p id="sysSub"></p>
+    <div class="sx-call"><span class="sx-ic" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M9.5 16.5h21l-2.2-6.2H11.7z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><path d="M11.5 21.5v8.5h17v-8.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><rect x="17.2" y="24" width="5.6" height="6" rx="1.2" fill="currentColor"/></svg></span><span><b id="sysCallT"></b><small id="sysCallS"></small></span></div>
+    <p class="sys-note" id="sysNote"></p></div>
+  <div class="sx-art" id="sysArt" aria-hidden="true"></div>
+</div></div></section>
+
 <section class="sec" id="featured"><div class="wrap">
   <div class="feat" id="feat" role="region" aria-roledescription="carousel">
     <div class="feat-img" id="featImgs"><div class="fstory"><div class="ftabs" id="fTabs" role="group"></div><button class="fpause" id="fPause" type="button"></button></div><span class="fflash" id="fFlash" aria-hidden="true"></span></div>
@@ -2352,12 +2452,6 @@ mark{background:color-mix(in srgb,var(--em) 26%,transparent);color:inherit;borde
   <div class="more-all"><button class="btn btn-main xp-open xp-big" type="button" data-xp=""></button></div>
 </div></section>
 
-<section class="sec" id="system"><div class="wrap"><div class="sx">
-  <div class="sx-tx"><span class="kick" id="sysKick"></span><h2 class="h2" id="sysTitle"></h2><p id="sysSub"></p>
-    <div class="sx-call"><span class="sx-ic" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M9.5 16.5h21l-2.2-6.2H11.7z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><path d="M11.5 21.5v8.5h17v-8.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><rect x="17.2" y="24" width="5.6" height="6" rx="1.2" fill="currentColor"/></svg></span><span><b id="sysCallT"></b><small id="sysCallS"></small></span></div>
-    <p class="sys-note" id="sysNote"></p></div>
-  <div class="sx-art" id="sysArt" aria-hidden="true"></div>
-</div></div></section>
 
 <section class="sec" id="journey"><div class="wrap">
   <div class="sh jr-h"><div><span class="kick" id="jrKick"></span><h2 class="h2" id="jrTitle"></h2><p id="jrSub"></p></div></div>
@@ -2434,7 +2528,7 @@ mark{background:color-mix(in srgb,var(--em) 26%,transparent);color:inherit;borde
 </div>
 </div>
 <script>
-/* Mahali product catalog. Screen DSL: ["h",t,sub] ["stats",[[v,l],..]] ["big",v,l] ["row",t,sub,pill,tone] ["val",t,sub,v] ["tot",t,v] ["steps",[..],i] ["bub","in|out",t] ["slots",pattern] ["bars",[..]] ["btn",t] ["note",t] ["prog",l,pct] ["timer",t] ["qr"] ["photos",n,sel] ["map"] */
+/* Mahalli product catalog. Screen DSL: ["h",t,sub] ["stats",[[v,l],..]] ["big",v,l] ["row",t,sub,pill,tone] ["val",t,sub,v] ["tot",t,v] ["steps",[..],i] ["bub","in|out",t] ["slots",pattern] ["bars",[..]] ["btn",t] ["note",t] ["prog",l,pct] ["timer",t] ["qr"] ["photos",n,sel] ["map"] */
 window.SECTORS={
   shops:{ar:"محلات وخدمات",en:"Shops & services"},
   health:{ar:"صحة وتجميل",en:"Health & beauty"},
@@ -2967,7 +3061,7 @@ window.PRODUCTS=[
   sc:[{k:"Guard",t:"2am round",i:[["qr"],["row","Checkpoint 3 · warehouse","2:05am","Done","ok"],["row","Checkpoint 4 · back gate","2:14am","Done","ok"],["row","Checkpoint 5 · fence","","Pending","warn"]]},
       {k:"Supervisor",t:"Tonight",i:[["stats",[["18/20","rounds"],["2","missed"]]],["row","Al Yasmin Compound","Night shift","OK","ok"],["row","Industrial zone factory","3am round missed","Missed","bad"],["btn","Call the guard"]]}]}}
 ];
-window.PRODUCTS.forEach(p=>{p.img="img/p"+String(p.n).padStart(2,"0")+".jpg"});
+window.PRODUCTS.forEach(p=>{p.img="img/p"+String(p.n).padStart(2,"0")+".webp"});
 
 /* Shared renderers: motion banners + phone screens. Depend on global LANG and UI.t(key). */
 (function(){
@@ -3041,6 +3135,10 @@ window.UI={banner,phone,toAr,rng};
 const WHATSAPP='201080878554'; /* رقم واتساب الشركة بالصيغة الدولية بدون + (مثال: 201xxxxxxxxx أو 9665xxxxxxxx) */
 /* روابط السوشيال: اترك الرابط فارغًا ليختفي من الفوتر */
 const SOCIAL={facebook:'',instagram:'',tiktok:'',linkedin:''};
+/* أدوات قياس الإعلانات: ضع المعرّف (ID) ليعمل، واتركه فارغًا ليبقى معطّلًا.
+   meta = Meta Pixel ID (أرقام فقط)، tiktok = TikTok Pixel ID، ga4 = Google Analytics (مثال: G-XXXXXXX).
+   تُرسل أحداث فقط (فتح نموذج العرض، إرسال الطلب، الضغط على واتساب)، ولا يُرسل الاسم أو رقم الجوال أبدًا. */
+const PIXELS={meta:'',tiktok:'',ga4:''};
 /* سعر البداية لكل باقة، نصًا أو {ar,en}. فارغ = لا يظهر سطر "يبدأ من" (مثال: {ar:'١٬٥٠٠ ج.م شهريًا',en:'EGP 1,500 / month'}) */
 const PRICES=['','',''];
 /* آراء عملاء حقيقيين فقط. القسم يختفي ما دامت القائمة فارغة.
@@ -3089,32 +3187,32 @@ ar:{brand:'محلّي',tbHome:'الرئيسية',tbApps:'البرامج',tbDemo:
  demo:'اطلب عرضًا تجريبيًا',demoShort:'اطلب عرضًا',
  eyebrow:'برامج جاهزة للأنشطة التجارية في مصر والوطن العربي',h1a:'برنامج جاهز',h1b:'لكل',rot:['عيادة','ورشة','صيدلية','مقهى'],shops:['عيادة','ورشة','صيدلية','مقهى'],shopN:[26,2,30,8],
  lede:'أنظمة جاهزة للعيادات والمحلات والورش، تستلمها <b>كاملة</b>: لوحة تحكم وموقع ويب وتطبيق موبايل.',
- cta1:'تصفح البرامج',h1c:'نشاط تجاري',hTrust:['عربي وإنجليزي','يعمل على الجوال','لوحة تحكم لصاحب النشاط'],hTag:'لأن نجاحك يبدأ من تنظيم أعمالك',hAvail:'متوفر في مصر والوطن العربي',hfeat:[['gear','سهل الاستخدام','تبدأ خلال دقائق'],['headset','دعم فني دائم','عبر الهاتف والواتساب'],['cloud','سحابي ومباشر','من أي مكان'],['hshield','آمن وموثوق','يعمل بدون انقطاع']],gGrowth:'نمو في المبيعات',hTiles:[['hbox','المخزون'],['card','الفواتير'],['users','العملاء'],['bars','التقارير']],hBadgeT:'٤٠ نظامًا جاهزًا',hBadgeS:'لأنشطة حقيقية في مصر والوطن العربي',gList:['إدارة المبيعات','المخزون','المعاملات','تقارير مفصلة'],gSec:['آمن وموثوق','يعمل بدون انقطاع'],facts:[['٤٠','برنامجًا جاهزًا'],['٦','قطاعات'],['lang','عربي وإنجليزي'],['map','مصر والوطن العربي']],
+ cta1:'تصفح البرامج',h1c:'نشاط تجاري',hTrust:['عربي وإنجليزي','يعمل على الجوال','لوحة تحكم لصاحب النشاط'],hTag:'مستقبلك التجاري يبدأ من هنا',hEasy:'إدارة أسهل',hAvail:'متوفر في مصر والوطن العربي',hfeat:[['gear','سهل الاستخدام','فريقك يتعلمه في دقائق'],['hshield','أمان وخصوصية','بياناتك ملكك وحدك'],['cloud','سحابي ومباشر','تتابع نشاطك من أي مكان'],['headset','شهر دعم مجاني','بعد التسليم، عبر الهاتف والواتساب']],gGrowth:'مبيعات اليوم',hTiles:[['hbox','المخزون'],['card','الفواتير'],['users','العملاء'],['bars','التقارير']],hBadgeT:'٤٠ نظامًا جاهزًا',hBadgeS:'لأنشطة حقيقية في مصر والوطن العربي',gList:['إدارة المبيعات','المخزون','المعاملات','تقارير مفصلة'],gSec:['آمن وموثوق','يعمل بدون انقطاع'],facts:[['٤٠','برنامجًا جاهزًا'],['٦','قطاعات'],['lang','عربي وإنجليزي'],['map','مصر والوطن العربي']],
  marq:['عيادات','ورش','صيدليات','مراكز دروس','مقاهٍ','مغاسل','نوادٍ رياضية','مطابع','صالونات','مكاتب محاماة','مزارع','محلات ذهب','ملاعب','حضانات'],
  featKick:'الأبرز في',featAria:'أبرز برنامج في كل قطاع',fPause:'إيقاف التبديل التلقائي',fPlay:'تشغيل التبديل التلقائي',details:'تفاصيل البرنامج',
  pKick:'أفكار وبرامج جاهزة',tipOk:'فهمت',tipOff:'إخفاء التلميحات',tips:{feat:['اضغط على الصورة لإيقاف العرض متى أردت','اضغط على الصورة لإيقاف العرض، أو اسحبها للتنقل بين البرامج'],aud:['ابدأ من هنا: اختر ما يصفك، ونوجّهك لما يناسبك','ابدأ من هنا: اختر ما يصفك، ونوجّهك لما يناسبك'],card:['اضغط على أي برنامج لتدخل وتشوف شاشاته من جوّه','اضغط على أي برنامج لتدخل وتشوف شاشاته من جوّه'],jr:['مرّر على أي مرحلة لتعرف ماذا نقدم فيها','اضغط على أي مرحلة لتعرف ماذا نقدم فيها']},jrKick:'من الفكرة إلى الإطلاق',jrTitle:'نمشي معك المشوار كله، من أوله لآخره',jrSub:'لسنا مجرد برنامج تشتريه. نبدأ معك من <b>اسم مشروعك وهويته</b>، ونصمم ونبرمج، ونرفع تطبيقك على المتاجر، ونطلق إعلانه، ونبقى بجانبك بالنصيحة بعد الإطلاق.',
  jr:[['bulb','الاسم والفكرة','نقترح الاسم ونرتّب الفكرة معك'],['pen','اللوجو والهوية','لوجو وألوان وهوية بصرية متناسقة'],['layers','التصميم والتجربة','شاشات واضحة يرتاح لها عملاؤك وفريقك'],['code','البرمجة','لوحة تحكم وموقع وتطبيق موبايل'],['rocket','الإطلاق','نرفع التطبيق على المتاجر ونجهّز الموقع'],['megaphone','الإعلان والنمو','حملة إعلانية ونصائح لنمو نشاطك']],
- jrMore:['نجلس معك ونفهم نشاطك وجمهورك، ونقترح أسماء مناسبة ومتاحة، ونرتّب الفكرة في خطة واضحة قبل أي تنفيذ.','نصمم لوجو يعبّر عنك، ونختار الألوان والخطوط، ونجهّز دليل هوية تستخدمه في كل مكان: التطبيق والمحل والسوشيال.','نرسم شاشات التطبيق والموقع خطوة بخطوة، ونجرّبها قبل البرمجة حتى تكون سهلة على عملائك وفريقك.','نبني لوحة التحكم والموقع وتطبيق الموبايل متصلة ببعضها، بأداء سريع وبيانات محفوظة.','نرفع التطبيق على Google Play وApp Store، ونربط الموقع بنطاقك، ونتأكد أن كل شيء يعمل قبل الإعلان.','نصمم إعلانات الإطلاق وندير حملتها، ونتابع الأرقام معك ونقترح ما ينمّي نشاطك.'],jrTag:'متاحة كخدمة منفصلة',jrSolo:'تحتاج مرحلة واحدة فقط؟ كل مرحلة متاحة كخدمة مستقلة: لوجو وهوية فقط، أو تطبيق فقط، أو حملة إعلانية فقط.',jrSoloB:'كلّمنا واتساب',jrOwnK:'عندك نشاط قائم؟',jrOwnT:'احكِ لنا مشكلتك، ونبني لها الحل',jrOwnD:'سواء كانت طلبات تضيع، أو حسابات متلخبطة، أو فريق يصعب متابعته: نسمع منك، ونصمم برنامجًا يحل مشكلتك أنت بالذات.',jrOwnB:'كلّمنا واتساب',probQ:'أو اختر مشكلتك بضغطة:',probs:['طلبات أو حجوزات تضيع','حسابات وديون متلخبطة','صعوبة متابعة الفريق','العملاء يسألون ولا نلحق نرد','المخزون غير مضبوط'],probPre:'مشكلتي: ',jrEnd:'هدفنا ببساطة: أن تصبح إدارة نشاطك أسهل، ويومك أهدأ.',sysKick:'نظام كامل',sysCallT:'كل احتياجات مشروعك.. في مكان واحد',sysCallS:'من التخطيط وحتى التوسع',sxLink:['متصلة ببعضها','ما يُسجَّل يظهر فورًا'],sysTitle:'ليس برنامجًا فقط، بل نظام كامل لنشاطك',sysSub:'كل نظام تستلمه جاهزًا بثلاث واجهات متصلة ببعضها: <b>لوحة تحكم</b> لك، و<b>موقع ويب</b> لعملائك، و<b>تطبيق موبايل</b> لفريقك. وتديرها كلها من مكان واحد.',sysNote:'كلها مربوطة ببعضها: ما يُسجَّل في مكان يظهر في الباقي فورًا.',
+ jrMore:['نجلس معك ونفهم نشاطك وجمهورك، ونقترح أسماء مناسبة ومتاحة، ونرتّب الفكرة في خطة واضحة قبل أي تنفيذ.','نصمم لوجو يعبّر عنك، ونختار الألوان والخطوط، ونجهّز دليل هوية تستخدمه في كل مكان: التطبيق والمحل والسوشيال.','نرسم شاشات التطبيق والموقع خطوة بخطوة، ونجرّبها قبل البرمجة حتى تكون سهلة على عملائك وفريقك.','نبني لوحة التحكم والموقع وتطبيق الموبايل متصلة ببعضها، بأداء سريع وبيانات محفوظة.','نرفع التطبيق على Google Play وApp Store، ونربط الموقع بنطاقك، ونتأكد أن كل شيء يعمل قبل الإعلان.','نصمم إعلانات الإطلاق وندير حملتها، ونتابع الأرقام معك ونقترح ما ينمّي نشاطك.'],jrTag:'متاحة كخدمة منفصلة',jrSolo:'تحتاج مرحلة واحدة فقط؟ كل مرحلة متاحة كخدمة مستقلة: لوجو وهوية فقط، أو تطبيق فقط، أو حملة إعلانية فقط.',jrSoloB:'اسأل عن خدمة منفردة',jrOwnK:'عندك نشاط قائم؟',jrOwnT:'احكِ لنا مشكلتك، ونبني لها الحل',jrOwnD:'سواء كانت طلبات تضيع، أو حسابات متلخبطة، أو فريق يصعب متابعته: نسمع منك، ونصمم برنامجًا يحل مشكلتك أنت بالذات.',jrOwnB:'كلّمنا واتساب',probQ:'أو اختر مشكلتك بضغطة:',probs:['طلبات أو حجوزات تضيع','حسابات وديون متلخبطة','صعوبة متابعة الفريق','العملاء يسألون ولا نلحق نرد','المخزون غير مضبوط'],probPre:'مشكلتي: ',jrEnd:'هدفنا ببساطة: أن تصبح إدارة نشاطك أسهل، ويومك أهدأ.',sysKick:'نظام كامل',sysCallT:'كل احتياجات مشروعك.. في مكان واحد',sysCallS:'من التخطيط وحتى التوسع',sxLink:['متصلة ببعضها','ما يُسجَّل يظهر فورًا'],sysTitle:'ليس برنامجًا فقط، بل نظام كامل لنشاطك',sysSub:'كل نظام تستلمه جاهزًا بثلاث واجهات متصلة ببعضها: <b>لوحة تحكم</b> لك، و<b>موقع ويب</b> لعملائك، و<b>تطبيق موبايل</b> لفريقك. وتديرها كلها من مكان واحد.',sysNote:'كلها مربوطة ببعضها: ما يُسجَّل في مكان يظهر في الباقي فورًا.',
  sys:[['dash','لوحة تحكم','صورة كاملة لنشاطك','المبيعات والتقارير والصلاحيات وكل الأرقام في شاشة واحدة، من أي كمبيوتر.'],['web','موقع ويب','واجهتك أمام عملائك','صفحة باسم نشاطك يحجز منها العميل أو يطلب أو يتابع، بلا مكالمات.'],['phone','تطبيق موبايل','الشغل اليومي في جيبك','لك ولفريقك: تسجيل وتنبيهات ومتابعة لحظة بلحظة من الجوال.']],
- getLbl:'تستلم:',getTitle:b=>'تستلم '+b+' نظامًا كاملًا',getSub:n=>n+'، بثلاث واجهات متصلة تديرها من مكان واحد.',dDash:'لوحة تحكم',dWeb:'موقع ويب',dApp:'تطبيق موبايل',
+ getLbl:'تستلم:',getTitle:b=>'«'+b+'» نظام كامل بين يديك',getSub:n=>n+'، بثلاث واجهات متصلة تديرها من مكان واحد.',dDash:'لوحة تحكم',dWeb:'موقع ويب',dApp:'تطبيق موبايل',
  getDash:(b,f)=>'لوحة '+b+': تتابع منها '+f+'، وكل الأرقام والتقارير، وتحدد صلاحيات كل موظف.',getApp:(f1,f2)=>f1+' و'+f2+' من الجوال، أينما كنت.',
  getWeb:{shops:'قائمتك أو متجرك أونلاين، وطلبات وحجوزات من رابط واحد.',health:'حجز مواعيد ومتابعة لمرضاك وعملائك من رابط واحد.',edu:'تسجيل وحجز ومتابعة لأولياء الأمور واللاعبين والطلاب.',money:'بوابة يتابع منها عملاؤك أرصدتهم وطلباتهم.',ind:'رابط تتبع يتابع منه عميلك كل مرحلة.',realty:'بوابة للملاك والمستأجرين والعملاء.'},share:'مشاركة',linkCopied:'تم نسخ رابط البرنامج',stProb:'المشكلة على أرض الواقع',dAd:'تصميم إعلاني',ph3K:'تقارير صاحب النشاط',ph3T:'التحليلات',p3Up:'↑ ١٢٪ عن الأسبوع الماضي',p3Days:['س','ح','ن','ث','ر','خ','ج'],adCap:'ونصمم لك إعلانات جاهزة للنشر على السوشيال ميديا، لتطلق تطبيقك بقوة من أول يوم.',adSp:'إعلان ممول',stWith:'الحل:',stHook:w=>'يحدث كل يوم في '+w,shTitle:'جولة داخل النظام',shSub:'نفس البيانات بثلاث واجهات: تطبيق لفريقك، وموقع لعملائك، ولوحة تحكم لك.',swApp:'لفريقك على الجوال',swWeb:'واجهتك أمام العملاء',swDash:'نشاطك في شاشة واحدة',mwNav:['الرئيسية','الخدمات','تواصل'],mwLive:'الآن',webCta:'ابدأ الآن',dkOver:'نظرة عامة',dkRep:'التقارير',dkSet:'الإعدادات',dkToday:'اليوم',dkWeek:'هذا الأسبوع',dkFeat:'ميزة مفعّلة',dkLive:'مباشر',stCue:'كمّل لتشوف الشاشات',viewAll:'عرض كل البرامج',xpKick:'المتجر',xpTitle:'كل البرامج',prev:'السابق',next:'التالي',page:'صفحة',pTitle:'٤٠ فكرة جاهزة، لنشاطك الحالي أو مشروعك القادم',pSub:'كل فكرة هنا نظام كامل يحل مشكلة حقيقية في السوق. اختر ما يناسبك، أو تصفّح القطاعات وابحث عن فكرتك.',audQ:'أنت أيّ واحد من هؤلاء؟',aud:[['dash','عندي نشاط قائم','وأريد تنظيمه بنظام كامل','xp','اختر قطاعك وشاهد البرنامج يعمل على مثال من نشاط مثل نشاطك، ثم اطلب عرضًا تجريبيًا على بياناتك.'],['bulb','أبحث عن فكرة مشروع','وأريد فكرة مجرّبة أبدأ بها','xp','كل فكرة هنا مشكلة حقيقية لها سوق ومعها نظام جاهز. نساعدك في الاسم والهوية ونطلقها معك.'],['code','عندي مشكلة','وأريد لها حلًا برمجيًا','go','احكِ لنا المشكلة بكلماتك، ونقترح لك حلًا برمجيًا مخصّصًا، من الفكرة حتى الإطلاق.'],['pen','أحتاج خدمة واحدة','لوجو أو تطبيق أو إعلان فقط','solo','لوجو وهوية فقط، أو تطبيق فقط، أو حملة إعلانية فقط. اطلب المرحلة التي تحتاجها ونبدأ منها.']],audGo:'ابدأ من هنا',
  all:'الكل',search:'ابحث: عيادة، ورشة، حجز…',showing:(n,t)=>`<b>${n}</b> من ${t} برنامجًا`,emptyT:'لا توجد نتائج',emptyD:'جرّب كلمة أخرى أو',reset:'اعرض الكل',more:'التفاصيل',
  hKick:'كيف نعمل',hTitle:'ثلاث خطوات حتى يبدأ نشاطك',steps:[['اختر البرنامج','تصفح البرامج حسب نشاطك، وافتح أي برنامج لترى شاشاته ومميزاته.'],['احجز عرضًا تجريبيًا','نعرض لك البرنامج على مثال من نشاطك، ونجيب عن أسئلتك.'],['ابدأ العمل','نجهّز حسابك وبياناتك الأساسية، ونبقى معك بالدعم بعد التشغيل.']],
  wKick:'لماذا محلّي',wTitle:'مصمم لطريقة عملك اليومية',why:[['phone','يعمل من الجوال','تطبيق لك ولفريقك، ولوحة تحكم من الكمبيوتر.'],['lang','عربي بالكامل','الواجهة بالعربية والإنجليزية، والتقارير بالعربية.'],['map','مصمم لمصر والوطن العربي','التحويلات الفورية والفوترة الإلكترونية وطرق العمل المحلية.'],['card','اشتراك شهري مرن','بلا تكلفة تطوير كبيرة في البداية، وتغيّر باقتك متى احتجت.']],
  plKick:'الباقات',plTitle:'اختر الباقة حسب حجم نشاطك',plSub:'يختلف السعر حسب البرنامج وعدد الفروع والمستخدمين. اطلب عرض سعر وسنرسله لك بعملة بلدك.',quote:'اطلب عرضًا تجريبيًا',
- plans:[{n:'الأساسية',s:'لنشاط بفرع واحد',f:['البرنامج كاملًا','حتى 3 مستخدمين','تقارير شهرية','دعم عبر واتساب']},{n:'الاحترافية',tag:'موصى بها',s:'حتى 3 فروع',f:['كل ما في الأساسية','حتى 10 مستخدمين','تقارير تفصيلية','تذكيرات تلقائية للعملاء'],hl:1},{n:'المؤسسات',s:'فروع ومستخدمون بلا حد',f:['كل ما في الاحترافية','ربط مع أنظمتك الحالية','تخصيص حسب نشاطك','مدير حساب مخصص']}],
- fKick:'الأسئلة الشائعة',fSub:'جمعنا لك إجابات أكثر الأسئلة اللي بتوصلنا عن البرامج وطريقة الشغل معانا.',stCaps:'داخل البرنامج',fTitle:'أسئلة يطرحها أصحاب الأنشطة',faq:[['هل تعمل البرامج في مصر وباقي الدول العربية؟','نعم. الواجهة بالعربية والإنجليزية، وتُضبط العملة وطرق الدفع والفوترة حسب بلدك.'],['بكم البرنامج؟','يختلف السعر حسب البرنامج وعدد الفروع والمستخدمين. بعد العرض التجريبي نرسل لك عرض سعر واضحًا بكل التفاصيل، بدون تكاليف مخفية.'],['كم يستغرق التسليم؟','من أسبوع إلى أسبوعين من وقت الاتفاق، حسب حجم بياناتك والتعديلات المطلوبة.'],['هل يُرفع التطبيق على المتاجر باسمي؟','نعم. يُرفع التطبيق على Google Play وApp Store باسم نشاطك وبشعارك.'],['هل أحتاج أجهزة خاصة؟','لا. يكفي جوال أو جهاز لوحي أو كمبيوتر متصل بالإنترنت.'],['هل يمكن تعديل البرنامج ليناسب نشاطي؟','نعم. نضبط الإعدادات الأساسية مع كل اشتراك، والتخصيص الأوسع متاح في باقة المؤسسات.'],['ماذا لو أردت تعديلًا بعد التسليم؟','التعديلات البسيطة مجانية، والتعديلات الكبيرة أو المميزات الجديدة نرسل لك بها عرض سعر منفصلًا قبل التنفيذ.'],['ما الدعم الذي أحصل عليه بعد التسليم؟','شهر كامل من الدعم المجاني بعد التسليم، نتابع فيه معك ومع فريقك ونحل أي مشكلة تظهر.'],['ما طرق الدفع المتاحة؟','التحويل البنكي، وإنستاباي، والمحافظ الإلكترونية، والبطاقات البنكية.'],['كيف أحصل على عرض تجريبي؟','اضغط «اطلب عرضًا تجريبيًا» واملأ بياناتك، وسنتواصل معك عبر واتساب لتحديد موعد.'],['من يملك بياناتي؟','بياناتك ملك لك، ويمكنك طلب تصديرها في أي وقت.']],
+ plans:[{n:'الأساسية',s:'لنشاط بفرع واحد',f:['البرنامج كاملًا','حتى ٣ مستخدمين','تقارير شهرية','دعم عبر واتساب'],cta:'ابدأ بالأساسية'},{n:'الاحترافية',tag:'موصى بها',s:'حتى ٣ فروع',f:['كل ما في الأساسية','حتى ١٠ مستخدمين','تقارير تفصيلية','تذكيرات تلقائية للعملاء'],hl:1,cta:'اطلب الاحترافية'},{n:'المؤسسات',s:'فروع ومستخدمون بلا حد',f:['كل ما في الاحترافية','ربط مع أنظمتك الحالية','تخصيص حسب نشاطك','مدير حساب مخصص'],cta:'كلّمنا عن مؤسستك'}],
+ fKick:'الأسئلة الشائعة',fSub:'جمعنا لك إجابات أكثر الأسئلة اللي بتوصلنا عن البرامج وطريقة الشغل معانا.',stCaps:'داخل البرنامج',fTitle:'أسئلة يطرحها أصحاب الأنشطة',faq:[['بكم البرنامج؟','يختلف السعر حسب البرنامج وعدد الفروع والمستخدمين. بعد العرض التجريبي نرسل لك عرض سعر واضحًا بكل التفاصيل، بدون تكاليف مخفية.'],['هل تعمل البرامج في مصر وباقي الدول العربية؟','نعم. الواجهة بالعربية والإنجليزية، وتُضبط العملة وطرق الدفع والفوترة حسب بلدك.'],['كم يستغرق التسليم؟','من أسبوع إلى أسبوعين من وقت الاتفاق، حسب حجم بياناتك والتعديلات المطلوبة.'],['هل يُرفع التطبيق على المتاجر باسمي؟','نعم. يُرفع التطبيق على Google Play وApp Store باسم نشاطك وبشعارك.'],['هل أحتاج أجهزة خاصة؟','لا. يكفي جوال أو جهاز لوحي أو كمبيوتر متصل بالإنترنت.'],['هل يمكن تعديل البرنامج ليناسب نشاطي؟','نعم. نضبط الإعدادات الأساسية مع كل اشتراك، والتخصيص الأوسع متاح في باقة المؤسسات.'],['ماذا لو أردت تعديلًا بعد التسليم؟','التعديلات البسيطة مجانية، والتعديلات الكبيرة أو المميزات الجديدة نرسل لك بها عرض سعر منفصلًا قبل التنفيذ.'],['ما الدعم الذي أحصل عليه بعد التسليم؟','شهر كامل من الدعم المجاني بعد التسليم، نتابع فيه معك ومع فريقك ونحل أي مشكلة تظهر.'],['ما طرق الدفع المتاحة؟','التحويل البنكي، وإنستاباي، والمحافظ الإلكترونية، والبطاقات البنكية.'],['كيف أحصل على عرض تجريبي؟','اضغط «اطلب عرضًا تجريبيًا» واملأ بياناتك، وسنتواصل معك عبر واتساب لتحديد موعد.'],['من يملك بياناتي؟','بياناتك ملك لك، ويمكنك طلب تصديرها في أي وقت.']],
  cTitle:'جاهز تجرّب البرنامج على نشاطك؟',cKick:'عرض تجريبي',cVia:'عبر واتساب',cChat:['السلام عليكم، حابب أجرب البرنامج على نشاطي','أهلاً بيك! يناسبك العرض يوم الأحد الساعة ٧ مساءً؟','تمام، مناسب جدًا'],cBooked:'تم تحديد موعد العرض',cSub:'أرسل بياناتك، وسنتواصل معك عبر واتساب لتحديد موعد العرض التجريبي.',
  fDesc:'برامج جاهزة للعيادات والمحلات والورش والمكاتب في مصر والوطن العربي.',fSectors:'القطاعات',fCompany:'الشركة',fContact:'تواصل',fLinks:[['#journey','كيف نعمل'],['#plans','الباقات'],['#faq','الأسئلة الشائعة']],waChat:'كلّمنا واتساب',waHi:'مرحبًا، أريد الاستفسار عن برامج محلّي',waAsk:'مرحبًا، أريد الاستفسار عن برنامج: ',waSolo:'مرحبًا، أحتاج خدمة منفصلة: ',waOwn:'مرحبًا، عندي نشاط قائم وأريد حلًا لمشكلة: ',whoLbl:'مناسب لـ:',closeK:'الخطوة التالية',closeT:n=>`جاهز تشغّل ${n} في نشاطك؟`,closeS:'تستلم لوحة التحكم والموقع والتطبيق كاملة، ونبقى معك بالدعم بعد الإطلاق.',cSteps:['ترسل بياناتك','نتواصل معك ونعرض البرنامج على نشاطك','تبدأ العمل ونبقى معك بالدعم'],
- copy:'© 2026 محلّي. جميع الحقوق محفوظة.',footNote:'الشاشات المعروضة أمثلة توضيحية.',
+ copy:'© ٢٠٢٦ محلّي. جميع الحقوق محفوظة.',footNote:'الشاشات المعروضة أمثلة توضيحية.',
  back:'رجوع',prev:'السابق',next:'التالي',of:'من',screens:'شاشات من البرنامج',screensSub:'أمثلة كما يراها صاحب النشاط وعميله.',prob:'المشكلة',sol:'الحل',feats:'المميزات',who:'لمن هذا البرنامج',motion:'البرنامج في لحظة',related:'برامج مشابهة',
  mTitle:'اطلب عرضًا تجريبيًا',mSub:'اترك بياناتك وسنتواصل معك عبر واتساب.',lName:'الاسم',lBiz:'اسم النشاط',lCountry:'الدولة',lPhone:'رقم الجوال',lProduct:'البرنامج',lMsg:'أضف ملاحظة (اختياري)',fNote:'بدون أي التزام. نكمل معك المحادثة على واتساب.',rvKick:'تجارب أصحاب الأنشطة',rvTitle:'أصحاب أنشطة بدأوا معنا',pFrom:'يبدأ من',social:{facebook:'فيسبوك',instagram:'إنستجرام',tiktok:'تيك توك',linkedin:'لينكدإن'},countries:['مصر','السعودية','الإمارات','الكويت','قطر','الأردن','المغرب','دولة عربية أخرى','دولة أخرى'],noProd:'لم أحدد بعد',submit:'إرسال عبر واتساب',err:'اكتب الاسم ورقم الجوال.',
  dTitle:'رسالتك جاهزة',dSub:'اضغط الزر لإرسالها عبر واتساب، أو انسخها وأرسلها بطريقتك.',wa:'إرسال عبر واتساب',copyMsg:'نسخ الرسالة',copied:'تم النسخ',
  msg:(f)=>`مرحبًا، أريد عرضًا تجريبيًا.\nالاسم: ${f.name}\nالدولة: ${f.country}\nالجوال: ${f.phone}\nالبرنامج: ${f.product}${f.msg?`\nملاحظات: ${f.msg}`:''}`,close:'إغلاق'},
-en:{brand:'Mahali',tbHome:'Home',tbApps:'Apps',tbDemo:'Demo',tbSearch:'Search',tbMenu:'More',tabsAria:'Main navigation',searchAria:'Search the apps',sugAria:'Search suggestions',clearQ:'Clear search',needLbl:'I need:',needs:{book:'Bookings & appointments',pay:'Payments & accounts',team:'Team follow-up',track:'Order & status tracking'},sortLbl:'Sort',sortRel:'Best match',sortAz:'A–Z',found:(n,q)=>`<b>${n}</b> results for “${q}”`,popLbl:'Popular searches',recent:'Your recent searches',clearRecent:'Clear',popular:['clinic','restaurant','booking','workshop','payments','school','salon','rent'],seeAll:q=>`See all results for “${q}”`,clearAll:'Clear all',removeF:'Remove',emptyQ:q=>`No ready-made app for “${q}” yet, but we can build it for you.`,emptyTry:'Try:',waCustom:'Hello, I am looking for an app for: ',customBtn:'Request a custom app',stCost:'The result, every day: lost time, lost money, and customers who go elsewhere.',dAll:'Browse all apps',dApps:'ready-made apps',dSecs:'Categories',dPage:'On this page',dContact:'Contact us',dLegal:'Legal',faqAll:n=>`Show all questions (${n})`,faqLess:'Show less',docUpd:'Last updated: October 2026',
+en:{brand:'Mahalli',tbHome:'Home',tbApps:'Apps',tbDemo:'Demo',tbSearch:'Search',tbMenu:'More',tabsAria:'Main navigation',searchAria:'Search the apps',sugAria:'Search suggestions',clearQ:'Clear search',needLbl:'I need:',needs:{book:'Bookings & appointments',pay:'Payments & accounts',team:'Team follow-up',track:'Order & status tracking'},sortLbl:'Sort',sortRel:'Best match',sortAz:'A–Z',found:(n,q)=>`<b>${n}</b> results for “${q}”`,popLbl:'Popular searches',recent:'Your recent searches',clearRecent:'Clear',popular:['clinic','restaurant','booking','workshop','payments','school','salon','rent'],seeAll:q=>`See all results for “${q}”`,clearAll:'Clear all',removeF:'Remove',emptyQ:q=>`No ready-made app for “${q}” yet, but we can build it for you.`,emptyTry:'Try:',waCustom:'Hello, I am looking for an app for: ',customBtn:'Request a custom app',stCost:'The result, every day: lost time, lost money, and customers who go elsewhere.',dAll:'Browse all apps',dApps:'ready-made apps',dSecs:'Categories',dPage:'On this page',dContact:'Contact us',dLegal:'Legal',faqAll:n=>`Show all questions (${n})`,faqLess:'Show less',docUpd:'Last updated: October 2026',
  docs:{terms:{t:'Terms and conditions',s:[
- ['About the service','Mahali provides ready-made apps for businesses, delivered complete: a dashboard, a website and a mobile app, plus related services such as naming, identity, development, store publishing and ads.'],
+ ['About the service','Mahalli provides ready-made apps for businesses, delivered complete: a dashboard, a website and a mobile app, plus related services such as naming, identity, development, store publishing and ads.'],
  ['Demo and agreement','The demo is free and comes with no commitment. Work starts once we agree on a written quote that sets the app, the plan, the timeline and the cost.'],
  ['Pricing and payment','Pricing depends on the app and the number of branches and users, as stated in the quote. We accept bank transfer, InstaPay, mobile wallets and bank cards.'],
  ['Delivery time','Delivery usually takes one to two weeks from agreement, depending on your data and the changes you need. Any delay in data or approvals from the client extends the timeline by the same amount.'],
@@ -3138,30 +3236,34 @@ en:{brand:'Mahali',tbHome:'Home',tbApps:'Apps',tbDemo:'Demo',tbSearch:'Search',t
  demo:'Book a demo',demoShort:'Book a demo',
  eyebrow:'Ready-made software for businesses in Egypt and the Arab world',h1a:'Ready-made software',h1b:'for every',rot:['clinic','workshop','pharmacy','café'],shops:['Clinic','Workshop','Pharmacy','Café'],shopN:[26,2,30,8],
  lede:'Ready-made systems for clinics, shops and workshops, delivered <b>complete</b>: a dashboard, a website and a mobile app.',
- cta1:'Browse the apps',h1c:'business',hTrust:['Arabic and English','Works on mobile','A dashboard for the owner'],hTag:'Because success starts with an organized business',hAvail:'Available in Egypt & the Arab world',hfeat:[['gear','Easy to use','Up and running in minutes'],['headset','Always-on support','By phone and WhatsApp'],['cloud','Cloud & live','From anywhere'],['hshield','Secure & reliable','Runs without interruption']],gGrowth:'Sales growth',hTiles:[['hbox','Inventory'],['card','Invoices'],['users','Customers'],['bars','Reports']],hBadgeT:'40 ready-made systems',hBadgeS:'for real businesses in Egypt and the Arab world',gList:['Sales','Inventory','Transactions','Detailed reports'],gSec:['Secure & reliable','Runs without interruption'],facts:[['40','ready apps'],['6','sectors'],['lang','Arabic & English'],['map','Egypt & the Arab world']],
+ cta1:'Browse the apps',h1c:'business',hTrust:['Arabic and English','Works on mobile','A dashboard for the owner'],hTag:'Your business future starts here',hEasy:'Easier to manage',hAvail:'Available in Egypt & the Arab world',hfeat:[['gear','Easy to use','Learned in minutes'],['hshield','Security & privacy','Your data stays yours'],['cloud','Cloud & live','From anywhere'],['headset','1 month free support','After delivery']],gGrowth:'Today\'s sales',hTiles:[['hbox','Inventory'],['card','Invoices'],['users','Customers'],['bars','Reports']],hBadgeT:'40 ready-made systems',hBadgeS:'for real businesses in Egypt and the Arab world',gList:['Sales','Inventory','Transactions','Detailed reports'],gSec:['Secure & reliable','Runs without interruption'],facts:[['40','ready apps'],['6','sectors'],['lang','Arabic & English'],['map','Egypt & the Arab world']],
  marq:['Clinics','Workshops','Pharmacies','Tutoring centers','Cafés','Laundries','Gyms','Print shops','Salons','Law firms','Farms','Gold shops','Pitches','Nurseries'],
  featKick:'Top pick in',featAria:'Top app in each sector',fPause:'Pause auto-rotation',fPlay:'Play auto-rotation',details:'App details',
  pKick:'Ready ideas and apps',tipOk:'Got it',tipOff:'Hide tips',tips:{feat:['Click the image to pause the showcase anytime','Tap the image to pause, or swipe to move between apps'],aud:['Start here: pick what describes you and we point you to the right place','Start here: pick what describes you and we point you to the right place'],card:['Open any app to see its screens from the inside','Tap any app to see its screens from the inside'],jr:['Hover over any stage to see what we do in it','Tap any stage to see what we do in it']},jrKick:'From idea to launch',jrTitle:'We walk the whole road with you, start to finish',jrSub:'You are not just buying software. We start with <b>your project’s name and identity</b>, design and build it, publish your app on the stores, launch its ads, and stay by your side with advice after launch.',
  jr:[['bulb','Name and idea','We suggest the name and shape the idea with you'],['pen','Logo and identity','A logo, colors and a consistent visual identity'],['layers','Design and experience','Clear screens your customers and team enjoy'],['code','Development','A dashboard, a website and a mobile app'],['rocket','Launch','We publish the app on the stores and set up the website'],['megaphone','Ads and growth','An ad campaign and advice to grow your business']],
- jrMore:['We sit with you to understand your business and audience, suggest fitting names that are available, and shape the idea into a clear plan before any build.','We design a logo that speaks for you, pick colors and type, and prepare an identity guide you use everywhere: the app, the shop and social media.','We sketch the app and website screens step by step and test them before coding, so they feel easy for your customers and team.','We build the dashboard, website and mobile app connected to each other, fast and with your data kept safe.','We publish the app on Google Play and the App Store, connect the website to your domain, and check everything works before the ads go live.','We design the launch ads and run the campaign, follow the numbers with you and suggest what grows your business.'],jrTag:'Also available on its own',jrSolo:'Need just one stage? Every stage is available as a separate service: only a logo and identity, only an app, or only an ad campaign.',jrSoloB:'Chat on WhatsApp',jrOwnK:'Already running a business?',jrOwnT:'Tell us your problem, we build the fix',jrOwnD:'Lost orders, messy accounts or a team that is hard to follow: we listen, then design software that solves your exact problem.',jrOwnB:'Chat on WhatsApp',probQ:'Or pick your problem in one tap:',probs:['Orders or bookings get lost','Messy accounts and debts','Hard to follow the team','Customers ask and we cannot keep up','Stock is never accurate'],probPre:'My problem: ',jrEnd:'Our goal is simple: running your business gets easier, and your day gets calmer.',sysKick:'Complete system',sysCallT:'Everything your project needs, in one place',sysCallS:'From planning to growth',sxLink:['All connected','Recorded once, seen everywhere'],sysTitle:'Not just an app, a complete system for your business',sysSub:'Every system comes ready with three connected parts: a <b>dashboard</b> for you, a <b>website</b> for your customers and a <b>mobile app</b> for your team. You run all of it from one place.',sysNote:'Everything is connected: what is recorded in one place shows up everywhere else instantly.',
+ jrMore:['We sit with you to understand your business and audience, suggest fitting names that are available, and shape the idea into a clear plan before any build.','We design a logo that speaks for you, pick colors and type, and prepare an identity guide you use everywhere: the app, the shop and social media.','We sketch the app and website screens step by step and test them before coding, so they feel easy for your customers and team.','We build the dashboard, website and mobile app connected to each other, fast and with your data kept safe.','We publish the app on Google Play and the App Store, connect the website to your domain, and check everything works before the ads go live.','We design the launch ads and run the campaign, follow the numbers with you and suggest what grows your business.'],jrTag:'Also available on its own',jrSolo:'Need just one stage? Every stage is available as a separate service: only a logo and identity, only an app, or only an ad campaign.',jrSoloB:'Ask about a single service',jrOwnK:'Already running a business?',jrOwnT:'Tell us your problem, we build the fix',jrOwnD:'Lost orders, messy accounts or a team that is hard to follow: we listen, then design software that solves your exact problem.',jrOwnB:'Chat on WhatsApp',probQ:'Or pick your problem in one tap:',probs:['Orders or bookings get lost','Messy accounts and debts','Hard to follow the team','Customers ask and we cannot keep up','Stock is never accurate'],probPre:'My problem: ',jrEnd:'Our goal is simple: running your business gets easier, and your day gets calmer.',sysKick:'Complete system',sysCallT:'Everything your project needs, in one place',sysCallS:'From planning to growth',sxLink:['All connected','Recorded once, seen everywhere'],sysTitle:'Not just an app, a complete system for your business',sysSub:'Every system comes ready with three connected parts: a <b>dashboard</b> for you, a <b>website</b> for your customers and a <b>mobile app</b> for your team. You run all of it from one place.',sysNote:'Everything is connected: what is recorded in one place shows up everywhere else instantly.',
  sys:[['dash','Dashboard','The full picture of your business','Sales, reports, permissions and every number on one screen, from any computer.'],['web','Website','Your front door for customers','A page in your business name where customers book, order or follow up, without calling.'],['phone','Mobile app','Daily work in your pocket','For you and your team: entries, alerts and live follow-up from the phone.']],
  getLbl:'You get:',getTitle:b=>'You get '+b+' as a complete system',getSub:n=>n+', in three connected parts you run from one place.',dDash:'Dashboard',dWeb:'Website',dApp:'Mobile app',
  getDash:(b,f)=>'The '+b+' dashboard: follow '+f.charAt(0).toLowerCase()+f.slice(1)+', every number and report, and set each employee’s access.',getApp:(f1,f2)=>f1+' and '+f2.charAt(0).toLowerCase()+f2.slice(1)+', from your phone, wherever you are.',
  getWeb:{shops:'Your menu or store online, with orders and bookings from one link.',health:'Online booking and follow-up for your patients and clients.',edu:'Registration, booking and updates for parents, players and students.',money:'A portal where your customers follow their balances and orders.',ind:'A tracking link so your customer follows every stage.',realty:'A portal for owners, tenants and clients.'},share:'Share',linkCopied:'App link copied',stProb:'The real-world problem',dAd:'Ad design',ph3K:'Owner reports',ph3T:'Analytics',p3Up:'↑ 12% vs last week',p3Days:['S','S','M','T','W','T','F'],adCap:'We also design ready-to-post social media ads, so your app launches strong from day one.',adSp:'Sponsored',stWith:'The fix:',stHook:w=>'Happens every day in '+w.charAt(0).toLowerCase()+w.slice(1),shTitle:'Take a tour of the system',shSub:'The same data in three views: an app for your team, a website for your customers and a dashboard for you.',swApp:'For your team, on mobile',swWeb:'Your front door for customers',swDash:'Your business on one screen',mwNav:['Home','Services','Contact'],mwLive:'Live now',webCta:'Get started',dkOver:'Overview',dkRep:'Reports',dkSet:'Settings',dkToday:'Today',dkWeek:'This week',dkFeat:'features on',dkLive:'Live',stCue:'Keep scrolling to see the screens',viewAll:'View all apps',xpKick:'Catalog',xpTitle:'All apps',prev:'Previous',next:'Next',page:'Page',pTitle:'40 ready ideas, for the business you run or the one you are planning',pSub:'Each idea here is a complete system that solves a real problem in the market. Pick what fits you, or browse by sector to find your idea.',audQ:'Which one are you?',aud:[['dash','I run a business','and want it organized with a complete system','xp','Pick your sector and see the app working on an example like your business, then book a demo on your own data.'],['bulb','I am looking for a project idea','and want a proven idea to start with','xp','Every idea here is a real problem with a market and a ready system. We help with the name and identity and launch it with you.'],['code','I have a problem','and want software that solves it','go','Tell us the problem in your own words, and we suggest custom software for it, from idea to launch.'],['pen','I need one service','only a logo, an app or an ad','solo','Only a logo and identity, only an app, or only an ad campaign. Request the stage you need and we start there.']],audGo:'Start here',
  all:'All',search:'Search: clinic, workshop, booking…',showing:(n,t)=>`<b>${n}</b> of ${t} apps`,emptyT:'No results',emptyD:'Try another word or',reset:'show all',more:'Details',
  hKick:'How it works',hTitle:'Three steps to get your business running',steps:[['Choose the app','Browse apps by sector and open any app to see its screens and features.'],['Book a demo','We show you the app on an example from your business and answer your questions.'],['Start working','We set up your account and basic data, and keep supporting you after launch.']],
- wKick:'Why Mahali',wTitle:'Built for the way you work every day',why:[['phone','Runs on mobile','An app for you and your team, plus a dashboard on the computer.'],['lang','Fully Arabic','Arabic and English interface, with reports in Arabic.'],['map','Built for Egypt & the Arab world','Instant transfers, e-invoicing and local ways of working.'],['card','Flexible monthly plan','No big development cost up front, and change plans whenever you need.']],
+ wKick:'Why Mahalli',wTitle:'Built for the way you work every day',why:[['phone','Runs on mobile','An app for you and your team, plus a dashboard on the computer.'],['lang','Fully Arabic','Arabic and English interface, with reports in Arabic.'],['map','Built for Egypt & the Arab world','Instant transfers, e-invoicing and local ways of working.'],['card','Flexible monthly plan','No big development cost up front, and change plans whenever you need.']],
  plKick:'Plans',plTitle:'Choose a plan that fits your business',plSub:'Pricing depends on the app and the number of branches and users. Ask for a quote and we will send it in your local currency.',quote:'Book a demo',
- plans:[{n:'Basic',s:'One branch',f:['The full app','Up to 3 users','Monthly reports','WhatsApp support']},{n:'Pro',tag:'Recommended',s:'Up to 3 branches',f:['Everything in Basic','Up to 10 users','Detailed reports','Automatic customer reminders'],hl:1},{n:'Enterprise',s:'Unlimited branches and users',f:['Everything in Pro','Integration with your systems','Customization for your business','Dedicated account manager']}],
- fKick:'FAQ',fSub:'Answers to the questions business owners ask us most about the apps and how we work.',stCaps:'Inside the app',fTitle:'Questions business owners ask',faq:[['Do the apps work in Egypt and across the Arab world?','Yes. The interface is in Arabic and English, and currency, payments and invoicing are set for your country.'],['How much does it cost?','Pricing depends on the app and the number of branches and users. After the demo we send you a clear quote with every detail and no hidden costs.'],['How long does delivery take?','One to two weeks from agreement, depending on your data and the changes you need.'],['Will the app be published in my name?','Yes. The app goes live on Google Play and the App Store under your business name and logo.'],['Do I need special devices?','No. A phone, tablet or computer with internet is enough.'],['Can the app be adjusted to my business?','Yes. We configure the basics with every subscription, and deeper customization comes with the Enterprise plan.'],['What if I want changes after delivery?','Small changes are free. For bigger changes or new features we send you a separate quote before we build them.'],['What support do I get after delivery?','A full month of free support after delivery: we follow up with you and your team and fix anything that comes up.'],['How can I pay?','Bank transfer, InstaPay, mobile wallets or a bank card.'],['How do I get a demo?','Press “Book a demo”, fill in your details, and we will contact you on WhatsApp to set a time.'],['Who owns my data?','Your data belongs to you, and you can ask to export it at any time.']],
+ plans:[{n:'Basic',s:'One branch',f:['The full app','Up to 3 users','Monthly reports','WhatsApp support'],cta:'Start with Basic'},{n:'Pro',tag:'Recommended',s:'Up to 3 branches',f:['Everything in Basic','Up to 10 users','Detailed reports','Automatic customer reminders'],hl:1,cta:'Get Pro'},{n:'Enterprise',s:'Unlimited branches and users',f:['Everything in Pro','Integration with your systems','Customization for your business','Dedicated account manager'],cta:'Talk to us about your company'}],
+ fKick:'FAQ',fSub:'Answers to the questions business owners ask us most about the apps and how we work.',stCaps:'Inside the app',fTitle:'Questions business owners ask',faq:[['How much does it cost?','Pricing depends on the app and the number of branches and users. After the demo we send you a clear quote with every detail and no hidden costs.'],['Do the apps work in Egypt and across the Arab world?','Yes. The interface is in Arabic and English, and currency, payments and invoicing are set for your country.'],['How long does delivery take?','One to two weeks from agreement, depending on your data and the changes you need.'],['Will the app be published in my name?','Yes. The app goes live on Google Play and the App Store under your business name and logo.'],['Do I need special devices?','No. A phone, tablet or computer with internet is enough.'],['Can the app be adjusted to my business?','Yes. We configure the basics with every subscription, and deeper customization comes with the Enterprise plan.'],['What if I want changes after delivery?','Small changes are free. For bigger changes or new features we send you a separate quote before we build them.'],['What support do I get after delivery?','A full month of free support after delivery: we follow up with you and your team and fix anything that comes up.'],['How can I pay?','Bank transfer, InstaPay, mobile wallets or a bank card.'],['How do I get a demo?','Press “Book a demo”, fill in your details, and we will contact you on WhatsApp to set a time.'],['Who owns my data?','Your data belongs to you, and you can ask to export it at any time.']],
  cTitle:'Ready to try the app on your business?',cKick:'Live demo',cVia:'via WhatsApp',cChat:['Hi, I would like to try the app on my business','Welcome! Does Sunday at 7 pm work for the demo?','Perfect, that works'],cBooked:'Demo scheduled',cSub:'Send your details and we will contact you on WhatsApp to schedule the demo.',
- fDesc:'Ready-made software for clinics, shops, workshops and offices in Egypt and the Arab world.',fSectors:'Sectors',fCompany:'Company',fContact:'Contact',fLinks:[['#journey','How it works'],['#plans','Plans'],['#faq','FAQ']],waChat:'Chat on WhatsApp',waHi:'Hello, I would like to ask about Mahali apps',waAsk:'Hello, I would like to ask about: ',waSolo:'Hello, I need a single service: ',waOwn:'Hello, I run a business and need a fix for: ',whoLbl:'Made for:',closeK:'Next step',closeT:n=>`Ready to run ${n} in your business?`,closeS:'You get the dashboard, the website and the app, complete, and we stay with you after launch.',cSteps:['Send your details','We call you and demo the app on your business','You start working, with our support'],
- copy:'© 2026 Mahali. All rights reserved.',footNote:'Screens shown are illustrative examples.',
+ fDesc:'Ready-made software for clinics, shops, workshops and offices in Egypt and the Arab world.',fSectors:'Sectors',fCompany:'Company',fContact:'Contact',fLinks:[['#journey','How it works'],['#plans','Plans'],['#faq','FAQ']],waChat:'Chat on WhatsApp',waHi:'Hello, I would like to ask about Mahalli apps',waAsk:'Hello, I would like to ask about: ',waSolo:'Hello, I need a single service: ',waOwn:'Hello, I run a business and need a fix for: ',whoLbl:'Made for:',closeK:'Next step',closeT:n=>`Ready to run ${n} in your business?`,closeS:'You get the dashboard, the website and the app, complete, and we stay with you after launch.',cSteps:['Send your details','We call you and demo the app on your business','You start working, with our support'],
+ copy:'© 2026 Mahalli. All rights reserved.',footNote:'Screens shown are illustrative examples.',
  back:'Back',prev:'Previous',next:'Next',of:'of',screens:'Screens from the app',screensSub:'Examples as the owner and their customer see them.',prob:'The problem',sol:'The solution',feats:'Features',who:'Who it’s for',motion:'The app at a glance',related:'Similar apps',
  mTitle:'Book a demo',mSub:'Leave your details and we will contact you on WhatsApp.',lName:'Name',lBiz:'Business name',lCountry:'Country',lPhone:'Mobile number',lProduct:'App',lMsg:'Add a note (optional)',fNote:'No commitment. We continue the conversation on WhatsApp.',rvKick:'From business owners',rvTitle:'Business owners who started with us',pFrom:'From',social:{facebook:'Facebook',instagram:'Instagram',tiktok:'TikTok',linkedin:'LinkedIn'},countries:['Egypt','Saudi Arabia','UAE','Kuwait','Qatar','Jordan','Morocco','Other Arab country','Other'],noProd:'Not decided yet',submit:'Send on WhatsApp',err:'Enter your name and mobile number.',
  dTitle:'Your message is ready',dSub:'Press the button to send it on WhatsApp, or copy it and send it your own way.',wa:'Send on WhatsApp',copyMsg:'Copy message',copied:'Copied',
  msg:(f)=>`Hello, I would like a demo.\nName: ${f.name}\nCountry: ${f.country}\nMobile: ${f.phone}\nApp: ${f.product}${f.msg?`\nNotes: ${f.msg}`:''}`,close:'Close'}
 };
+if(PIXELS.meta||PIXELS.tiktok||PIXELS.ga4){
+ T.ar.docs.privacy.s.splice(-1,0,['أدوات قياس الإعلانات','نستخدم أدوات قياس من Meta وTikTok وGoogle لنعرف أي إعلاناتنا تصل إلى أصحاب الأنشطة. تحفظ هذه الأدوات ملفات تعريف (كوكيز) في متصفحك، ونرسل لها فقط ما تفعله في الموقع (مثل فتح نموذج العرض أو الضغط على واتساب)، ولا نرسل لها اسمك أو رقم جوالك.']);
+ T.en.docs.privacy.s.splice(-1,0,['Ad measurement tools','We use measurement tools from Meta, TikTok and Google to learn which of our ads reach business owners. These tools store cookies in your browser, and we only send them what you do on the site (such as opening the demo form or tapping WhatsApp), never your name or phone number.']);
+}
 const t=k=>T[LANG][k];
 const L=p=>p[LANG];
 
@@ -3177,7 +3279,7 @@ function buildSky(){
     +`<path class="near" d="M1090 500L1100 150Q1102 64 1112 30H1118Q1124 110 1150 122Q1176 110 1182 30H1188Q1198 64 1200 150L1210 500Z"/><rect class="near" x="1126" y="66" width="48" height="5" rx="2"/>`;
   $('#hSky').innerHTML=far+near+win}
 let hlT=null;
-function countUp(el,to){if(reduceHero()){el.textContent=D(to);return}const t0=performance.now();const step=now=>{const k=Math.min(1,(now-t0)/1600),v=Math.round(to*(1-Math.pow(1-k,3)));el.textContent=D(v);if(k<1)requestAnimationFrame(step)};requestAnimationFrame(step)}
+function countUp(el,to){if(reduceHero()){el.textContent=D(to.toLocaleString('en'));return}const t0=performance.now();const step=now=>{const k=Math.min(1,(now-t0)/1600),v=Math.round(to*(1-Math.pow(1-k,3)));el.textContent=D(v.toLocaleString('en'));if(k<1)requestAnimationFrame(step)};requestAnimationFrame(step)}
 const reduceHero=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
 function buildArt(){
   buildSky();
@@ -3215,11 +3317,14 @@ function buildArt(){
     <g class="k-crate"><rect x="262" y="376" width="44" height="34" rx="6"/><path d="M272 386h3l3 11h12l3-8h-16" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g>
     </svg>`;
   const chartL='M0 52L20 48L40 50L60 42L80 44L100 35L120 38L140 28L160 30L180 20L200 23L220 12L240 7';
-  const growth=`<div class="gcard g-growth"><div class="gt"><span>${t('gGrowth')}<span class="gnum"><span>+<b id="gNum">${D(0)}</b>${LANG==='ar'?'٪':'%'}</span>${svg('arrUp')}</span></span>${svg('trend','gi')}</div><svg class="chart" viewBox="0 0 240 60" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="gArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--h-g2);stop-opacity:.35"/><stop offset="1" style="stop-color:var(--h-g2);stop-opacity:0"/></linearGradient></defs><path class="ca" d="${chartL}L240 60L0 60Z"/><path class="cl" d="${chartL}"/><circle class="cdot" cx="240" cy="7" r="4"/></svg></div>`;
+  const growth=`<div class="gcard g-growth"><div class="gt"><span>${t('gGrowth')}<span class="gnum"><span><b id="gNum">${D(0)}</b> <small>${LANG==='ar'?'ج.م':'EGP'}</small></span>${svg('arrUp')}</span></span>${svg('trend','gi')}</div><svg class="chart" viewBox="0 0 240 60" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="gArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--h-g2);stop-opacity:.35"/><stop offset="1" style="stop-color:var(--h-g2);stop-opacity:0"/></linearGradient></defs><path class="ca" d="${chartL}L240 60L0 60Z"/><path class="cl" d="${chartL}"/><circle class="cdot" cx="240" cy="7" r="4"/></svg></div>`;
   const tiles=t('hTiles').slice(0,1).map(([ic,l],i)=>`<div class="gcard g-tile g-t${i}" style="--d:${(-i*1.3).toFixed(1)}s">${svg(ic)}<b>${l}</b></div>`).join('');
   const badge=`<div class="gcard g-badge">${svg('hshield')}<span><b>${t('hBadgeT')}</b><small>${t('hBadgeS')}</small></span></div>`;
-  $('#hart').innerHTML=scene+growth+tiles+badge;
-  countUp($('#gNum'),124);clearInterval(hlT)}
+  IC.store='<path d="M4 9h16l-1.6-4.5H5.6z"/><path d="M4 9c0 1.4.9 2.2 2 2.2S8 10.4 8 9c0 1.4.9 2.2 2 2.2s2-.8 2-2.2c0 1.4.9 2.2 2 2.2s2-.8 2-2.2c0 1.4.9 2.2 2 2.2s2-.8 2-2.2"/><path d="M5.5 12.6V20h13v-7.4M10 20v-4h4v4"/>';
+  const photo=`<div class="h-glow" aria-hidden="true"></div><div class="h-photo"><img src="img/hero-art.jpg" alt="" width="990" height="720" decoding="async" fetchpriority="high"></div>`;
+  const chips=`<div class="gcard g-chip g-safe"><i>${svg('hshield')}</i><b>${t('gSec')[0]}</b></div><div class="gcard g-chip g-easy"><i>${svg('store')}</i><b>${t('hEasy')}</b></div>`;
+  $('#hart').classList.add('v2');$('#hart').innerHTML=photo+growth+chips+badge;
+  countUp($('#gNum'),4850);clearInterval(hlT)}
 
 let rotI=0,rotT=null;
 function setShop(i){rotI=i;document.querySelectorAll('.h-art .bay').forEach((b,j)=>{b.classList.toggle('on',j===i);b.classList.toggle('half',j===(i+2)%4)})}
@@ -3232,15 +3337,15 @@ const PC={};
 function pcOf(img){try{const c=document.createElement('canvas');c.width=c.height=12;const x=c.getContext('2d',{willReadFrequently:true});x.drawImage(img,0,0,12,12);const d=x.getImageData(0,0,12,12).data;let best=null,bs=-1;for(let i=0;i<d.length;i+=4){const r=d[i],g=d[i+1],b=d[i+2],mx=Math.max(r,g,b),mn=Math.min(r,g,b),l=(mx+mn)/2,sat=mx-mn;const sc=sat*(1-Math.abs(l-128)/128);if(sc>bs){bs=sc;best=[r,g,b]}}return bs>30?`rgb(${best.join(',')})`:null}catch(e){return null}}
 function card(p,k){const o=L(p);return `<article class="card" tabindex="0" role="button" data-n="${p.n}" aria-label="${o.name}" style="--k:${(k||0)%4}${PC[p.n]?`;--pc:${PC[p.n]}`:''}">
   <div class="cimg">${imgPair(p)}<span class="cgo" aria-hidden="true"><span class="arr">←</span></span><button class="cshare" type="button" data-share="${p.n}" aria-label="${t('share')}: ${o.name}">${svg('share')}</button></div>
-  <div class="cb"><span class="cmeta">${S[p.s][LANG]}</span><h3>${o.name}</h3><p class="pr">${o.so}</p>
+  <div class="cb"><span class="cmeta">${S[p.s][LANG]}</span><h3>${o.name}</h3><p class="pr">${D(o.so)}</p>
   <div class="cact"><span class="more">${t('more')} <span class="arr" aria-hidden="true">←</span></span></div></div></article>`}
 
 /* ===== Featured spotlight: top app per sector, auto-advancing ===== */
 const FEAT=[[1,'#16A34A'],[2,'#EA580C'],[7,'#DC2626'],[8,'#7C3AED'],[26,'#0284C7'],[35,'#4F46E5']].map(([n,c])=>({p:P[n-1],c}));
 const reduceM=matchMedia('(prefers-reduced-motion: reduce)');
 let fi=0,fUser=reduceM.matches,fSwap=0;
-const fLayer=p=>p.n===1?`<img class="fg cv" src="img/feature.jpg" alt="${L(p).name}" decoding="async">`:imgPair(p).replace(/ loading="lazy"/g,'');
-function featTx(p){const o=L(p);return `<span class="kick">${t('featKick')} · ${S[p.s][LANG]}</span><h2 class="h2">${o.name}</h2><span class="en">${p.brand}</span><p class="lead">${o.so}</p><ul class="ticks">${o.ft.map((x,j)=>`<li style="--j:${j}">${x}</li>`).join('')}</ul><div class="feat-cta"><button class="btn btn-main" type="button" data-open="${p.n}">${t('details')} <span class="ar" aria-hidden="true">←</span></button><button class="btn btn-ghost" type="button" data-demo="${p.n}">${t('demo')}</button></div>`}
+const fLayer=p=>p.n===1?`<img class="fg cv" src="img/feature.webp" alt="${L(p).name}" decoding="async">`:imgPair(p).replace(/ loading="lazy"/g,'');
+function featTx(p){const o=L(p);return `<span class="kick">${t('featKick')} · ${S[p.s][LANG]}</span><h2 class="h2">${o.name}</h2><span class="en">${p.brand}</span><p class="lead">${D(o.so)}</p><ul class="ticks">${o.ft.map((x,j)=>`<li style="--j:${j}">${x}</li>`).join('')}</ul><div class="feat-cta"><button class="btn btn-main" type="button" data-open="${p.n}">${t('details')} <span class="ar" aria-hidden="true">←</span></button><button class="btn btn-ghost" type="button" data-demo="${p.n}">${t('demo')}</button></div>`}
 function featFill(p){const tx=$('#featTx');tx.innerHTML=featTx(p);[...tx.children].forEach((c,k)=>c.style.setProperty('--i',k));tx.classList.remove('out','in');tx.offsetWidth;tx.classList.add('in')}
 function featShow(i,anim){
   fi=(i+FEAT.length)%FEAT.length;const {p,c}=FEAT[fi],box=$('#featImgs');anim=anim&&!reduceM.matches;
@@ -3253,7 +3358,7 @@ function featShow(i,anim){
   lay.classList.add('enter');old.forEach(o=>{o.classList.remove('enter');o.classList.add('leave')});
   $('#featTx').classList.add('out');
   fSwap=setTimeout(()=>featFill(p),360);setTimeout(()=>old.forEach(o=>o.remove()),1150);
-  const nx=FEAT[(fi+1)%FEAT.length].p;new Image().src=nx.n===1?'img/feature.jpg':nx.img}
+  const nx=FEAT[(fi+1)%FEAT.length].p;new Image().src=nx.n===1?'img/feature.webp':nx.img}
 function featPause(){const b=$('#fPause');$('#feat').classList.toggle('stopped',fUser);b.setAttribute('aria-label',t(fUser?'fPlay':'fPause'));
   b.innerHTML=fUser?'<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>':'<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6.5" y="5" width="4" height="14" rx="1.2"/><rect x="13.5" y="5" width="4" height="14" rx="1.2"/></svg>';
   $('#featTx').setAttribute('aria-live',fUser?'polite':'off')}
@@ -3303,14 +3408,8 @@ function scrollScene(sec,stick,paint,onMeasure){let target=0,cur=-1,raf=0,last=0
   return ()=>{cancelAnimationFrame(raf);ro.disconnect();sheet.removeEventListener('scroll',kick);removeEventListener('resize',resize)}}
 const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
 let stOff=null,enOff=null;
-// Step 1 — "enter the app": on wide screens the poster zooms to fill the stage and dissolves into the story colour
-function enterFx(){if(enOff){enOff();enOff=null}const en=$('#phEnter');if(!en)return;const stick=en.querySelector('.pe-stick'),img=en.querySelector('.ph-img'),info=en.querySelector('.ph-info'),veil=en.querySelector('.pe-veil');
-  const wide=()=>matchMedia('(min-width:901px)').matches;let g={dx:0,dy:0,s:1};
-  const geo=()=>{img.style.transform='';const a=stick.getBoundingClientRect(),b=img.getBoundingClientRect();if(!b.width)return;g={dx:a.left+a.width/2-(b.left+b.width/2),dy:a.top+a.height/2-(b.top+b.height/2),s:Math.max(a.width/b.width,a.height/b.height)*1.04}};
-  const story=$('#phStory'),handoff=()=>wide()&&!matchMedia('(prefers-reduced-motion: reduce)').matches;
-  enOff=scrollScene(en,stick,p=>{story&&story.classList.toggle('wait',handoff()&&p<.999);if(!wide()){img.style.transform=info.style.transform=info.style.opacity=veil.style.opacity='';return}
-    const e=ease(p);img.style.transform='translate3d('+(g.dx*e).toFixed(1)+'px,'+(g.dy*e).toFixed(1)+'px,0) scale('+(1+(g.s-1)*e).toFixed(4)+')';img.style.borderRadius=(26*(1-e)).toFixed(1)+'px';
-    info.style.opacity=Math.max(0,1-p*2.2).toFixed(3);info.style.transform='translate3d(0,'+(-40*e).toFixed(1)+'px,0)';veil.style.opacity=Math.max(0,(p-.55)/.45).toFixed(3)},geo)}
+// Step 1 — the hero stays still (the old scroll zoom left an empty panel mid-scroll)
+function enterFx(){if(enOff){enOff();enOff=null}const st=$('#phStory');st&&st.classList.remove('wait')}
 // Step 2 — the story: stroke draws, camera follows its tip, cards build up; its height is sized from its own steps
 function storyFx(){if(stOff){stOff();stOff=null}const st=$('#phStory');if(!st)return;
   const line=st.querySelector('.ps-line'),tip=st.querySelector('.ps-tip'),cam=st.querySelector('.ps-cam'),stick=st.querySelector('.ps-stick'),art=st.querySelector('.ps-svg'),len=line.getTotalLength();
@@ -3335,7 +3434,7 @@ const scI=sc=>(sc&&sc.i)||[];
 const slug=b=>b.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 function webMock(p,o){const s0=o.sc[0],biz=(s0.t||p.brand).split(' · ')[0],btn=(scI(s0).find(x=>x[0]==='btn')||[])[1]||t('webCta');
   const cards=[...scI(s0),...scI(o.sc[1])].filter(x=>x[0]==='val'||x[0]==='row').slice(0,4);
-  return `<div class="mk mk-web"><div class="mk-bar"><i></i><i></i><i></i><span class="mk-url">mahali.app/${slug(p.brand)}</span></div>
+  return `<div class="mk mk-web"><div class="mk-bar"><i></i><i></i><i></i><span class="mk-url">mahalli.app/${slug(p.brand)}</span></div>
   <nav class="mw-nav"><b><em>${biz.charAt(0)}</em>${biz}</b><span>${t('mwNav').map(x=>'<u>'+x+'</u>').join('')}</span></nav>
   <div class="mw-hero"><div><span class="mw-k">${S[p.s][LANG]}</span><h4>${biz}</h4><p>${t('getWeb')[p.s]}</p><span class="mw-cta">${btn}</span></div>
     <div class="mw-live"><small>${t('mwLive')}</small><b><i></i>${o.live}</b><div class="mw-mini">${o.ft.slice(0,3).map(x=>'<span>'+x+'</span>').join('')}</div></div></div>
@@ -3361,12 +3460,12 @@ function dashMock(p,o){const s1=o.sc[1]||o.sc[0],all=[...scI(s1),...scI(o.sc[0])
     <div class="md-live"><small>${t('dkWeek')}</small><b><i></i>${o.live}</b><div class="md-chart">${thin}</div></div></div></div></div></div></div><div class="lap-base"><i></i></div></div>`}
 const trCard=(ic,h,s2,cls)=>`<div class="tr-fc ${cls}">${svg(ic)}<span><b>${h}</b>${s2?`<small>${s2}</small>`:''}</span></div>`;
 // launch ads we designed for some apps: shown as a 4th tour view in a social post frame
-const ADS={33:{src:'img/ad33.jpg',w:420,iw:919,ih:1152},34:{src:'img/ad34.jpg',w:420,iw:562,ih:700},35:{src:'img/ad35.jpg',w:640,iw:1343,ih:784},36:{src:'img/ad36.jpg',w:640,iw:1360,ih:768}};
+const ADS={3:{src:'img/ad03.webp',w:640,iw:1376,ih:768},40:{src:'img/ad40.webp',w:640,iw:1408,ih:752},33:{src:'img/ad33.webp',w:420,iw:919,ih:1152},34:{src:'img/ad34.webp',w:420,iw:562,ih:700},35:{src:'img/ad35.webp',w:640,iw:1343,ih:784},36:{src:'img/ad36.webp',w:640,iw:1360,ih:768}};
 function tourBlock(p,o){const views=[['app','phone',t('dApp'),t('getApp')(o.ft[0],o.ft[1]||o.ft[0])],['web','web',t('dWeb'),t('getWeb')[p.s]],['dash','dash',t('dDash'),t('getDash')(p.brand,o.ft[2]||o.ft[0])]];const ad=ADS[p.n];if(ad)views.push(['ad','megaphone',t('dAd'),t('adCap')]);
   const st0=prodStats(p,o)[0];const fc={app:trCard('phone',o.ft[0],'','f1')+trCard('bars',o.ft[1]||o.ft[0],'','f2'),web:trCard('web',t('mwLive'),o.live,'f1')+trCard('users',t('dWeb'),t('swWeb'),'f2'),dash:trCard('bars',st0[0],st0[1],'f1')+trCard('dash',o.ft[2]||o.ft[0],'','f2'),ad:''};
   const pane={ad:ad?`<div class="fit"><div class="fit-in auto"><figure class="mk-ad" style="width:${ad.w}px"><div class="mk-ad-top"><em>${p.brand.charAt(0)}</em><span><b>${p.brand}</b><small>${t('adSp')}</small></span></div><img src="${ad.src}" alt="${o.name}" width="${ad.iw}" height="${ad.ih}" decoding="async"><div class="mk-ad-bot"><i></i><i></i><i></i></div></figure></div></div>`:'',app:`<div class="fit"><div class="fit-in auto"><div class="mk-phones">${UI.phone(p,0)}${UI.phone(p,1)}${phone3(p,o)}</div></div></div>`,web:`<div class="fit"><div class="fit-in">${webMock(p,o)}</div></div>`,dash:`<div class="fit"><div class="fit-in">${dashMock(p,o)}</div></div>`};
   return `<div class="tour" id="phTour"><div class="tr-stick">
-    <div class="tr-head"><div class="tr-t"><h3>${t('getTitle')(p.brand)}</h3><p>${t('shSub')}</p></div>
+    <div class="tr-head"><div class="tr-t"><h3>${t('getTitle')(LANG==='ar'?L(p).name:p.brand)}</h3><p>${t('shSub')}</p></div>
       <div class="tr-nav" role="group" aria-label="${t('shTitle')}"><i class="tr-bar" aria-hidden="true"><b></b></i>${views.map(([k,ic,n],i)=>`<button type="button" class="tr-dot${i?'':' on'}" data-tr="${i}" aria-current="${i?'false':'true'}">${svg(ic)}<span>${n}</span></button>`).join('')}</div></div>
     <div class="tr-view"><span class="tr-arc" aria-hidden="true"></span><span class="sx-lv lv-a" aria-hidden="true"><svg viewBox="0 0 200 260"><use href="#frond"/></svg><svg viewBox="0 0 200 260"><use href="#frond"/></svg><svg viewBox="0 0 200 260"><use href="#frond"/></svg></span><span class="sx-lv lv-b" aria-hidden="true"><svg viewBox="0 0 200 260"><use href="#frond"/></svg><svg viewBox="0 0 200 260"><use href="#frond"/></svg><svg viewBox="0 0 200 260"><use href="#frond"/></svg></span><div class="tr-track">${views.map(([k,ic,n,cap],i)=>`<section class="tr-panel${i?'':' on'}" aria-label="${n}">${pane[k]}${fc[k]||''}<p class="tr-cap"><i></i><span>${cap}</span></p></section>`).join('')}</div></div>
   </div></div>`}
@@ -3448,7 +3547,7 @@ function tipsInit(){if(tipStore.get('mh-tips-off'))return;let scrolled=false;add
 
 /* ===== Static render ===== */
 function renderStatic(){
-  document.title=LANG==='ar'?'محلّي':'Mahali';
+  document.title=LANG==='ar'?'محلّي':'Mahalli';
   $('#brandTx').textContent=t('brand');
   $('#langBtn').setAttribute('aria-label',t('langAria'));$('#themeBtn').setAttribute('aria-label',t('themeAria'));$('#menuBtn').setAttribute('aria-label',t('menu'));
   $('#nav').innerHTML=`<span class="nav-pill" aria-hidden="true"></span>`+t('nav').map(([h,l])=>`<a href="${h}">${l}</a>`).join('');navSpy();
@@ -3466,9 +3565,10 @@ function renderStatic(){
   $('#cta2').innerHTML=`${t('demo')} <span class="ar" aria-hidden="true">←</span>`;
   $('#cta1').innerHTML=`${svg('grid')}${t('cta1')}`;
   $('#hTrust').innerHTML=t('hTrust').map(x=>`<li>${svg('hshield')}${x}</li>`).join('');
+  $('#hTag').textContent=t('hTag');$('#hFeat').innerHTML=t('hfeat').map(([ic,b,m])=>`<li>${svg(ic)}<span><b>${b}</b><small>${m}</small></span></li>`).join('');
   const mq=(p,dup)=>`<button class="mq-c" type="button" data-open="${p.n}"${dup?' tabindex="-1" aria-hidden="true"':''}><img src="${p.img}" alt="${dup?'':L(p).name}" loading="lazy" decoding="async"></button>`;const MQ=[1,2,7,8,26,35,12,19,24,27,6,20].map(n=>P[n-1]).filter(Boolean);$('#marq').innerHTML=MQ.map(p=>mq(p)).join('')+MQ.map(p=>mq(p,1)).join('');
   featBuild();
-  $('#pKick').textContent=t('pKick');$('#audQ').textContent=t('audQ');$('#audG').innerHTML=t('aud').map(([ic,h,d,a,m],i)=>`<div class="aud-i"><button type="button" class="aud-b" aria-describedby="audm${i}" ${a==='go'?'data-go="#jrG" data-pulse="#journey .jr-own"':a==='solo'?'data-go="#jrG" data-pulse="#jrSolo"':'data-xp=""'}>${svg(ic)}<span><b>${h}</b><small>${d}</small></span><span class="arr" aria-hidden="true">←</span></button><div class="aud-pop" id="audm${i}" role="tooltip"><p>${m}</p><span>${t('audGo')} <span class="arr" aria-hidden="true">←</span></span></div></div>`).join('');$('#jrKick').textContent=t('jrKick');$('#jrTitle').textContent=t('jrTitle');$('#jrSub').innerHTML=t('jrSub');$('#jrG').innerHTML=t('jr').map(([ic,h,d],i)=>`<li style="--k:${i}"><button type="button" class="jr-b" aria-expanded="false" aria-controls="jrp${i}"><span class="jr-n">${svg(ic)}<b>${D(String(i+1).padStart(2,'0'))}</b></span><span class="jr-tt">${h}</span><span class="jr-d">${d}</span></button><div class="jr-pop" id="jrp${i}" role="region" aria-label="${h}"><b>${h}</b><p>${t('jrMore')[i]}</p><span class="jr-tag">${svg('hshield').replace('hshield','')}${t('jrTag')}</span></div></li>`).join('');$('#jrSolo').innerHTML=`<span>${t('jrSolo')}</span><a class="btn btn-ghost" href="${waLink(t('waSolo'))}" target="_blank" rel="noopener">${svg('wa')}${t('jrSoloB')}</a>`;$('#jrOwnK').textContent=t('jrOwnK');$('#jrOwnT').textContent=t('jrOwnT');$('#jrOwnD').textContent=t('jrOwnD');$('#jrOwnB').innerHTML=svg('wa')+t('jrOwnB');$('#jrOwnB').href=waLink(t('waOwn'));$('#probQ').textContent=t('probQ');$('#probG').innerHTML=t('probs').map(x=>`<button type="button" class="prob" data-prob="${x}">${x}</button>`).join('');$('#sysKick').textContent=t('sysKick');$('#sysTitle').textContent=t('sysTitle');$('#sysSub').innerHTML=t('sysSub');$('#sysNote').textContent=t('sysNote');$('#sysCallT').textContent=t('sysCallT');$('#sysCallS').textContent=t('sysCallS');$('#sysArt').innerHTML=sysArt();$('#xpKick').textContent=t('xpKick');$('#xpTitle').textContent=t('xpTitle');$('#xpClose').setAttribute('aria-label',t('close')||'×');
+  $('#pKick').textContent=t('pKick');$('#audQ').textContent=t('audQ');$('#audG').innerHTML=t('aud').map(([ic,h,d,a,m],i)=>`<div class="aud-i"><button type="button" class="aud-b" aria-describedby="audm${i}" ${a==='go'?'data-go="#jrG" data-pulse="#journey .jr-own"':a==='solo'?'data-go="#jrG" data-pulse="#jrSolo"':'data-xp=""'}>${svg(ic)}<span><b>${h}</b><small>${d}</small></span><span class="arr" aria-hidden="true">←</span></button><div class="aud-pop" id="audm${i}" role="tooltip"><p>${m}</p><span>${t('audGo')} <span class="arr" aria-hidden="true">←</span></span></div></div>`).join('');$('#jrKick').textContent=t('jrKick');$('#jrTitle').textContent=t('jrTitle');$('#jrSub').innerHTML=t('jrSub');$('#jrG').innerHTML=t('jr').map(([ic,h,d],i)=>`<li style="--k:${i}"><button type="button" class="jr-b" aria-expanded="false" aria-controls="jrp${i}"><span class="jr-n">${svg(ic)}<b>${D(String(i+1).padStart(2,'0'))}</b></span><span class="jr-tt">${h}</span><span class="jr-d">${d}</span></button><div class="jr-pop" id="jrp${i}" role="region" aria-label="${h}"><b>${h}</b><p>${t('jrMore')[i]}</p><span class="jr-tag">${svg('hshield').replace('hshield','')}${t('jrTag')}</span></div></li>`).join('');$('#jrSolo').innerHTML=`<span>${t('jrSolo')}</span><a class="jr-link" href="${waLink(t('waSolo'))}" target="_blank" rel="noopener">${t('jrSoloB')} <span class="arr" aria-hidden="true">←</span></a>`;$('#jrOwnK').textContent=t('jrOwnK');$('#jrOwnT').textContent=t('jrOwnT');$('#jrOwnD').textContent=t('jrOwnD');$('#jrOwnB').innerHTML=svg('wa')+t('jrOwnB');$('#jrOwnB').href=waLink(t('waOwn'));$('#probQ').textContent=t('probQ');$('#probG').innerHTML=t('probs').map(x=>`<button type="button" class="prob" data-prob="${x}">${x}</button>`).join('');$('#sysKick').textContent=t('sysKick');$('#sysTitle').textContent=t('sysTitle');$('#sysSub').innerHTML=t('sysSub');$('#sysNote').textContent=t('sysNote');$('#sysCallT').textContent=t('sysCallT');$('#sysCallS').textContent=t('sysCallS');$('#sysArt').innerHTML=sysArt();$('#xpKick').textContent=t('xpKick');$('#xpTitle').textContent=t('xpTitle');$('#xpClose').setAttribute('aria-label',t('close')||'×');
   document.querySelectorAll('.xp-open').forEach(b=>b.innerHTML=b.classList.contains('xp-big')?`${t('viewAll')} <b class="xp-n">${D(P.length)}</b> <span class="ar" aria-hidden="true">←</span>`:`${svg('grid')}${t('viewAll')}`);
   {const cnt={};P.forEach(p=>cnt[p.s]=(cnt[p.s]||0)+1);$('#homeSecs').innerHTML=Object.entries(S).map(([k,v])=>`<button type="button" class="hsec" data-xp="${k}"><span>${v[LANG]}</span><b>${D(cnt[k])}</b></button>`).join('')}$('#pTitle').textContent=t('pTitle');$('#pSub').textContent=t('pSub');
   $('#q').placeholder=t('search');$('#q').setAttribute('aria-label',t('searchAria'));$('#qSug').setAttribute('aria-label',t('sugAria'));$('#qClear').setAttribute('aria-label',t('clearQ'));$('#searchBtn').setAttribute('aria-label',t('searchAria'));
@@ -3479,7 +3579,9 @@ function renderStatic(){
   $('#cSteps').innerHTML=t('cSteps').map((x,i)=>`<li><b>${D(i+1)}</b>${x}</li>`).join('');
   $('#cWa').innerHTML=svg('wa')+t('waChat');$('#cWa').href=waLink(t('waHi'));$('#shDemo').textContent=t('demo');
   $('#plKick').textContent=t('plKick');$('#plTitle').textContent=t('plTitle');$('#plSub').textContent=t('plSub');
-  $('#plansG').innerHTML=t('plans').map(p=>`<div class="plan${p.hl?' hl':''}">${p.tag?`<span class="tag">${p.tag}</span>`:''}<h3 class="pp">${p.n}</h3><div class="ps">${p.s}</div><ul>${p.f.map(x=>`<li>${x}</li>`).join('')}</ul><button class="btn ${p.hl?'btn-acc':'btn-ghost'}" type="button" data-demo="" data-plan="${p.n}">${t('quote')}</button></div>`).join('');
+  $('#plansG').innerHTML=t('plans').map(p=>`<div class="plan${p.hl?' hl':''}">${p.tag?`<span class="tag">${p.tag}</span>`:''}<h3 class="pp">${p.n}</h3><div class="ps">${p.s}</div><ul>${p.f.map(x=>`<li>${x}</li>`).join('')}</ul><button class="btn ${p.hl?'btn-acc':'btn-ghost'}" type="button" data-demo="" data-plan="${p.n}">${p.cta||t('quote')}</button></div>`).join('');
+  /* phones: the swipe row opens on the recommended plan */
+  {const g=$('#plansG'),hl=g.querySelector('.plan.hl');if(hl&&matchMedia('(max-width:640px)').matches)requestAnimationFrame(()=>{const r=hl.getBoundingClientRect(),gr=g.getBoundingClientRect();g.scrollLeft+=r.left+r.width/2-(gr.left+gr.width/2)})}
   $('#fKick').textContent=t('fKick');$('#fTitle').textContent=t('fTitle');
   {const tx=v=>typeof v==='string'?v:(v&&v[LANG])||'';$('#proof').hidden=!REVIEWS.length;$('#rvKick').textContent=t('rvKick');$('#rvTitle').textContent=t('rvTitle');
    $('#rvG').innerHTML=REVIEWS.map(r=>`<figure class="pf-i">${tx(r.result)?`<span class="pf-r">${tx(r.result)}</span>`:''}<blockquote>${tx(r.quote)}</blockquote><figcaption><span class="pf-av" aria-hidden="true">${tx(r.name).trim().charAt(0)}</span><span><b>${tx(r.name)}</b><small>${[tx(r.biz),tx(r.city)].filter(Boolean).join(' · ')}</small></span></figcaption></figure>`).join('');
@@ -3675,14 +3777,14 @@ function render(n){const p=P[n-1],o=L(p);cur=n;const vis=visible();const list=vi
   $('#shBody').innerHTML=`<div class="wrap">
   <div class="ph-enter" id="phEnter"><div class="pe-stick">
   <div class="ph-hero">
-    <div class="ph-img${isF?' sq':''}">${isF?`<img class="fg" src="img/feature.jpg" alt="${o.name}">`:imgPair(p).replace(/ loading="lazy"/g,'')}</div>
-    <div class="ph-info"><span class="cmeta">${S[p.s][LANG]}</span><h2 id="shTitle">${o.name}</h2><span class="en">${p.brand}</span><p class="lead">${o.so}</p><ul class="ticks">${o.ft.map(x=>`<li>${x}</li>`).join('')}</ul>
+    <div class="ph-img${isF?' sq':''}">${isF?`<img class="fg" src="img/feature.webp" alt="${o.name}">`:imgPair(p).replace(/ loading="lazy"/g,'')}</div>
+    <div class="ph-info"><span class="cmeta">${S[p.s][LANG]}</span><h2 id="shTitle">${o.name}</h2><span class="en">${p.brand}</span><p class="lead">${D(o.so)}</p><ul class="ticks">${o.ft.map(x=>`<li>${x}</li>`).join('')}</ul>
     <p class="ph-who">${svg('users')}<span><b>${t('whoLbl')}</b> ${o.who}</span></p>
     <div class="ph-get"><b>${t('getLbl')}</b><span>${svg('dash')}${t('dDash')}</span><span>${svg('web')}${t('dWeb')}</span><span>${svg('phone')}${t('dApp')}</span></div>
     <div class="ph-cta"><button class="btn btn-main" type="button" data-demo="${n}">${t('demo')}</button><a class="btn btn-ghost" href="${waLink(t('waAsk')+o.name)}" target="_blank" rel="noopener">${svg('wa')}${t('waChat')}</a></div></div>
   </div>
   <span class="pe-veil" aria-hidden="true"></span></div></div>
-  <section class="ph-story wait" id="phStory" aria-label="${t('stProb')}"><div class="ps-stick">
+  <section class="ph-story" id="phStory" aria-label="${t('stProb')}"><div class="ps-stick">
     <div class="ps-cam" aria-hidden="true"><svg class="ps-svg" viewBox="0 0 1278 2319" overflow="visible"><path class="ps-track" d="${STORY_D}"/><path class="ps-line" d="${STORY_D}"/><circle class="ps-tip" r="17"/></svg></div>
     <div class="ps-tx">
       <div class="ps-swap"><div class="ps-step s1"><span class="ps-k">${D('01')} · ${t('stProb')}</span><p class="ps-hook">${t('stHook')(o.who.replace(/[.。]\s*$/,''))}</p><ul class="ps-pains">${pains(o.pr).map((x,i)=>`<li data-step="${i}">${x}</li>`).join('')}</ul><p class="ps-cost" data-step="${pains(o.pr).length-1}">${t('stCost')}</p></div>
@@ -3712,12 +3814,23 @@ function closeP(){if(sheet.hidden)return;sheet.classList.remove('open');document
 function step(d){const vis=visible();const list=vis.includes(cur)?vis:P.map(x=>x.n);const i=list.indexOf(cur);render(list[(i+d+list.length)%list.length])}
 $('#shClose').addEventListener('click',closeP);$('#shNext').addEventListener('click',()=>step(1));$('#shPrev').addEventListener('click',()=>step(-1));
 
+/* ===== Ad measurement (see PIXELS in Settings) ===== */
+const addJs=src=>{const e=document.createElement('script');e.async=true;e.src=src;document.head.appendChild(e)};
+if(PIXELS.meta){const q=window.fbq=function(){q.callMethod?q.callMethod.apply(q,arguments):q.queue.push(arguments)};if(!window._fbq)window._fbq=q;q.push=q;q.loaded=true;q.version='2.0';q.queue=[];addJs('https://connect.facebook.net/en_US/fbevents.js');fbq('init',PIXELS.meta);fbq('track','PageView')}
+if(PIXELS.tiktok){const q=window.ttq=window.ttq||[];q.methods=['page','track','identify','instances','debug','on','off','once','ready','alias','group','enableCookie','disableCookie'];q.setAndDefer=(o,m)=>{o[m]=function(){o.push([m].concat([].slice.call(arguments)))}};q.methods.forEach(m=>q.setAndDefer(q,m));addJs('https://analytics.tiktok.com/i18n/pixel/events.js?sdkid='+encodeURIComponent(PIXELS.tiktok)+'&lib=ttq');q.page()}
+if(PIXELS.ga4){window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config',PIXELS.ga4);addJs('https://www.googletagmanager.com/gtag/js?id='+encodeURIComponent(PIXELS.ga4))}
+/* one event name per funnel step, per tool (Meta, TikTok, GA4); never send personal details here */
+const EV={demo:['ViewContent','ViewContent','demo_open'],lead:['Lead','SubmitForm','generate_lead'],wa:['Contact','Contact','contact']};
+function track(k,props={}){const [m,tt,g]=EV[k];try{if(window.fbq)fbq('track',m,props);if(window.ttq)ttq.track(tt,props);if(window.gtag)gtag('event',g,props)}catch(e){}}
+document.addEventListener('click',e=>{if(e.target.closest('a[href^="https://wa.me"]'))track('wa')},true);
+
 /* ===== Demo modal ===== */
 const modal=$('#modal');let lastFocus=null,lastMsg='';
 function waLink(msg){return `https://wa.me/${WHATSAPP}${msg?`?text=${encodeURIComponent(msg)}`:''}`}
 function openDemo(n,plan){lastFocus=document.activeElement;$('#mForm').hidden=false;$('#mDone').hidden=true;$('#fErr').hidden=true;
   $('#fProduct').value=n||(cur&&!sheet.hidden?String(cur):'');
   if(plan)$('#fMsg').value=(LANG==='ar'?'الباقة: ':'Plan: ')+plan;
+  track('demo',{content_name:P[n-1]?L(P[n-1]).name:''});
   modal.hidden=false;setTimeout(()=>{$('#fMore').open=!!$('#fMsg').value.trim();$('#fName').focus()},50)}
 function closeDemo(){modal.hidden=true;if(lastFocus&&lastFocus.focus)lastFocus.focus({preventScroll:true})}
 modal.addEventListener('click',e=>{if(e.target.closest('[data-close]'))closeDemo()});
@@ -3725,7 +3838,7 @@ $('#demoForm').addEventListener('submit',e=>{e.preventDefault();const f=Object.f
   const bad=[];if(!f.name.trim())bad.push('fName');if(f.phone.replace(/\D/g,'').length<8)bad.push('fPhone');
   ['fName','fPhone'].forEach(id=>$('#'+id).setAttribute('aria-invalid',String(bad.includes(id))));
   if(bad.length){$('#fErr').textContent=t('err');$('#fErr').hidden=false;$('#'+bad[0]).focus();return}
-  f.product=f.product?L(P[f.product-1]).name:t('noProd');lastMsg=t('msg')(f);
+  f.product=f.product?L(P[f.product-1]).name:t('noProd');lastMsg=t('msg')(f);track('lead',{content_name:f.product});
   $('#dMsg').textContent=lastMsg;$('#dWa').href=waLink(lastMsg);$('#mForm').hidden=true;$('#mDone').hidden=false;$('#dWa').focus()});
 $('#dCopy').addEventListener('click',async()=>{const b=$('#dCopy');try{await navigator.clipboard.writeText(lastMsg);b.textContent=t('copied')}catch(err){const r=document.createRange();r.selectNodeContents($('#dMsg'));const s=getSelection();s.removeAllRanges();s.addRange(r)}setTimeout(()=>b.textContent=t('copyMsg'),1800)});
 
@@ -3757,7 +3870,7 @@ renderStatic();renderCards();startRot();
 const m=/^#product-(\d+)$/.exec(location.hash);if(m)openP(+m[1],null);if(/^#(terms|privacy)$/.test(location.hash))openDoc(location.hash.slice(1));readHash();
 new IntersectionObserver(([e])=>$('#top').classList.toggle('paused',!e.isIntersecting),{threshold:0}).observe($('#top'));
 {const io=new IntersectionObserver(es=>es.forEach(e=>{e.target.classList.toggle('paused',!e.isIntersecting);if(e.isIntersecting&&e.target.id==='contact')e.target.classList.add('go')}),{threshold:.25});['#system','#contact'].forEach(q=>io.observe($(q)))}
-tipsInit();
+
 // section entrances (skipped for reduced motion)
 if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
   const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const el=e.target;el.classList.add('in');io.unobserve(el);
