@@ -2270,13 +2270,17 @@ mark{background:color-mix(in srgb,var(--em) 26%,transparent);color:inherit;borde
 @media (min-width:901px){#homeCards{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media (min-width:641px) and (max-width:900px){#homeCards{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
+/* ===== page width follows the screen: 1240px on laptops, up to 1920px on large monitors ===== */
+:root{--wrap:clamp(1240px,90vw,1920px)}
+.wrap{max-width:var(--wrap)}
+@media (min-width:1300px){.hdr-in{width:min(calc(var(--wrap) - 24px),calc(100% - 24px))}}
 /* ===== hero v2: photo art, live cards on top, feature strip ===== */
 #hart.v2{aspect-ratio:1536/860;container-type:inline-size;max-width:none}
 /* reach past the column toward the page edge only when the screen has room for it */
 /* the art reaches in under the headline (where it is faded out) and, on wide screens, out toward the page edge */
 @media (min-width:901px){#hart.v2{width:120%;margin-inline-start:-20%}}
 /* past the 1240px content width, the art also grows into the empty side strip (capped for very large monitors) */
-@media (min-width:1400px){#hart.v2{--out:min(560px,max(0px,(100vw - 1240px) / 2 - 20px));width:calc(132% + var(--out));margin-inline-end:calc(-12% - var(--out))}}
+@media (min-width:1400px){#hart.v2{--out:min(560px,max(0px,(100vw - var(--wrap)) / 2 - 20px));width:calc(132% + var(--out));margin-inline-end:calc(-12% - var(--out))}}
 @media (max-width:900px){#hart.v2{width:100%;margin-inline:auto;max-width:640px}}
 #hart.v2 .h-photo{position:absolute;inset:0;
   -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 96%,transparent),linear-gradient(transparent,#000 7%,#000 91%,transparent);-webkit-mask-composite:source-in;
@@ -2332,6 +2336,24 @@ mark{background:color-mix(in srgb,var(--em) 26%,transparent);color:inherit;borde
 .h-foot2 .h-tag::after{inset-inline:10% 4%;height:4px;bottom:4px;transform:skewY(-3deg)}
 @media (max-width:1240px){.h-foot2 .hfeat{order:3}}
 @media (max-width:900px){.h-foot2 .h-tag{transform:rotate(-3deg);max-width:none}.h-foot2 .hfeat{display:grid;grid-template-columns:1fr 1fr;gap:18px 0}}
+/* tablets: portrait iPads stack like a phone (just bigger and centred); landscape keeps two columns */
+@media (min-width:641px) and (max-width:900px),(min-width:901px) and (max-width:1100px) and (orientation:portrait){
+  .hero-in{grid-template-columns:minmax(0,1fr);min-height:0;gap:clamp(24px,4vw,40px);padding-block:clamp(20px,4vw,40px) 8px}
+  .h-copy{text-align:center}
+  .h1{font-size:clamp(52px,8.4vw,88px);margin-bottom:18px}
+  .lede{margin-inline:auto;font-size:clamp(17px,2.3vw,20px)}
+  .hcta,.h-trust{justify-content:center}
+  #hart.v2{width:100%;max-width:900px;margin-inline:auto}
+  #hart.v2 .h-glow{display:none}
+  [dir] #hart.v2 .h-photo,:root[data-theme] #hart.v2 .h-photo{-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent),linear-gradient(transparent,#000 8%,#000 90%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent),linear-gradient(transparent,#000 8%,#000 90%,transparent)}
+}
+/* tablets and small laptops: the tagline sits on its own line, the strip gets the full width under it */
+@media (max-width:1240px){
+  .h-foot2{flex-wrap:wrap;justify-content:center;gap:14px}
+  .h-foot2 .h-tag{flex:0 0 auto;width:auto;max-width:none;margin-inline:auto;text-align:center}
+  .h-foot2 .h-tag::after{inset-inline:6% 2%}
+  .h-foot2 .hfeat{flex:1 1 100%;order:3}
+}
 @media (max-width:640px){
   #hart.v2 .g-growth{display:block}
   #hart.v2 .g-chip{padding:5px 8px;gap:5px}
