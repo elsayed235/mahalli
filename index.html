@@ -3840,7 +3840,7 @@ function openP(n,from){if(!P[n-1])return;opener=from||null;const r=from&&from.ge
 function closeP(){if(sheet.hidden)return;sheet.classList.remove('open');document.body.style.overflow='';clearInterval(clockT);try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}
   setTimeout(()=>{sheet.hidden=true;if(opener&&opener.focus&&document.contains(opener))opener.focus({preventScroll:true})},matchMedia('(prefers-reduced-motion: reduce)').matches?0:650)}
 function step(d){const vis=visible();const list=vis.includes(cur)?vis:P.map(x=>x.n);const i=list.indexOf(cur);render(list[(i+d+list.length)%list.length])}
-$('#shClose').addEventListener('click',closeP);$('#shNext').addEventListener('click',()=>step(1));$('#shPrev').addEventListener('click',()=>step(-1));
+$('#shClose').addEventListener('click',()=>closeP());$('#shNext').addEventListener('click',()=>step(1));$('#shPrev').addEventListener('click',()=>step(-1));
 
 /* ===== Ad measurement (see PIXELS in Settings) ===== */
 const addJs=src=>{const e=document.createElement('script');e.async=true;e.src=src;document.head.appendChild(e)};
@@ -3906,6 +3906,44 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
   const groups=['section.sec .sh','#featured .feat','#system .sx-tx','#system .sx-art','#journey .jr > li','#journey .jr-own','#homeSecs','#proof .pf-i','#plans .plan','#faq .faq > details','#contact .band','.foot-g > div'];
   groups.forEach(sel=>document.querySelectorAll(sel).forEach((el,i)=>{el.classList.add('rv2');el.style.setProperty('--k',i%6);io.observe(el)}))}
 
+
+/* ===== Back closes the top layer ===== */
+(function(){
+  const H=history,rs=H.replaceState.bind(H),ps=H.pushState.bind(H);
+  // the page rewrites the URL hash while a layer is open; keep our marker on the entry when it does
+  H.replaceState=function(st,t,u){return rs(st==null?H.state:st,t,u)};
+  // the catalog, menu and app page animate out: they count as closed as soon as they lose .open
+  const on=el=>!el.hidden&&el.classList.contains('open');
+  const isOpen={xp:()=>on(xp),menu:()=>on(drw),sheet:()=>on(sheet),doc:()=>!doc.hidden,demo:()=>!modal.hidden};
+  const shut={xp:()=>closeXP(),menu:()=>closeMenu(),sheet:()=>closeP(),doc:()=>closeDoc(),demo:()=>closeDemo()};
+  const stack=[];let fromPop=false,pendingBack=false;
+  function pushLayer(k){
+    if(fromPop||stack[stack.length-1]===k)return;
+    stack.push(k);
+    // a layer the page closed a moment ago hands its history entry to the new one
+    if(pendingBack){pendingBack=false;rs({mh:stack.length},'')}else ps({mh:stack.length},'');
+  }
+  function popLayer(k){
+    if(fromPop)return;const i=stack.lastIndexOf(k);if(i<0)return;
+    if(i<stack.length-1){stack.splice(i,1);return}
+    stack.pop();pendingBack=true;
+    setTimeout(()=>{if(pendingBack){pendingBack=false;H.back()}},0);
+  }
+  addEventListener('popstate',e=>{
+    const d=(e.state&&e.state.mh)||0;fromPop=true;
+    try{while(stack.length>d){const k=stack.pop();if(isOpen[k]())shut[k]()}}finally{fromPop=false}
+  });
+  const wrap=(k,o,c)=>[
+    function(){const was=isOpen[k]();const r=o.apply(this,arguments);if(!was&&isOpen[k]())pushLayer(k);return r},
+    function(){const was=isOpen[k]();const r=c.apply(this,arguments);if(was&&!isOpen[k]())popLayer(k);return r}];
+  [openXP,closeXP]=wrap('xp',openXP,closeXP);
+  [openMenu,closeMenu]=wrap('menu',openMenu,closeMenu);
+  [openP,closeP]=wrap('sheet',openP,closeP);
+  [openDoc,closeDoc]=wrap('doc',openDoc,closeDoc);
+  [openDemo,closeDemo]=wrap('demo',openDemo,closeDemo);
+  // a layer opened from a shared link (#product-26, #apps, #terms) gets an entry too, so Back lands on the home page
+  ['xp','sheet','doc'].forEach(k=>{if(isOpen[k]())pushLayer(k)});
+})();
 </script>
 
 </body>
