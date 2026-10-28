@@ -2275,7 +2275,8 @@ mark{background:color-mix(in srgb,var(--em) 26%,transparent);color:inherit;borde
 /* reach past the column toward the page edge only when the screen has room for it */
 /* the art reaches in under the headline (where it is faded out) and, on wide screens, out toward the page edge */
 @media (min-width:901px){#hart.v2{width:120%;margin-inline-start:-20%}}
-@media (min-width:1400px){#hart.v2{width:132%;margin-inline-end:-12%}}
+/* past the 1240px content width, the art also grows into the empty side strip (capped for very large monitors) */
+@media (min-width:1400px){#hart.v2{--out:min(560px,max(0px,(100vw - 1240px) / 2 - 20px));width:calc(132% + var(--out));margin-inline-end:calc(-12% - var(--out))}}
 @media (max-width:900px){#hart.v2{width:100%;margin-inline:auto;max-width:640px}}
 #hart.v2 .h-photo{position:absolute;inset:0;
   -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 96%,transparent),linear-gradient(transparent,#000 7%,#000 91%,transparent);-webkit-mask-composite:source-in;
