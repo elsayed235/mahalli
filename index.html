@@ -1856,7 +1856,7 @@ body{font-size:16px;line-height:1.75}
   .hdr{padding-top:8px}
   .hdr-in{width:calc(100% - 16px);min-height:56px;padding-inline:10px;border-radius:18px;gap:8px}
   .hdr.scrolled .hdr-in{min-height:52px}
-  .bmark{width:34px;height:34px;border-radius:10px}
+  .bmark:not(.n41-mk){width:34px;height:34px;border-radius:10px}
   .bword #brandTx{font-size:18px}
   .tools{gap:6px}
   .tbtn{height:36px;min-width:36px;padding:0 9px;border-radius:11px}
@@ -2415,6 +2415,23 @@ html.booting{overflow:hidden}
 .bmark{border-radius:23%;overflow:hidden;box-shadow:none}
 .brand:hover .bmark{transform:none}
 .sx-ic svg{width:70%;height:70%}
+
+/* ===== Nº41 logo (40 + 1) ===== */
+:root{--n41-o:#9FB0A6}
+:root[data-theme="dark"]{--n41-o:#5E776C}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--n41-o:#5E776C}}
+.bmark.n41-mk{width:auto;height:auto;border-radius:0;box-shadow:none;overflow:visible;background:none;display:inline-flex;align-items:center;direction:ltr;unicode-bidi:isolate;font-family:var(--f-display);font-weight:700;font-size:32px;line-height:1;letter-spacing:-.05em;transition:none}
+.n41-o{color:transparent;-webkit-text-stroke:1.6px var(--n41-o);paint-order:stroke}
+.n41-p{color:var(--accent);font-size:.72em;margin:0 .06em 0 .14em;letter-spacing:0}
+.n41-1{display:inline-block;color:var(--em);transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.brand:hover .n41-1{transform:translateY(-3px)}
+.brand .bword{padding-inline-start:11px;border-inline-start:1.5px solid var(--line2)}
+.bword #brandTx{letter-spacing:-.02em}
+:root[lang="ar"] .bword small{font-family:var(--f-body);letter-spacing:0;text-transform:none;font-size:10.5px}
+.foot .n41-mk{font-size:30px}
+@media (max-width:560px){.bmark.n41-mk{font-size:26px}.n41-o{-webkit-text-stroke-width:1.3px}}
+@media (max-width:380px){.bword small{display:none}}
+@media (prefers-reduced-motion:reduce){.n41-1{transition:none}.brand:hover .n41-1{transform:none}}
 </style>
 <script>(function(){try{var d=document.documentElement,m=localStorage.getItem('mh-theme');if(m==='light'||m==='dark')d.dataset.theme=m;d.classList.add(sessionStorage.getItem('mh-boot')?'no-boot':'booting')}catch(e){}})();</script>
 </head>
@@ -2428,7 +2445,7 @@ document.addEventListener('DOMContentLoaded',function(){(document.fonts&&documen
 <div id="app">
 <header class="hdr">
   <div class="wrap hdr-in">
-    <a class="brand" href="#top" aria-label="Mahalli"><span class="bmark" aria-hidden="true"><svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" class="mhl mhl-flat" shape-rendering="geometricPrecision"><rect width="512" height="512" rx="116" fill="#0B6B47"/><path class="mhl-awn" fill="#EDB548" d="M132 118H380a20 20 0 0 1 20 20V160a48 36 0 0 1-96 0a48 36 0 0 1-96 0a48 36 0 0 1-96 0V138a20 20 0 0 1 20-20Z"/><path class="mhl-door" fill="#FFFFFF" d="M176 406V306C176 266 212 246 256 228C300 246 336 266 336 306V406Z"/></svg></span><span class="bword"><span id="brandTx"></span><small>Business Apps</small></span></a>
+    <a class="brand" href="#top" aria-label="Nº41"><span class="bmark n41-mk" aria-hidden="true"><span class="n41-o">40</span><span class="n41-p">+</span><span class="n41-1">1</span></span><span class="bword"><span id="brandTx"></span><small id="brandSub">Business Apps</small></span></a>
     <nav class="nav" id="nav"></nav>
     <div class="tools">
       <button class="lang-sw" id="langBtn" type="button"><i aria-hidden="true"></i><span lang="ar">ع</span><span lang="en">EN</span></button>
@@ -3238,7 +3255,7 @@ const IC={pen:'<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 
 const svg=(k,cls='')=>`<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[k]}</svg>`;
 
 const T={
-ar:{brand:'محلّي',tbHome:'الرئيسية',tbApps:'البرامج',tbDemo:'اطلب عرضًا',tbSearch:'بحث',tbMenu:'المزيد',tabsAria:'التنقل الرئيسي',searchAria:'ابحث في البرامج',sugAria:'اقتراحات البحث',clearQ:'مسح البحث',needLbl:'أحتاج:',needs:{book:'حجوزات ومواعيد',pay:'مدفوعات وحسابات',team:'متابعة الفريق',track:'متابعة الطلبات والحالات'},sortLbl:'ترتيب',sortRel:'الأنسب',sortAz:'أبجديًا',found:(n,q)=>`نتائج «${q}»: <b>${n}</b>`,popLbl:'الأكثر بحثًا',recent:'عمليات بحثك الأخيرة',clearRecent:'مسح',popular:['عيادة','مطعم','حجز مواعيد','ورشة','مدفوعات','مدرسة','صالون','إيجارات'],seeAll:q=>`اعرض كل النتائج لـ «${q}»`,clearAll:'مسح الكل',removeF:'إزالة',emptyQ:q=>`لا يوجد برنامج جاهز لـ «${q}» حتى الآن، لكن يمكننا بناؤه لك.`,emptyTry:'جرّب:',waCustom:'مرحبًا، أبحث عن برنامج لـ: ',customBtn:'اطلب برنامجًا مخصصًا',stCost:'والنتيجة كل يوم: وقت يضيع، ومال يضيع، وعملاء يذهبون لغيرك.',dAll:'تصفح كل البرامج',dApps:'برنامجًا جاهزًا',dSecs:'الأقسام',dPage:'في الصفحة',dContact:'تواصل معنا',dLegal:'معلومات قانونية',faqAll:n=>`عرض كل الأسئلة (${n})`,faqLess:'عرض أقل',docUpd:'آخر تحديث: أكتوبر ٢٠٢٦',
+ar:{brand:'محلّي',logo:'رقم ٤١',logoSub:'برامج جاهزة',tbHome:'الرئيسية',tbApps:'البرامج',tbDemo:'اطلب عرضًا',tbSearch:'بحث',tbMenu:'المزيد',tabsAria:'التنقل الرئيسي',searchAria:'ابحث في البرامج',sugAria:'اقتراحات البحث',clearQ:'مسح البحث',needLbl:'أحتاج:',needs:{book:'حجوزات ومواعيد',pay:'مدفوعات وحسابات',team:'متابعة الفريق',track:'متابعة الطلبات والحالات'},sortLbl:'ترتيب',sortRel:'الأنسب',sortAz:'أبجديًا',found:(n,q)=>`نتائج «${q}»: <b>${n}</b>`,popLbl:'الأكثر بحثًا',recent:'عمليات بحثك الأخيرة',clearRecent:'مسح',popular:['عيادة','مطعم','حجز مواعيد','ورشة','مدفوعات','مدرسة','صالون','إيجارات'],seeAll:q=>`اعرض كل النتائج لـ «${q}»`,clearAll:'مسح الكل',removeF:'إزالة',emptyQ:q=>`لا يوجد برنامج جاهز لـ «${q}» حتى الآن، لكن يمكننا بناؤه لك.`,emptyTry:'جرّب:',waCustom:'مرحبًا، أبحث عن برنامج لـ: ',customBtn:'اطلب برنامجًا مخصصًا',stCost:'والنتيجة كل يوم: وقت يضيع، ومال يضيع، وعملاء يذهبون لغيرك.',dAll:'تصفح كل البرامج',dApps:'برنامجًا جاهزًا',dSecs:'الأقسام',dPage:'في الصفحة',dContact:'تواصل معنا',dLegal:'معلومات قانونية',faqAll:n=>`عرض كل الأسئلة (${n})`,faqLess:'عرض أقل',docUpd:'آخر تحديث: أكتوبر ٢٠٢٦',
  docs:{terms:{t:'الشروط والأحكام',s:[
  ['عن الخدمة','محلّي تقدّم برامج جاهزة للأنشطة التجارية، يستلمها العميل كاملة: لوحة تحكم وموقع ويب وتطبيق موبايل، إلى جانب خدمات مرتبطة بها مثل الاسم والهوية والبرمجة والرفع على المتاجر والإعلانات.'],
  ['العرض التجريبي والاتفاق','العرض التجريبي مجاني وبدون أي التزام. يبدأ التنفيذ بعد الاتفاق على عرض سعر مكتوب يحدد البرنامج والباقة والمدة والتكلفة.'],
@@ -3287,7 +3304,7 @@ ar:{brand:'محلّي',tbHome:'الرئيسية',tbApps:'البرامج',tbDemo:
  mTitle:'اطلب عرضًا تجريبيًا',mSub:'اترك بياناتك وسنتواصل معك عبر واتساب.',lName:'الاسم',lBiz:'اسم النشاط',lCountry:'الدولة',lPhone:'رقم الجوال',lProduct:'البرنامج',lMsg:'أضف ملاحظة (اختياري)',fNote:'بدون أي التزام. نكمل معك المحادثة على واتساب.',rvKick:'تجارب أصحاب الأنشطة',rvTitle:'أصحاب أنشطة بدأوا معنا',pFrom:'يبدأ من',social:{facebook:'فيسبوك',instagram:'إنستجرام',tiktok:'تيك توك',linkedin:'لينكدإن'},countries:['مصر','السعودية','الإمارات','الكويت','قطر','الأردن','المغرب','دولة عربية أخرى','دولة أخرى'],noProd:'لم أحدد بعد',submit:'إرسال عبر واتساب',err:'اكتب الاسم ورقم الجوال.',
  dTitle:'رسالتك جاهزة',dSub:'اضغط الزر لإرسالها عبر واتساب، أو انسخها وأرسلها بطريقتك.',wa:'إرسال عبر واتساب',copyMsg:'نسخ الرسالة',copied:'تم النسخ',
  msg:(f)=>`مرحبًا، أريد عرضًا تجريبيًا.\nالاسم: ${f.name}\nالدولة: ${f.country}\nالجوال: ${f.phone}\nالبرنامج: ${f.product}${f.msg?`\nملاحظات: ${f.msg}`:''}`,close:'إغلاق'},
-en:{brand:'Mahalli',tbHome:'Home',tbApps:'Apps',tbDemo:'Demo',tbSearch:'Search',tbMenu:'More',tabsAria:'Main navigation',searchAria:'Search the apps',sugAria:'Search suggestions',clearQ:'Clear search',needLbl:'I need:',needs:{book:'Bookings & appointments',pay:'Payments & accounts',team:'Team follow-up',track:'Order & status tracking'},sortLbl:'Sort',sortRel:'Best match',sortAz:'A–Z',found:(n,q)=>`<b>${n}</b> results for “${q}”`,popLbl:'Popular searches',recent:'Your recent searches',clearRecent:'Clear',popular:['clinic','restaurant','booking','workshop','payments','school','salon','rent'],seeAll:q=>`See all results for “${q}”`,clearAll:'Clear all',removeF:'Remove',emptyQ:q=>`No ready-made app for “${q}” yet, but we can build it for you.`,emptyTry:'Try:',waCustom:'Hello, I am looking for an app for: ',customBtn:'Request a custom app',stCost:'The result, every day: lost time, lost money, and customers who go elsewhere.',dAll:'Browse all apps',dApps:'ready-made apps',dSecs:'Categories',dPage:'On this page',dContact:'Contact us',dLegal:'Legal',faqAll:n=>`Show all questions (${n})`,faqLess:'Show less',docUpd:'Last updated: October 2026',
+en:{brand:'Mahalli',logo:'Nº41',logoSub:'Business Apps',tbHome:'Home',tbApps:'Apps',tbDemo:'Demo',tbSearch:'Search',tbMenu:'More',tabsAria:'Main navigation',searchAria:'Search the apps',sugAria:'Search suggestions',clearQ:'Clear search',needLbl:'I need:',needs:{book:'Bookings & appointments',pay:'Payments & accounts',team:'Team follow-up',track:'Order & status tracking'},sortLbl:'Sort',sortRel:'Best match',sortAz:'A–Z',found:(n,q)=>`<b>${n}</b> results for “${q}”`,popLbl:'Popular searches',recent:'Your recent searches',clearRecent:'Clear',popular:['clinic','restaurant','booking','workshop','payments','school','salon','rent'],seeAll:q=>`See all results for “${q}”`,clearAll:'Clear all',removeF:'Remove',emptyQ:q=>`No ready-made app for “${q}” yet, but we can build it for you.`,emptyTry:'Try:',waCustom:'Hello, I am looking for an app for: ',customBtn:'Request a custom app',stCost:'The result, every day: lost time, lost money, and customers who go elsewhere.',dAll:'Browse all apps',dApps:'ready-made apps',dSecs:'Categories',dPage:'On this page',dContact:'Contact us',dLegal:'Legal',faqAll:n=>`Show all questions (${n})`,faqLess:'Show less',docUpd:'Last updated: October 2026',
  docs:{terms:{t:'Terms and conditions',s:[
  ['About the service','Mahalli provides ready-made apps for businesses, delivered complete: a dashboard, a website and a mobile app, plus related services such as naming, identity, development, store publishing and ads.'],
  ['Demo and agreement','The demo is free and comes with no commitment. Work starts once we agree on a written quote that sets the app, the plan, the timeline and the cost.'],
@@ -3625,7 +3642,7 @@ function tipsInit(){if(tipStore.get('mh-tips-off'))return;let scrolled=false;add
 /* ===== Static render ===== */
 function renderStatic(){
   document.title=LANG==='ar'?'محلّي':'Mahalli';
-  $('#brandTx').textContent=t('brand');
+  $('#brandTx').textContent=t('logo');$('#brandSub').textContent=t('logoSub');$('.hdr .brand').setAttribute('aria-label',t('logo'));
   $('#langBtn').setAttribute('aria-label',t('langAria'));$('#themeBtn').setAttribute('aria-label',t('themeAria'));$('#menuBtn').setAttribute('aria-label',t('menu'));
   $('#nav').innerHTML=`<span class="nav-pill" aria-hidden="true"></span>`+t('nav').map(([h,l])=>`<a href="${h}">${l}</a>`).join('');navSpy();
   {const cnt={};P.forEach(p=>cnt[p.s]=(cnt[p.s]||0)+1);$('#drwT').textContent=t('menu');$('#drwX').setAttribute('aria-label',t('close'));$('#docX').setAttribute('aria-label',t('close'));
@@ -3666,7 +3683,7 @@ function renderStatic(){
   $('#faqG').innerHTML=t('faq').map(([q,a],i)=>`<details class="fq${i===0?' show':''}"${i===0?' open':''}><summary><span>${q}</span><svg class="fq-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><div class="fq-a"><div><p>${a}</p></div></div></details>`).join('');$('#fSub').textContent=t('fSub');
   {const n=t('faq').length,all=$('#faq').classList.contains('all');$('#faqMore').parentElement.hidden=n<=FAQ_TOP;$('#faqMore').textContent=all?t('faqLess'):t('faqAll')(D(n));$('#faqMore').setAttribute('aria-expanded',String(all))}
   $('#cTitle').textContent=t('cTitle');['Home','Apps','Demo','Search','Menu'].forEach(k=>$('#tb'+k).textContent=t('tb'+k));$('#mdock').setAttribute('aria-label',t('tabsAria'));$('#hSearchT').textContent=t('search');$('#cSub').textContent=t('cSub');
-  $('#footG').innerHTML=`<div><a class="brand" href="#top">${$('.hdr .brand svg').outerHTML}<span>${t('brand')}</span></a><p>${t('fDesc')}</p></div>
+  $('#footG').innerHTML=`<div><a class="brand" href="#top" aria-label="${t('logo')}">${$('.hdr .bmark').outerHTML}<span>${t('logo')}</span></a><p>${t('fDesc')}</p></div>
    <div><h4>${t('fSectors')}</h4><ul>${Object.entries(S).map(([k,v])=>`<li><a href="#products" data-sec-link="${k}">${v[LANG]}</a></li>`).join('')}</ul></div>
    <div><h4>${t('fCompany')}</h4><ul>${t('fLinks').map(([h,l])=>`<li><a href="${h}">${l}</a></li>`).join('')}</ul></div>
    <div><h4>${t('fContact')}</h4><ul><li><a href="#contact" data-demo="">${t('demo')}</a></li><li><a href="${waLink('')}" target="_blank" rel="noopener">${t('waChat')}${WHATSAPP?` <span dir="ltr">+${WHATSAPP}</span>`:''}</a></li>${Object.entries(SOCIAL).filter(([,u])=>u).map(([k,u])=>`<li><a href="${u}" target="_blank" rel="noopener">${t('social')[k]}</a></li>`).join('')}</ul></div>`;
