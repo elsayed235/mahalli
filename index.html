@@ -2434,11 +2434,50 @@ html.booting{overflow:hidden}
 @media (max-width:560px){.bmark.n41-mk{font-size:26px}.n41-o{-webkit-text-stroke-width:1.3px}}
 @media (max-width:380px){.bword small{display:none}}
 @media (prefers-reduced-motion:reduce){.n41-1{transition:none}.brand:hover .n41-1{transform:none}}
+
+/* ===== Nº41 outline drawn as SVG: clean outer edge, no lines inside the 4 ===== */
+.n41-o{-webkit-text-stroke:0;color:inherit;display:inline-flex}
+.n41-o svg{height:1.1em;width:calc(1.1em * 126 / 110);display:block;overflow:visible}
+.n41-o svg>text{stroke:var(--n41-o);stroke-width:10;stroke-linejoin:round}
+@media (max-width:560px){.n41-o svg>text{stroke-width:8.5}}
+.bt-o{-webkit-text-stroke:0!important;color:inherit;display:inline-flex}
+.bt-o svg{height:1em;width:calc(1em * 126 / 100);display:block;overflow:visible}
+.bt-o svg>text{stroke:#9FB0A6;stroke-width:6.5;stroke-linejoin:round}
+:root[data-theme="dark"] .bt-o svg>text{stroke:#5E776C}
+
+/* ===== About us ===== */
+.ab{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(20px,3vw,40px);align-items:stretch}
+.ab-lede{color:var(--dim);font-size:clamp(15px,1.25vw,17.5px);line-height:1.95;margin:12px 0 0;max-width:62ch}
+.ab-lede b{color:var(--ink)}
+.ab-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:clamp(18px,2.4vw,28px)}
+.ab-stats div{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px 14px;text-align:center}
+.ab-stats b{display:block;font-family:var(--f-display);font-size:clamp(24px,2.6vw,34px);line-height:1.1;color:var(--em-ink)}
+.ab-stats span{display:block;font-size:13px;color:var(--dim);margin-top:4px}
+.ab-fast{position:relative;overflow:hidden;border-radius:28px;padding:clamp(22px,3vw,34px);color:#EAF6EF;background:radial-gradient(120% 90% at 100% 0%,#127A55 0%,#0A3B2A 55%,#071F17 100%)}
+.ab-fast:after{content:"</>";position:absolute;left:18px;bottom:-14px;font:700 110px/1 'JetBrains Mono',monospace;color:rgba(255,255,255,.05);direction:ltr}
+.ab-fk{display:inline-block;font-size:13px;font-weight:600;color:#F7D47E;background:rgba(242,193,78,.12);padding:6px 12px;border-radius:99px}
+.ab-fast h3{font-family:var(--f-display);font-size:clamp(22px,2.2vw,28px);margin:12px 0 16px}
+.ab-fast ol{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.ab-fast li{display:flex;gap:14px;align-items:flex-start}
+.ab-n{flex:none;width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.1);font-weight:700;color:#F2C14E}
+.ab-fast li b{display:block;font-size:16px}.ab-fast li small{display:block;font-size:14px;color:rgba(234,246,239,.75);line-height:1.7;margin-top:2px}
+.ab-fast p{margin:16px 0 0;font-size:13px;color:rgba(234,246,239,.6)}
+.ab-team-h{margin-top:clamp(34px,5vw,56px)}.ab-team-h h3{font-family:var(--f-display);font-size:clamp(22px,2.4vw,30px);margin:0}.ab-team-h p{color:var(--dim);margin:6px 0 0}
+.ab-team{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+.ab-card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:20px;display:flex;flex-direction:column;gap:8px;transition:transform .3s,box-shadow .3s}
+.ab-card:hover{transform:translateY(-3px);box-shadow:0 24px 50px -34px rgba(4,30,20,.5)}
+.ab-ic{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:var(--em-soft);color:var(--em-ink)}
+.ab-ic svg{width:24px;height:24px}
+.ab-card b{font-size:16.5px}.ab-card small{color:var(--dim);font-size:14px;line-height:1.75}
+.ab-cta{margin-top:clamp(22px,3vw,32px);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:18px 22px;border-radius:22px;background:var(--surface2);border:1px solid var(--line)}
+.ab-cta p{margin:0;font-weight:600}.ab-cta div{display:flex;gap:10px;flex-wrap:wrap}
+@media (max-width:900px){.ab{grid-template-columns:minmax(0,1fr)}.ab-team{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.ab-stats{grid-template-columns:1fr 1fr}.ab-team{grid-template-columns:1fr}.ab-cta div,.ab-cta .btn{width:100%}}
 </style>
 <script>(function(){try{var d=document.documentElement,m=localStorage.getItem('mh-theme');if(m==='light'||m==='dark')d.dataset.theme=m;d.classList.add(sessionStorage.getItem('mh-boot')?'no-boot':'booting')}catch(e){}})();</script>
 </head>
 <body>
-<div id="boot" aria-hidden="true"><div class="bt-in"><div class="bt-mk" dir="ltr"><span class="bt-o">40</span><span class="bt-p">+</span><span class="bt-1">1</span></div><b class="bt-w">رقم ٤١</b><span class="bt-s" dir="ltr">Nº41</span><span class="bt-bar"><i></i></span></div></div>
+<div id="boot" aria-hidden="true"><div class="bt-in"><div class="bt-mk" dir="ltr"><span class="bt-o"><svg viewBox="0 0 126 100" aria-hidden="true"><defs><mask id="n41b" maskUnits="userSpaceOnUse"><rect x="-10" y="-10" width="150" height="120" fill="#fff"/><text x="2" y="87.5" font-family="Readex Pro,IBM Plex Sans Arabic,sans-serif" font-weight="700" font-size="100" letter-spacing="-5" fill="#000">40</text></mask></defs><text x="2" y="87.5" font-family="Readex Pro,IBM Plex Sans Arabic,sans-serif" font-weight="700" font-size="100" letter-spacing="-5" fill="none" mask="url(#n41b)">40</text></svg></span><span class="bt-p">+</span><span class="bt-1">1</span></div><b class="bt-w">رقم ٤١</b><span class="bt-s" dir="ltr">Nº41</span><span class="bt-bar"><i></i></span></div></div>
 <script>(function(){var b=document.getElementById('boot'),d=document.documentElement;if(!b)return;if(d.classList.contains('no-boot')){b.remove();return}
 try{sessionStorage.setItem('mh-boot','1')}catch(e){}
 var t0=Date.now(),done=false;function hide(){if(done)return;done=true;setTimeout(function(){b.classList.add('out');d.classList.remove('booting');setTimeout(function(){b.remove()},500)},Math.max(0,1100-(Date.now()-t0)))}
@@ -2447,7 +2486,7 @@ document.addEventListener('DOMContentLoaded',function(){(document.fonts&&documen
 <div id="app">
 <header class="hdr">
   <div class="wrap hdr-in">
-    <a class="brand" href="#top" aria-label="Nº41"><span class="bmark n41-mk" aria-hidden="true"><span class="n41-o">40</span><span class="n41-p">+</span><span class="n41-1">1</span></span><span class="bword"><span id="brandTx"></span><small id="brandSub">40 ready + yours</small></span></a>
+    <a class="brand" href="#top" aria-label="Nº41"><span class="bmark n41-mk" aria-hidden="true"><span class="n41-o"><svg viewBox="0 0 126 110" aria-hidden="true"><defs><mask id="n41m" maskUnits="userSpaceOnUse"><rect x="-10" y="-10" width="150" height="130" fill="#fff"/><text x="2" y="92.5" font-family="Readex Pro,IBM Plex Sans Arabic,sans-serif" font-weight="700" font-size="100" letter-spacing="-5" fill="#000">40</text></mask></defs><text x="2" y="92.5" font-family="Readex Pro,IBM Plex Sans Arabic,sans-serif" font-weight="700" font-size="100" letter-spacing="-5" fill="none" mask="url(#n41m)">40</text></svg></span><span class="n41-p">+</span><span class="n41-1">1</span></span><span class="bword"><span id="brandTx"></span><small id="brandSub">40 ready + yours</small></span></a>
     <nav class="nav" id="nav"></nav>
     <div class="tools">
       <button class="lang-sw" id="langBtn" type="button"><i aria-hidden="true"></i><span lang="ar">ع</span><span lang="en">EN</span></button>
@@ -2559,6 +2598,17 @@ document.addEventListener('DOMContentLoaded',function(){(document.fonts&&documen
 <section class="sec" id="proof" hidden><div class="wrap">
   <div class="sh"><div><span class="kick" id="rvKick"></span><h2 class="h2" id="rvTitle"></h2></div></div>
   <div class="pf" id="rvG"></div>
+</div></section>
+
+<section class="sec" id="about"><div class="wrap">
+  <div class="ab">
+   <div class="ab-intro"><span class="kick" id="abKick"></span><h2 class="h2" id="abTitle"></h2><p class="ab-lede" id="abLede"></p>
+    <div class="ab-stats" id="abStats"></div></div>
+   <div class="ab-fast"><span class="ab-fk" id="abFastK"></span><h3 id="abFastT"></h3><ol id="abFast"></ol><p id="abFastNote"></p></div>
+  </div>
+  <div class="ab-team-h"><h3 id="abTeamT"></h3><p id="abTeamS"></p></div>
+  <div class="ab-team" id="abTeam"></div>
+  <div class="ab-cta"><p id="abCta"></p><div><button class="btn btn-main" type="button" data-demo="" id="abBtn"></button><a class="btn btn-ghost" id="abWa" target="_blank" rel="noopener"></a></div></div>
 </div></section>
 
 <section class="sec" id="plans"><div class="wrap">
@@ -3279,7 +3329,7 @@ ar:{brand:'رقم ٤١',logo:'رقم ٤١',logoSub:'٤٠ جاهزة + فكرتك
  ['خدمات خارجية','نستخدم واتساب للتواصل، وخطوط Google لعرض الصفحة، ومتاجر التطبيقات لنشر تطبيقك. لكل خدمة منها سياسة خصوصية خاصة بها.'],
  ['حقوقك','يمكنك طلب الاطلاع على بياناتك أو تعديلها أو حذفها في أي وقت عبر واتساب.'],
  ['تحديث السياسة','قد نحدّث هذه السياسة من وقت لآخر، ويظهر تاريخ آخر تحديث أعلى الصفحة.']]}},lang:'EN',langAria:'Switch to English',themeAria:'تغيير المظهر',menu:'القائمة',
- nav:[['#products','البرامج'],['#journey','كيف نعمل'],['#plans','الباقات'],['#faq','الأسئلة الشائعة'],['#contact','تواصل معنا']],
+ nav:[['#products','البرامج'],['#journey','كيف نعمل'],['#about','من نحن'],['#plans','الباقات'],['#faq','الأسئلة الشائعة'],['#contact','تواصل معنا']],
  demo:'اطلب عرضًا تجريبيًا',demoShort:'اطلب عرضًا',
  eyebrow:'برامج جاهزة للأنشطة التجارية في مصر والوطن العربي',h1a:'برنامج جاهز',h1b:'لكل',rot:['عيادة','ورشة','صيدلية','مقهى'],shops:['عيادة','ورشة','صيدلية','مقهى'],shopN:[26,2,30,8],
  lede:'أنظمة جاهزة للعيادات والمحلات والورش، تستلمها <b>كاملة</b>: لوحة تحكم وموقع ويب وتطبيق موبايل.',
@@ -3328,7 +3378,7 @@ en:{brand:'Nº41',logo:'Nº41',logoSub:'40 ready + yours',tbHome:'Home',tbApps:'
  ['Third-party services','We use WhatsApp to talk with you, Google Fonts to display the page and the app stores to publish your app. Each has its own privacy policy.'],
  ['Your rights','You can ask to see, correct or delete your data at any time on WhatsApp.'],
  ['Changes to this policy','We may update this policy from time to time; the last update date is shown at the top.']]}},lang:'ع',langAria:'التحويل للعربية',themeAria:'Change appearance',menu:'Menu',
- nav:[['#products','Apps'],['#journey','How it works'],['#plans','Plans'],['#faq','FAQ'],['#contact','Contact']],
+ nav:[['#products','Apps'],['#journey','How it works'],['#about','About'],['#plans','Plans'],['#faq','FAQ'],['#contact','Contact']],
  demo:'Book a demo',demoShort:'Book a demo',
  eyebrow:'Ready-made software for businesses in Egypt and the Arab world',h1a:'Ready-made software',h1b:'for every',rot:['clinic','workshop','pharmacy','café'],shops:['Clinic','Workshop','Pharmacy','Café'],shopN:[26,2,30,8],
  lede:'Ready-made systems for clinics, shops and workshops, delivered <b>complete</b>: a dashboard, a website and a mobile app.',
@@ -3642,6 +3692,15 @@ function tipsInit(){if(tipStore.get('mh-tips-off'))return;let scrolled=false;add
   TIPS.forEach(([id,sel])=>{const el=document.querySelector(sel);if(el){el.dataset.tip=id;io.observe(el)}})}
 
 /* ===== Static render ===== */
+const ABOUT={"ar":{"kick":"من نحن","title":"٤٠ فكرة جاهزة.. وفريق يبني فكرتك رقم ٤١","lede":"نحن فريق متخصص في بناء أنظمة الأعمال للأنشطة في مصر والوطن العربي. جهّزنا أساس ٤٠ نظامًا لأنشطة حقيقية، فنسلّمك نظامك <b>أسرع وأوفر</b> من البناء من الصفر. وإن لم تكن فكرتك بينها، فهي <b>رقم ٤١</b> ونبنيها لك.","stats":[["٤٠","نظامًا جاهزًا"],["٦","قطاعات"],["١–٢","أسبوع للتسليم"],["٣٠","يوم دعم مجاني"]],"fastK":"ليه نسلّم بسرعة؟","fastT":"لأننا لا نبدأ من الصفر","fast":[["الأساس جاهز","كل فكرة من الأربعين لها أساس مبني: الشاشات ولوحة التحكم والموقع والتطبيق."],["نخصّصه لنشاطك","اسمك وشعارك وألوانك، والمميزات التي يحتاجها شغلك أنت."],["فرق تعمل في نفس الوقت","التصميم والبرمجة والاختبار والإطلاق، كل مرحلة يمسكها فريقها."]],"fastNote":"التسليم عادةً من أسبوع إلى أسبوعين من وقت الاتفاق، حسب حجم بياناتك والتعديلات المطلوبة.","teamT":"فريق لكل مرحلة","teamS":"من أول مكالمة حتى بعد الإطلاق، معك متخصص في كل خطوة.","team":[["bulb","الاستراتيجية والمنتج","نفهم نشاطك وجمهورك، ونرتّب الفكرة والمميزات في خطة واضحة."],["pen","التصميم وتجربة المستخدم","هوية وشاشات واضحة يرتاح لها عملاؤك وفريقك."],["code","البرمجة","لوحة تحكم وموقع وتطبيق موبايل متصلة ببعضها، ببيانات محفوظة."],["hshield","الجودة والاختبار","نجرّب كل شاشة وكل خطوة قبل أن تصل إليك."],["megaphone","الإطلاق والتسويق","نرفع تطبيقك على المتاجر ونجهّز حملة إطلاقه."],["headset","الدعم الفني","معك بعد التسليم عبر الهاتف والواتساب، ونتابع مع فريقك."]],"cta":"نشاطك موجود بين الأربعين؟ أو فكرتك هي رقم ٤١؟ كلّمنا ونبدأ.","btn":"اطلب عرضًا تجريبيًا","wa":"كلّمنا واتساب"},"en":{"kick":"About us","title":"40 ready ideas, and a team that builds idea number 41","lede":"We are a team that builds business software for companies in Egypt and the Arab world. We have the foundation of 40 systems for real businesses ready, so you get yours <b>faster and for less</b> than building from scratch. And if your idea is not among them, it is <b>number 41</b>, and we build it for you.","stats":[["40","ready systems"],["6","sectors"],["1–2","weeks to deliver"],["30","days free support"]],"fastK":"Why so fast?","fastT":"We never start from zero","fast":[["The foundation is ready","Every one of the 40 ideas has its screens, dashboard, website and app already built."],["Tailored to your business","Your name, logo and colors, and the features your work actually needs."],["Teams working in parallel","Design, development, testing and launch, each stage handled by its own team."]],"fastNote":"Delivery usually takes one to two weeks from agreement, depending on your data and the changes you need.","teamT":"A team for every stage","teamS":"From the first call to after launch, a specialist with you at each step.","team":[["bulb","Strategy & product","We learn your business and audience and shape the idea into a clear plan."],["pen","Design & UX","An identity and clear screens your customers and team enjoy."],["code","Development","A dashboard, website and mobile app, connected and with your data kept safe."],["hshield","Quality & testing","Every screen and every step is tested before it reaches you."],["megaphone","Launch & marketing","We publish your app on the stores and prepare its launch campaign."],["headset","Support","With you after delivery by phone and WhatsApp, following up with your team."]],"cta":"Is your business among the 40? Or is your idea number 41? Talk to us and we start.","btn":"Book a demo","wa":"Chat on WhatsApp"}};
+function renderAbout(){const a=ABOUT[LANG];
+  $('#abKick').textContent=a.kick;$('#abTitle').textContent=a.title;$('#abLede').innerHTML=a.lede;
+  $('#abStats').innerHTML=a.stats.map(([v,l])=>`<div><b>${v}</b><span>${l}</span></div>`).join('');
+  $('#abFastK').textContent=a.fastK;$('#abFastT').textContent=a.fastT;$('#abFastNote').textContent=a.fastNote;
+  $('#abFast').innerHTML=a.fast.map(([h,d],i)=>`<li><span class="ab-n">${D(String(i+1))}</span><div><b>${h}</b><small>${d}</small></div></li>`).join('');
+  $('#abTeamT').textContent=a.teamT;$('#abTeamS').textContent=a.teamS;
+  $('#abTeam').innerHTML=a.team.map(([ic,h,d])=>`<div class="ab-card"><span class="ab-ic">${svg(ic)}</span><b>${h}</b><small>${d}</small></div>`).join('');
+  $('#abCta').textContent=a.cta;$('#abBtn').textContent=a.btn;$('#abWa').innerHTML=svg('wa')+a.wa;$('#abWa').href=waLink(t('waHi'))}
 function renderStatic(){
   document.title=LANG==='ar'?'رقم ٤١':'Nº41';
   $('#brandTx').textContent=t('logo');$('#brandSub').textContent=t('logoSub');$('.hdr .brand').setAttribute('aria-label',t('logo'));
@@ -3674,7 +3733,7 @@ function renderStatic(){
   $('#sectors').innerHTML=`<button type="button" class="chip" data-sec="">${t('all')} <b>${D(P.length)}</b></button>`+Object.entries(S).map(([k,v])=>`<button type="button" class="chip" data-sec="${k}">${v[LANG]} <b>${D(counts[k])}</b></button>`).join('');
   $('#cSteps').innerHTML=t('cSteps').map((x,i)=>`<li><b>${D(i+1)}</b>${x}</li>`).join('');
   $('#cWa').innerHTML=svg('wa')+t('waChat');$('#cWa').href=waLink(t('waHi'));$('#shDemo').textContent=t('demo');
-  $('#plKick').textContent=t('plKick');$('#plTitle').textContent=t('plTitle');$('#plSub').textContent=t('plSub');
+  $('#plKick').textContent=t('plKick');renderAbout();$('#plTitle').textContent=t('plTitle');$('#plSub').textContent=t('plSub');
   $('#plansG').innerHTML=t('plans').map(p=>`<div class="plan${p.hl?' hl':''}">${p.tag?`<span class="tag">${p.tag}</span>`:''}<h3 class="pp">${p.n}</h3><div class="ps">${p.s}</div><ul>${p.f.map(x=>`<li>${x}</li>`).join('')}</ul><button class="btn ${p.hl?'btn-acc':'btn-ghost'}" type="button" data-demo="" data-plan="${p.n}">${p.cta||t('quote')}</button></div>`).join('');
   /* phones: the swipe row opens on the recommended plan */
   {const g=$('#plansG'),hl=g.querySelector('.plan.hl');if(hl&&matchMedia('(max-width:640px)').matches)requestAnimationFrame(()=>{const r=hl.getBoundingClientRect(),gr=g.getBoundingClientRect();g.scrollLeft+=r.left+r.width/2-(gr.left+gr.width/2)})}
