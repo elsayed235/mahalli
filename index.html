@@ -8,8 +8,8 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="محلّي">
-<title>محلّي</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%20512%20512%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20class%3D%22mhl%20mhl-flat%22%20shape-rendering%3D%22geometricPrecision%22%3E%3Crect%20width%3D%22512%22%20height%3D%22512%22%20rx%3D%22116%22%20fill%3D%22%230B6B47%22%2F%3E%3Cpath%20class%3D%22mhl-awn%22%20fill%3D%22%23EDB548%22%20d%3D%22M132%20118H380a20%2020%200%200%201%2020%2020V160a48%2036%200%200%201-96%200a48%2036%200%200%201-96%200a48%2036%200%200%201-96%200V138a20%2020%200%200%201%2020-20Z%22%2F%3E%3Cpath%20class%3D%22mhl-door%22%20fill%3D%22%23FFFFFF%22%20d%3D%22M176%20406V306C176%20266%20212%20246%20256%20228C300%20246%20336%20266%20336%20306V406Z%22%2F%3E%3C%2Fsvg%3E">
+<title>رقم ٤١</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20512%20512%22%3E%3Crect%20width%3D%22512%22%20height%3D%22512%22%20rx%3D%22116%22%20fill%3D%22%23087F58%22%2F%3E%3Crect%20x%3D%2296%22%20y%3D%22238%22%20width%3D%22148%22%20height%3D%2244%22%20rx%3D%2210%22%20fill%3D%22%23F2C14E%22%2F%3E%3Crect%20x%3D%22148%22%20y%3D%22186%22%20width%3D%2244%22%20height%3D%22148%22%20rx%3D%2210%22%20fill%3D%22%23F2C14E%22%2F%3E%3Cpath%20d%3D%22M300%20112H372V400H300V204L248%20236V170Z%22%20fill%3D%22%23FFFFFF%22%2F%3E%3C%2Fsvg%3E">
 <link rel="apple-touch-icon" href="img/brand/apple-touch-icon.png">
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preload" as="image" href="img/hero-art-960.webp" imagesrcset="img/hero-art-960.webp 960w, img/hero-art.webp 1536w" imagesizes="(min-width:901px) 60vw, 100vw" fetchpriority="high">
@@ -3643,7 +3643,7 @@ function tipsInit(){if(tipStore.get('mh-tips-off'))return;let scrolled=false;add
 
 /* ===== Static render ===== */
 function renderStatic(){
-  document.title=LANG==='ar'?'محلّي':'Mahalli';
+  document.title=LANG==='ar'?'رقم ٤١':'Nº41';
   $('#brandTx').textContent=t('logo');$('#brandSub').textContent=t('logoSub');$('.hdr .brand').setAttribute('aria-label',t('logo'));
   $('#langBtn').setAttribute('aria-label',t('langAria'));$('#themeBtn').setAttribute('aria-label',t('themeAria'));$('#menuBtn').setAttribute('aria-label',t('menu'));
   $('#nav').innerHTML=`<span class="nav-pill" aria-hidden="true"></span>`+t('nav').map(([h,l])=>`<a href="${h}">${l}</a>`).join('');navSpy();
