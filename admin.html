@@ -62,6 +62,14 @@ a:hover .n41-1{transform:translateY(-2px)}
 .gbtn:hover{background:var(--soft)}
 .gbtn svg{width:19px;height:19px}
 .gate-err{margin-top:14px;color:var(--red);font-size:13px;line-height:1.6}
+.or{display:flex;align-items:center;gap:12px;margin:18px 0 4px;color:var(--faint);font-size:12px}.or::before,.or::after{content:"";flex:1;height:1px;background:var(--line)}
+.pwf{text-align:start}.pwf label{display:block;font-size:12.5px;color:var(--faint);font-weight:600;margin-top:12px}
+.pwf input{display:block;width:100%;margin-top:6px;height:46px;padding:0 14px;border-radius:12px;border:1px solid var(--line);background:var(--soft);font-size:14.5px;color:var(--ink);font-family:inherit}
+.pwf input:focus{outline:none;border-color:var(--em);background:var(--card)}
+.pwf .go{all:unset;box-sizing:border-box;cursor:pointer;width:100%;margin-top:16px;min-height:48px;border-radius:12px;background:var(--em);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center}
+.pwf .go:disabled{opacity:.6;cursor:wait}
+.pwf .lnk{all:unset;cursor:pointer;display:block;margin:12px auto 0;color:var(--dim);font-size:12.5px;text-align:center}.pwf .lnk:hover{color:var(--em)}
+.gate-ok{margin-top:14px;color:var(--em);font-size:13px;line-height:1.6}
 .gate-demo{display:inline-block;margin-top:16px;color:var(--dim);font-size:13px}
 .gate-demo:hover{color:var(--em)}
 
@@ -256,6 +264,19 @@ a:hover .n41-1{transform:translateY(-2px)}
 .hrow:hover{background:var(--soft)}.hrow b{display:block;font-size:13.5px;font-weight:600}.hrow small{display:block;font-size:12px;color:var(--faint)}
 
 /* appearance */
+.acc{display:flex;align-items:center;gap:12px}.acc .ava{width:48px;height:48px;border-radius:14px;font-size:18px;font-family:var(--f-d)}.acc b{display:block;font-size:15px}.acc small{color:var(--faint);font-size:12.5px}.acc .pill{margin-inline-start:auto}
+.pill.own{background:var(--gold-soft);color:var(--gold)}.pill.p-on{background:var(--em-soft);color:var(--em)}.pill.p-off{background:var(--soft);color:var(--faint)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{display:inline-flex;align-items:center;gap:8px;padding:9px 12px;border-radius:11px;border:1px solid var(--line);font-size:13px;font-weight:600;color:var(--faint)}.chip svg{width:16px;height:16px}.chip.on{color:var(--ink);background:var(--soft)}
+.hint{color:var(--dim);font-size:13px;line-height:1.8;margin:16px 0 0}.hint b{color:var(--ink)}
+.mrow{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}.mrow:last-child{border-bottom:0}
+.mrow .mi{min-width:0;flex:1}.mrow .mi b{display:block;font-size:14px}.mrow .mi small{display:block;color:var(--faint);font-size:12.5px;overflow:hidden;text-overflow:ellipsis}
+.mrow .mi em{font-style:normal;color:var(--faint);font-size:12px}
+.mact{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.btn.sm{height:34px;padding:0 11px;font-size:12.5px;border-radius:10px}.btn.danger{color:var(--red)}
+.pwrow{display:flex;gap:8px;align-items:flex-end}.pwrow label{flex:1}.pwrow .btn{height:42px;flex:none}
+@media (max-width:640px){.mrow{flex-wrap:wrap}.mact{width:100%;justify-content:flex-start}}
+.stabs{margin-bottom:var(--gap)}
+@media (min-width:881px){.seg.stabs{display:none}}
 .prefs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--gap)}
 .opt{margin-top:18px}
 .opt:first-child{margin-top:0}
@@ -475,6 +496,14 @@ a:hover .n41-1{transform:translateY(-2px)}
     <h1>لوحة التحكم</h1>
     <p>الطلبات والزيارات ومصادر الإعلانات، في مكان واحد.</p>
     <button class="gbtn" id="signin" type="button"><svg viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="m6.3 14.7 6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>الدخول بحساب جوجل</button>
+    <div class="or"><span>أو بالإيميل والباسورد</span></div>
+    <form class="pwf" id="pwf" novalidate>
+      <label>الإيميل<input id="gEmail" type="email" autocomplete="username" dir="ltr" required></label>
+      <label>الباسورد<input id="gPass" type="password" autocomplete="current-password" dir="ltr" required></label>
+      <button class="go" type="submit" id="gGo">دخول</button>
+      <button class="lnk" type="button" id="forgot">نسيت الباسورد؟</button>
+    </form>
+    <div class="gate-ok" id="gateOk" hidden></div>
     <div class="gate-err" id="gateErr" hidden></div>
     <a class="gate-demo" href="?demo=1">معاينة اللوحة ببيانات تجريبية ←</a>
   </div>
@@ -539,6 +568,8 @@ const IC={
   traffic:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
   apps:'<rect x="4" y="4" width="6.5" height="6.5" rx="1.8"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.8"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.8"/><path d="M14 17h6M17 14v6"/>',
   brush:'<path d="M14.5 4.5 19.5 9.5 11 18l-5-5z"/><path d="M6 13c-2 0-3 1.5-3 3.5S2 20 2 20s3.5.5 5.5-.5S10 16 10 15"/>',
+  key:'<circle cx="8" cy="15" r="4"/><path d="m10.8 12.2 8.7-8.7M17 6l3 3M14.5 8.5l2 2"/>',
+  user:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
   users:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M21.5 20a6.5 6.5 0 0 0-4-6"/>',
   eye:'<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
   inbox:'<path d="M4 13 6.5 5h11L20 13v6H4z"/><path d="M4 13h5l1 2h4l1-2h5"/>',
@@ -688,7 +719,7 @@ function vReport(x){const b=bounds(),inR=d=>d&&new Date(d)>=b.from;
     ${won.length?`<h4 class="mt">الصفقات</h4><div class="scroll"><table class="tbl"><tbody>${won.map(l=>`<tr><td><b>${esc(l.name)}</b></td><td>${esc(l.product||'—')}</td><td>${PKGS[l.pkg||'']}</td><td class="num">${money(l.price,l.currency)}</td></tr>`).join('')}</tbody></table></div>`:''}
     ${x.zero.length?`<h4 class="mt">بحثوا ومالقوش</h4><p class="rnote">${x.zero.slice(0,8).map(z=>esc(z[0])).join(' · ')}</p>`:''}
   </div>`}
-const NAV=[['نظرة عامة',[['home','لوحة التحكم','home']]],['المبيعات',[['leads','الطلبات','leads'],['money','الفلوس','cash']]],['التسويق',[['traffic','الزيارات والمصادر','traffic'],['apps','البرامج والبحث','apps']]],['التقارير',[['report','التقرير الدوري','report']]],['الإعدادات',[['settings','المظهر','brush']]]];
+const NAV=[['نظرة عامة',[['home','لوحة التحكم','home']]],['المبيعات',[['leads','الطلبات','leads'],['money','الفلوس','cash']]],['التسويق',[['traffic','الزيارات والمصادر','traffic'],['apps','البرامج والبحث','apps']]],['التقارير',[['report','التقرير الدوري','report']]],['الإعدادات',[['settings','المظهر','brush'],['account','حسابي','user'],['team','الفريق','users']]]];
 const VIEWS=NAV.flatMap(([g,items])=>items.map(i=>[...i,g]));
 const SRC={direct:'مباشر',facebook:'فيسبوك',meta:'إعلان ميتا',instagram:'إنستجرام',tiktok:'تيك توك',google:'جوجل',share:'رابط مشاركة','l.facebook.com':'فيسبوك','lm.facebook.com':'فيسبوك','m.facebook.com':'فيسبوك','www.google.com':'جوجل','l.instagram.com':'إنستجرام',whatsapp:'واتساب'};
 const srcName=s=>SRC[s]||s||'مباشر';
@@ -696,7 +727,7 @@ const DEV={mobile:'موبايل',desktop:'كمبيوتر',tablet:'تابلت'};
 const PALETTE=['var(--em)','var(--gold)','var(--blue)','var(--violet)','var(--teal)','var(--red)'];
 const PERIODS={1:'اليوم',7:'آخر ٧ أيام',30:'آخر ٣٠ يوم',0:'كل الفترة'};
 
-const st={view:'home',period:7,all:{sessions:[],events:[]},leads:[],products:{},fstatus:'all',q:'',user:null,fb:null,anim:true};
+const st={team:[],owner:false,view:'home',period:7,all:{sessions:[],events:[]},leads:[],products:{},fstatus:'all',q:'',user:null,fb:null,anim:true};
 
 /* ---------- the site's logo ---------- */
 const markHTML=id=>`<span class="n41-mk" aria-hidden="true"><span class="n41-o"><svg viewBox="0 0 126 110" aria-hidden="true"><defs><mask id="${id}" maskUnits="userSpaceOnUse"><rect x="-10" y="-10" width="150" height="130" fill="#fff"/><text x="2" y="92.5" font-family="Readex Pro,IBM Plex Sans Arabic,sans-serif" font-weight="700" font-size="100" letter-spacing="-5" fill="#000">40</text></mask></defs><text x="2" y="92.5" font-family="Readex Pro,IBM Plex Sans Arabic,sans-serif" font-weight="700" font-size="100" letter-spacing="-5" fill="none" mask="url(#${id})">40</text></svg></span><span class="n41-p">+</span><span class="n41-1">1</span></span>`;
@@ -738,7 +769,7 @@ async function loadRange(){st.anim=true;$('#view').innerHTML=skeleton();const b=
 function watchLeads(){if(DEMO)return;const {F,db}=st.fb;
   F.onSnapshot(F.query(F.collection(db,'leads'),F.orderBy('at','desc'),F.limit(500)),snap=>{const first=!st.leadsReady;st.leads=snap.docs.map(d=>({id:d.id,...d.data()})).filter(x=>!isTest(x));
     if(!first)snap.docChanges().forEach(c=>{if(c.type==='added'&&!isTest(c.doc.data()))toast('طلب جديد من '+(c.doc.data().name||''))});
-    st.leadsReady=true;navBadges();render(false)},err=>toast('تعذّر تحميل الطلبات: '+err.code))}
+    st.leadsReady=true;navBadges();render(false)},err=>{if(err.code==='permission-denied'&&st.au){st.kicked=true;st.au.U.signOut(st.au.auth)}else toast('تعذّر تحميل الطلبات: '+err.code)})}
 
 /* ---------- numbers ---------- */
 function slice(from,to){const inR=d=>d&&d>=from&&(!to||d<to);
@@ -857,7 +888,7 @@ function vApps(x){return `<div class="grid g2">
 
 function vSettings(){const on=(k,v)=>prefs[k]===v?' on':'';const seg=(k,opts)=>`<div class="seg">${opts.map(([v,l])=>`<button type="button" class="${on(k,v).trim()}" data-pk="${k}" data-pv='${JSON.stringify(v)}'>${l}</button>`).join('')}</div>`;
   const tg=(k,t,s)=>`<div class="tg"><span><b>${t}</b><small>${s}</small></span><button type="button" class="swt" role="switch" aria-checked="${!!prefs[k]}" data-pk="${k}" data-pv='${JSON.stringify(!prefs[k])}' aria-label="${t}"></button></div>`;
-  return `<div class="prefs">
+  return `${setTabs()}<div class="prefs">
   <div class="card">${head('sun','الوضع واللون')}<div class="cpad"><div class="opt"><div class="themes">${[['light','فاتح','l'],['dark','داكن','d'],['auto','تلقائي','a']].map(([v,l,c])=>`<button type="button" class="th${on('theme',v)}" data-pk="theme" data-pv='"${v}"'><i class="${c}"></i><span>${l}</span></button>`).join('')}</div></div>
     <div class="opt"><span class="flbl">اللون الأساسي</span><div class="sw">${Object.entries(ACCENTS).map(([k,a])=>`<button type="button" class="${on('accent',k).trim()}" style="--c:${a[1]}" data-pk="accent" data-pv='"${k}"' title="${a[0]}" aria-label="${a[0]}"></button>`).join('')}</div></div></div></div>
   <div class="card">${head('type','الخطوط')}<div class="cpad"><div class="opt"><label class="flbl" for="pfd">خط العناوين والأرقام</label><select class="sel" id="pfd" data-pk="fd">${Object.keys(FD).map(f=>`<option${f===prefs.fd?' selected':''}>${f}</option>`).join('')}</select></div>
@@ -868,22 +899,23 @@ function vSettings(){const on=(k,v)=>prefs[k]===v?' on':'';const seg=(k,opts)=>`
     <div class="opt"><span class="flbl">استدارة حواف الكروت <b class="num" id="rv">${prefs.radius}px</b></span><input class="range" type="range" min="0" max="32" step="2" value="${prefs.radius}" data-pk="radius" aria-label="استدارة حواف الكروت"><div class="rprev"><i></i><i></i><i></i></div></div></div></div>
   <div class="card">${head('spark','الحركة والافتراضي')}<div class="cpad"><div class="opt">${tg('motion','الحركة','ظهور الكروت بهدوء لما تفتح صفحة')}${tg('heroImg','صورة الترحيب','صورة الموقع في كارت الترحيب بلوحة التحكم')}</div>
     <div class="opt"><span class="flbl">الفترة لما تفتح اللوحة</span>${seg('period',[[1,'اليوم'],[7,'٧ أيام'],[30,'٣٠ يوم'],[0,'الكل']])}</div>
-    <div class="opt"><span class="flbl">الصفحة اللي تفتح عليها</span>${seg('start',VIEWS.filter(v=>v[0]!=='settings').map(v=>[v[0],v[1]]))}</div></div></div>
+    <div class="opt"><span class="flbl">الصفحة اللي تفتح عليها</span>${seg('start',VIEWS.filter(v=>!['settings','account','team'].includes(v[0])).map(v=>[v[0],v[1]]))}</div></div></div>
   <div class="card">${head('lock','الأمان والقائمة')}<div class="cpad"><div class="opt"><span class="flbl">خروج تلقائي لو مفيش نشاط</span>${seg('idle',[[30,'٣٠ دقيقة'],[60,'ساعة'],[240,'٤ ساعات'],[480,'٨ ساعات'],[0,'أبدًا']])}</div><div class="opt"><span class="flbl">القائمة الجانبية</span>${seg('side',[['full','كاملة'],['mini','أيقونات بس']])}</div></div></div>
   <div class="pfoot"><span>الإعدادات دي محفوظة على الجهاز ده بس.</span><button class="btn" type="button" id="prefReset">رجوع للإعدادات الأصلية</button></div></div>`}
 
 function skeleton(){return `<div class="grid g4">${'<div class="card cpad"><div class="sk" style="height:14px;width:50%"></div><div class="sk" style="height:32px;width:70%;margin-top:16px"></div><div class="sk" style="height:60px;margin-top:18px"></div></div>'.repeat(4)}</div><div class="grid g21 mt"><div class="card cpad"><div class="sk" style="height:260px"></div></div><div class="card cpad"><div class="sk" style="height:260px"></div></div></div>`}
 
 function render(anim=st.anim){const v=VIEWS.find(x=>x[0]===st.view)||VIEWS[0],x=['home','traffic','apps','report'].includes(v[0])?stats():null;
-  $('#cGroup').textContent=v[3];$('#cPage').textContent=v[1];$('#pmenu').style.visibility=['leads','settings','money'].includes(v[0])?'hidden':'visible';$('#pbtn').innerHTML=ic('cal')+'<span>'+PERIODS[st.period]+'</span>'+ic('down');
-  $('#view').innerHTML=`<div class="${anim?'anim':''}">${v[0]==='home'?vHome(x):v[0]==='leads'?vLeads():v[0]==='traffic'?vTraffic(x):v[0]==='apps'?vApps(x):v[0]==='money'?vMoney():v[0]==='report'?vReport(x):vSettings()}</div>`;
+  $('#cGroup').textContent=v[3];$('#cPage').textContent=v[1];$('#pmenu').style.visibility=['leads','settings','money','account','team'].includes(v[0])?'hidden':'visible';$('#pbtn').innerHTML=ic('cal')+'<span>'+PERIODS[st.period]+'</span>'+ic('down');
+  $('#view').innerHTML=`<div class="${anim?'anim':''}">${v[0]==='home'?vHome(x):v[0]==='leads'?vLeads():v[0]==='traffic'?vTraffic(x):v[0]==='apps'?vApps(x):v[0]==='money'?vMoney():v[0]==='report'?vReport(x):v[0]==='account'?vAccount():v[0]==='team'?vTeam():vSettings()}</div>`;
   document.querySelectorAll('[data-logo-r]').forEach(e=>e.innerHTML=markHTML('n41r'));
   if(anim)document.querySelectorAll('#view .card').forEach((c,i)=>c.style.setProperty('--i',Math.min(i,12)));st.anim=false;
   const lq=$('#lq');if(lq){lq.oninput=()=>{st.q=lq.value;const p=lq.selectionStart;render(false);const n=$('#lq');n.focus();n.setSelectionRange(p,p)}}}
 function navBadges(){const n=st.leads.filter(l=>norm(l.status)==='new').length;document.querySelectorAll('[data-go=leads] .badge').forEach(b=>{b.textContent=n;b.hidden=!n})}
-function buildNav(){$('#navD').innerHTML=NAV.map(([g,items])=>`<div class="sec-lbl">${g}</div>`+items.map(([k,l,i])=>`<button class="nav${st.view===k?' on':''}" data-go="${k}" title="${l}">${ic(i)}<span>${l}</span>${k==='leads'?'<span class="badge" hidden></span>':''}</button>`).join('')).join('');
-  $('#navM').innerHTML=VIEWS.map(([k,l,i])=>`<button class="nav${st.view===k?' on':''}" data-go="${k}">${ic(i)}<span>${{home:'الرئيسية',traffic:'الزيارات',apps:'البرامج',report:'التقرير'}[k]||l}</span>${k==='leads'?'<span class="badge" hidden></span>':''}</button>`).join('');navBadges()}
-function go(v){st.view=v;st.anim=true;try{history.replaceState(null,'','#'+v)}catch(e){}document.querySelectorAll('.nav').forEach(b=>b.classList.toggle('on',b.dataset.go===v));render();scrollTo({top:0})}
+const hidden=k=>k==='team'&&!st.owner;
+function buildNav(){$('#navD').innerHTML=NAV.map(([g,items])=>`<div class="sec-lbl">${g}</div>`+items.filter(i=>!hidden(i[0])).map(([k,l,i])=>`<button class="nav${st.view===k?' on':''}" data-go="${k}" title="${l}">${ic(i)}<span>${l}</span>${k==='leads'?'<span class="badge" hidden></span>':''}</button>`).join('')).join('');
+  $('#navM').innerHTML=VIEWS.filter(v=>!['account','team'].includes(v[0])).map(([k,l,i])=>`<button class="nav${st.view===k?' on':''}" data-go="${k}">${ic(i)}<span>${{settings:'الإعدادات',home:'الرئيسية',traffic:'الزيارات',apps:'البرامج',report:'التقرير'}[k]||l}</span>${k==='leads'?'<span class="badge" hidden></span>':''}</button>`).join('');navBadges()}
+function go(v){if(hidden(v))v='home';st.view=v;st.anim=true;try{history.replaceState(null,'','#'+v)}catch(e){}document.querySelectorAll('.nav').forEach(b=>b.classList.toggle('on',b.dataset.go===v));render();scrollTo({top:0})}
 
 /* ---------- one order: create or edit everything about it, see the customer's other orders ---------- */
 const CC={'مصر':'20','Egypt':'20','السعودية':'966','Saudi Arabia':'966','الإمارات':'971','UAE':'971','الكويت':'965','Kuwait':'965','قطر':'974','Qatar':'974','الأردن':'962','Jordan':'962','المغرب':'212','Morocco':'212'};
@@ -947,6 +979,93 @@ async function save(id,patch){const l=st.leads.find(x=>x.id===id);if(l)Object.as
 function csv(){const rows=[['التاريخ','الاسم','الرقم','الدولة','البرنامج','الحالة','الباقة','السعر','المدفوع','العملة','موعد التسليم','المصدر','الحملة','ملاحظة العميل','ملاحظاتك']].concat(st.leads.map(l=>[toD(l.at)?.toLocaleString('en-GB')||'',l.name,l.phone,l.country,l.product,STATUS[norm(l.status)],PKGS[l.pkg||''],l.price??'',l.paid??'',l.currency||'',l.due||'',srcName(l.src),l.utm&&l.utm.campaign||'',l.msg||'',l.note||'']));
   const b=new Blob(['﻿'+rows.map(r=>r.map(c=>'"'+String(c??'').replace(/"/g,'""')+'"').join(',')).join('\n')],{type:'text/csv;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='no41-orders-'+new Date().toISOString().slice(0,10)+'.csv';a.click()}
 
+
+/* ---------- my account: sign-in methods, add or change a password ---------- */
+const GSVG="<svg viewBox=\"0 0 48 48\"><path fill=\"#FFC107\" d=\"M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z\"/><path fill=\"#FF3D00\" d=\"m6.3 14.7 6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z\"/><path fill=\"#4CAF50\" d=\"M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z\"/><path fill=\"#1976D2\" d=\"M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z\"/></svg>";
+const curUser=()=>st.au?st.au.auth.currentUser:null;
+const provs=()=>DEMO?(st.demoPw?['google.com','password']:['google.com']):((curUser()||{}).providerData||[]).map(p=>p.providerId);
+const setTabs=()=>`<div class="seg stabs">${[['settings','المظهر'],['account','حسابي'],['team','الفريق']].filter(v=>!hidden(v[0])).map(([k,l])=>`<button type="button" class="${st.view===k?'on':''}" data-go="${k}">${l}</button>`).join('')}</div>`;
+function vAccount(){const u=st.user||{},p=provs(),hasPw=p.includes('password'),hasG=p.includes('google.com');
+  const ava=u.photoURL?`<img src="${esc(u.photoURL)}" alt="">`:esc((u.displayName||u.email||'؟').charAt(0));
+  return `${setTabs()}<div class="prefs">
+  <div class="card">${head('user','حسابك')}<div class="cpad">
+    <div class="acc"><span class="ava">${ava}</span><div><b>${esc(u.displayName||'')}</b><small dir="ltr">${esc(u.email||'')}</small></div><span class="pill ${st.owner?'own':'p-on'}">${st.owner?'مالك':'عضو في الفريق'}</span></div>
+    <div class="opt"><span class="flbl">تقدر تدخل بـ</span><div class="chips"><span class="chip${hasG?' on':''}">${GSVG}جوجل ${hasG?'✓':'(مش مربوط)'}</span><span class="chip${hasPw?' on':''}">${ic('key')}إيميل وباسورد ${hasPw?'✓':'(مفيش باسورد لسه)'}</span></div></div>
+    <p class="hint">${hasPw?(hasG?'حسابك شغّال بالطريقتين: زرار جوجل، أو الإيميل والباسورد من أي جهاز.':'بتدخل بالإيميل والباسورد. لو الإيميل ده جيميل، تقدر كمان تدوس «الدخول بحساب جوجل» وهيفتح نفس الحساب.'):'دلوقتي بتدخل بجوجل بس. حط باسورد هنا، وبعد كده تقدر تدخل من أي جهاز بالإيميل <b dir="ltr">'+esc(u.email||'')+'</b> والباسورد، من غير ما تفتح حساب جوجل عليه.'}</p>
+  </div></div>
+  <div class="card">${head('key',hasPw?'تغيير الباسورد':'حط باسورد لحسابك')}<div class="cpad"><form id="pwSet" class="of" autocomplete="off">
+    ${hasPw?'<label>الباسورد الحالي<input type="password" name="cur" autocomplete="current-password" dir="ltr" required></label>':''}
+    <label>الباسورد الجديد (٨ حروف أو أرقام على الأقل)<input type="password" name="pw" minlength="8" autocomplete="new-password" dir="ltr" required></label>
+    <label>اكتبه تاني<input type="password" name="pw2" minlength="8" autocomplete="new-password" dir="ltr" required></label>
+    <div class="row" style="margin-top:18px"><button class="wa" type="submit" style="height:42px;padding:0 18px">${hasPw?'غيّر الباسورد':'احفظ الباسورد'}</button></div>
+  </form></div></div></div>`}
+async function savePw(f){const v=Object.fromEntries(new FormData(f).entries()),b=f.querySelector('button[type=submit]');
+  if(v.pw.length<8){toast('الباسورد لازم ٨ حروف أو أرقام على الأقل');return}
+  if(v.pw!==v.pw2){toast('الباسورد والتأكيد مش زي بعض');return}
+  if(DEMO){st.demoPw=true;toast('اتحفظ الباسورد (معاينة)');render(false);return}
+  const {U,auth}=st.au,u=auth.currentUser,had=provs().includes('password');b.disabled=true;
+  const run=()=>had?U.updatePassword(u,v.pw):U.linkWithCredential(u,U.EmailAuthProvider.credential(u.email,v.pw));
+  try{if(had)await U.reauthenticateWithCredential(u,U.EmailAuthProvider.credential(u.email,v.cur));
+    try{await run()}catch(e){if(e.code!=='auth/requires-recent-login')throw e;
+      const g=new U.GoogleAuthProvider();g.setCustomParameters({login_hint:u.email});await U.reauthenticateWithPopup(u,g);await run()}
+    await u.reload();toast(had?'اتغيّر الباسورد':'تمام، تقدر تدخل بالإيميل والباسورد من دلوقتي');render(false)}
+  catch(e){toast(({'auth/invalid-credential':'الباسورد الحالي غلط','auth/wrong-password':'الباسورد الحالي غلط','auth/weak-password':'الباسورد ضعيف، خليه أطول','auth/operation-not-allowed':'الدخول بالإيميل والباسورد لسه مش متفعّل في Firebase','auth/popup-closed-by-user':'لازم تأكد بجوجل الأول عشان نحفظ الباسورد','auth/provider-already-linked':'حسابك عليه باسورد بالفعل'})[e.code]||'ماتحفظش: '+e.code)}
+  finally{b.disabled=false}}
+
+/* ---------- team: owners add people with email + password, pause or remove them ---------- */
+const genPw=()=>{const c='abcdefghjkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ23456789';let p='';const r=crypto.getRandomValues(new Uint32Array(10));r.forEach(n=>p+=c[n%c.length]);return p};
+function vTeam(){const list=st.team.filter(m=>!m.removed).sort((a,b)=>(b.active-a.active)||String(a.name).localeCompare(String(b.name),'ar'));
+  const owners=ADMINS.map(e=>`<div class="mrow"><span class="ava">${esc(e.charAt(0).toUpperCase())}</span><div class="mi"><b>${e===(st.user.email||'').toLowerCase()?'إنت':'مالك'}</b><small dir="ltr">${esc(e)}</small></div><span class="pill own">مالك</span></div>`).join('');
+  const rows=list.map(m=>{const seen=toD(m.lastSeen);return `<div class="mrow"><span class="ava">${esc((m.name||m.email||'؟').charAt(0))}</span><div class="mi"><b>${esc(m.name||'')}</b><small dir="ltr">${esc(m.email)}</small><em>${seen?'آخر دخول '+ago(seen):'لسه مادخلش'}</em></div><span class="pill ${m.active?'p-on':'p-off'}">${m.active?'نشط':'موقوف'}</span>
+    <div class="mact"><button class="btn sm" type="button" data-mreset="${m.id}" title="يوصله إيميل يغيّر منه الباسورد">رابط باسورد جديد</button><button class="btn sm" type="button" data-mtog="${m.id}">${m.active?'إيقاف':'تفعيل'}</button><button class="btn sm danger" type="button" data-mdel="${m.id}">حذف</button></div></div>`}).join('');
+  return `${setTabs()}<div class="grid g21">
+  <div class="card">${head('users','الفريق',(list.length+ADMINS.length)+' أشخاص')}<div class="cpad" style="padding-top:4px">${owners}${rows||''}${list.length?'':'<div class="empty">لسه مفيش أعضاء. ضيف أول واحد من الكارت اللي جنبك.</div>'}</div></div>
+  <div class="card">${head('plus','إضافة عضو')}<div class="cpad"><form id="teamAdd" class="of" autocomplete="off">
+    <label>الاسم<input name="name" maxlength="60" required placeholder="مثلًا: أحمد، المبيعات"></label>
+    <label>الإيميل<input name="email" type="email" dir="ltr" required></label>
+    <div class="pwrow"><label>الباسورد<input name="pw" id="tPw" minlength="8" dir="ltr" required></label><button class="btn" type="button" id="genPw">اقترح باسورد</button></div>
+    <div class="row" style="margin-top:18px"><button class="wa" type="submit" style="height:42px;padding:0 18px">ضيفه</button></div>
+    <p class="hint">ابعتله الإيميل والباسورد، ويدخل من <b dir="ltr">no41.app/admin.html</b>. العضو بيشوف ويعدّل الطلبات والأرقام، لكن مايقدرش يضيف أو يشيل حد.<br><b>إيقاف</b> بيقفل عليه فورًا وتقدر ترجّعه. <b>حذف</b> بيشيل وصوله خالص؛ ولو عايز تمسح حسابه نفسه: Firebase ← Authentication.</p>
+  </form></div></div></div>`}
+function watchTeam(){if(DEMO||!st.owner)return;const {F,db}=st.fb;
+  F.onSnapshot(F.collection(db,'team'),snap=>{st.team=snap.docs.map(d=>({id:d.id,...d.data()}));if(st.view==='team')render(false)},err=>toast('تعذّر تحميل الفريق: '+err.code))}
+async function teamSet(id,patch,msg){const m=st.team.find(x=>x.id===id);if(m)Object.assign(m,patch);
+  if(DEMO){toast(msg+' (معاينة)');render(false);return}
+  try{const {F,db}=st.fb;await F.updateDoc(F.doc(db,'team',id),{...patch,updatedAt:F.serverTimestamp(),updatedBy:st.user.email});toast(msg)}catch(e){toast('ماتحفظش: '+e.code)}}
+async function addMember(f){const v=Object.fromEntries(new FormData(f).entries()),email=v.email.trim().toLowerCase(),name=v.name.trim().slice(0,60),b=f.querySelector('button[type=submit]');
+  if(!name||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){toast('اكتب الاسم وإيميل صحيح');return}
+  if(v.pw.length<8){toast('الباسورد لازم ٨ حروف أو أرقام على الأقل');return}
+  if(ADMINS.includes(email)){toast('ده إيميل مالك، عنده صلاحية بالفعل');return}
+  const old=st.team.find(m=>m.email===email);
+  if(old&&old.active&&!old.removed){toast('العضو ده موجود ونشط بالفعل');return}
+  if(old){if(!await ask(`«${email}» كان عضو قبل كده. ترجّعه؟ (هيدخل بالباسورد القديم بتاعه، أو ابعتله رابط باسورد جديد)`,'رجّعه'))return;
+    await teamSet(old.id,{active:true,removed:false,name},'رجع '+name+' للفريق');f.reset();return}
+  if(DEMO){st.team.push({id:'D'+Date.now(),name,email,active:true});toast('اتضاف '+name+' (معاينة)');render(false);return}
+  const {A,U}=st.au,{F,db}=st.fb;b.disabled=true;
+  /* a second, throw-away Firebase app creates the account, so you stay signed in as yourself */
+  const sec=A.initializeApp(FIREBASE,'add-'+Date.now()),sa=U.initializeAuth(sec,{persistence:U.inMemoryPersistence});let cred=null,fresh=false;
+  try{try{cred=await U.createUserWithEmailAndPassword(sa,email,v.pw);fresh=true}
+      catch(e){if(e.code!=='auth/email-already-in-use')throw e;
+        try{cred=await U.signInWithEmailAndPassword(sa,email,v.pw)}catch(x){throw {code:'exists'}}}
+    if(fresh)try{await U.updateProfile(cred.user,{displayName:name})}catch(e){}
+    try{await F.setDoc(F.doc(db,'team',cred.user.uid),{email,name,active:true,removed:false,createdBy:st.user.email,createdAt:F.serverTimestamp()})}
+    catch(e){if(fresh)try{await cred.user.delete()}catch(x){}throw e}
+    f.reset();toast('اتضاف '+name+'. ابعتله الإيميل والباسورد');
+    try{await navigator.clipboard.writeText(`لوحة تحكم رقم ٤١\nhttps://no41.app/admin.html\nالإيميل: ${email}\nالباسورد: ${v.pw}`);toast('اتضاف '+name+'، وبيانات الدخول اتنسخت عشان تبعتهاله')}catch(e){}}
+  catch(e){toast(({exists:'الإيميل ده عليه حساب قبل كده بباسورد تاني. امسحه من Firebase ← Authentication أو استخدم إيميل تاني','auth/weak-password':'الباسورد ضعيف، خليه أطول','auth/invalid-email':'الإيميل مش صحيح','auth/operation-not-allowed':'فعّل «Email/Password» في Firebase ← Authentication الأول','permission-denied':'قواعد Firebase لسه القديمة. انشر الملف الجديد firestore.rules'})[e.code]||'مااتضافش: '+e.code)}
+  finally{b.disabled=false;try{await U.signOut(sa)}catch(e){}A.deleteApp(sec).catch(()=>{})}}
+document.addEventListener('submit',e=>{const f=e.target;if(f.id==='pwSet'){e.preventDefault();savePw(f)}else if(f.id==='teamAdd'){e.preventDefault();addMember(f)}});
+document.addEventListener('click',async e=>{const t=e.target;
+  if(t.closest('#genPw')){$('#tPw').value=genPw();return}
+  const r=t.closest('[data-mreset]');if(r){const m=st.team.find(x=>x.id===r.dataset.mreset);if(!m)return;if(DEMO){toast('اتبعت الرابط (معاينة)');return}
+    try{await st.au.U.sendPasswordResetEmail(st.au.auth,m.email);toast('اتبعت رابط تغيير الباسورد على '+m.email)}catch(x){toast('مااتبعتش: '+x.code)}return}
+  const tg=t.closest('[data-mtog]');if(tg){const m=st.team.find(x=>x.id===tg.dataset.mtog);if(!m)return;
+    if(m.active&&!await ask(`توقف «${m.name}»؟ هيتقفل عليه فورًا لحد ما ترجّعه.`,'أيوه، أوقفه'))return;
+    teamSet(m.id,{active:!m.active},m.active?'اتوقف '+m.name:'رجع '+m.name);return}
+  const d=t.closest('[data-mdel]');if(d){const m=st.team.find(x=>x.id===d.dataset.mdel);if(!m)return;
+    if(!await ask(`تحذف «${m.name}» من الفريق؟ مش هيقدر يدخل اللوحة تاني.`,'احذفه'))return;
+    teamSet(m.id,{active:false,removed:true},'اتحذف '+m.name)}});
+
 /* ---------- events ---------- */
 document.addEventListener('click',e=>{const t=e.target;
   const pk=t.closest('[data-pk]:not(select):not(input)');if(pk){setPref(pk.dataset.pk,JSON.parse(pk.dataset.pv));return}
@@ -980,7 +1099,7 @@ $('#refresh').innerHTML=ic('refresh');$('#logoutM').innerHTML=ic('logout');
 /* ---------- sign-in ---------- */
 function enter(user){st.user=user;$('#gate').hidden=true;$('#app').hidden=false;$('#uName').textContent=user.displayName||'';$('#uMail').textContent=user.email||'';
   $('#uAva').innerHTML=user.photoURL?`<img src="${esc(user.photoURL)}" alt="">`:esc((user.displayName||'؟').charAt(0));
-  buildNav();const h=location.hash.slice(1);if(VIEWS.some(v=>v[0]===h))st.view=h;go(st.view);loadRange();watchLeads()}
+  buildNav();const h=location.hash.slice(1);if(VIEWS.some(v=>v[0]===h)&&!hidden(h))st.view=h;if(hidden(st.view))st.view='home';go(st.view);loadRange();watchLeads()}
 function gateErr(m){const e=$('#gateErr');e.innerHTML=m;e.hidden=!m;if(m){$('#splash').hidden=true;$('#gate').hidden=false}}
 /* stay signed in while working; sign out after the chosen idle time (shared across tabs) */
 const ACT='n41-admin-act';let lastTouch=0;
@@ -989,17 +1108,29 @@ const touch=()=>{lastTouch=Date.now();try{localStorage.setItem(ACT,String(lastTo
 const idleOver=()=>{const m=+prefs.idle;if(!m)return false;const a=+(localStorage.getItem(ACT)||0);return a>0&&Date.now()-a>m*60e3};
 const idleTxt=()=>({30:'٣٠ دقيقة',60:'ساعة',240:'٤ ساعات',480:'٨ ساعات'})[prefs.idle]||'فترة';
 async function boot(){await loadProducts();
-  if(DEMO){$('#splash').hidden=true;$('#demoBar').hidden=false;$('#logout').onclick=$('#logoutM').onclick=()=>location.replace('admin.html');enter({displayName:'معاينة',email:'demo@no41.app'});return}
+  if(DEMO){$('#splash').hidden=true;$('#demoBar').hidden=false;$('#logout').onclick=$('#logoutM').onclick=()=>location.replace('admin.html');st.owner=true;st.team=[{id:'d1',name:'أحمد (مبيعات)',email:'ahmed@example.com',active:true,lastSeen:new Date(Date.now()-36e5*3)},{id:'d2',name:'سارة',email:'sara@example.com',active:false}];enter({displayName:'معاينة',email:'demo@no41.app'});return}
   const [A,U,F]=await Promise.all([import(V+'firebase-app.js'),import(V+'firebase-auth.js'),import(V+'firebase-firestore.js')]);
-  const app=A.initializeApp(FIREBASE),auth=U.getAuth(app);st.fb={F,db:F.getFirestore(app)};
+  const app=A.initializeApp(FIREBASE),auth=U.getAuth(app);auth.languageCode='ar';st.fb={F,db:F.getFirestore(app)};st.au={A,U,auth};
   const out=()=>U.signOut(auth).then(()=>location.replace('admin.html'));$('#logout').onclick=out;$('#logoutM').onclick=out;
   U.getRedirectResult(auth).catch(e=>gateErr('تعذّر الدخول: '+e.code));
   st.expire=()=>{st.expired=true;U.signOut(auth)};setInterval(()=>{if(!$('#app').hidden&&idleOver())st.expire()},30000);
-  U.onAuthStateChanged(auth,u=>{$('#splash').hidden=true;if(!u||u.isAnonymous){$('#gate').hidden=false;$('#app').hidden=true;$('#dlg').hidden=true;if(st.expired)gateErr('اتقفلت الجلسة لأنك ماكنتش نشط لمدة '+idleTxt()+'. ادخل تاني.');return}
+  U.onAuthStateChanged(auth,async u=>{if(!u||u.isAnonymous){$('#splash').hidden=true;$('#gate').hidden=false;$('#app').hidden=true;$('#dlg').hidden=true;if(st.expired)gateErr('اتقفلت الجلسة لأنك ماكنتش نشط لمدة '+idleTxt()+'. ادخل تاني.');else if(st.kicked)gateErr('صلاحيتك على اللوحة اتشالت. كلّم صاحب الحساب.');return}
     if(idleOver()){st.expire();return}
-    if(!ADMINS.includes((u.email||'').toLowerCase())){gateErr('الحساب <b>'+esc(u.email)+'</b> مش مسموح له يدخل اللوحة.');U.signOut(auth);return}
-    st.fb.uid=u.uid;touch();if($('#app').hidden)enter(u)});
-  $('#signin').onclick=async()=>{gateErr('');const p=new U.GoogleAuthProvider();p.setCustomParameters({prompt:'select_account'});
+    const email=(u.email||'').toLowerCase();let owner=ADMINS.includes(email)&&u.emailVerified,mem=null;
+    if(!owner){try{const d=await F.getDoc(F.doc(st.fb.db,'team',u.uid));if(d.exists()&&d.data().active===true)mem=d.data()}catch(e){}}
+    $('#splash').hidden=true;
+    if(!owner&&!mem){gateErr('الحساب <b dir="ltr">'+esc(u.email||'')+'</b> مش مسموح له يدخل اللوحة.'+(ADMINS.includes(email)?'':' لو إنت في الفريق، اطلب من صاحب الحساب يضيفك أو يفعّلك.'));U.signOut(auth);return}
+    st.owner=owner;st.fb.uid=u.uid;touch();
+    if(mem)F.updateDoc(F.doc(st.fb.db,'team',u.uid),{lastSeen:F.serverTimestamp()}).catch(()=>{});
+    if($('#app').hidden){enter({displayName:u.displayName||(mem&&mem.name)||email.split('@')[0],email:u.email,photoURL:u.photoURL});watchTeam()}});
+  const gMsg=(ok,m)=>{const o=$('#gateOk');o.innerHTML=ok?m:'';o.hidden=!ok;if(!ok)gateErr(m);else gateErr('')};
+  $('#pwf').onsubmit=async e=>{e.preventDefault();gateErr('');$('#gateOk').hidden=true;const em=$('#gEmail').value.trim(),pw=$('#gPass').value;
+    if(!em||!pw){gateErr('اكتب الإيميل والباسورد');return}const b=$('#gGo');b.disabled=true;b.textContent='بيدخل…';st.kicked=false;
+    try{await U.signInWithEmailAndPassword(auth,em,pw)}catch(x){gateErr(({'auth/invalid-credential':'الإيميل أو الباسورد غلط.'+(ADMINS.includes(em.toLowerCase())?' لو لسه ماحطّتش باسورد: ادخل بجوجل، وبعدين «حسابي» ← حط باسورد.':''),'auth/wrong-password':'الباسورد غلط.','auth/user-not-found':'مفيش حساب بالإيميل ده.','auth/invalid-email':'الإيميل مش صحيح.','auth/too-many-requests':'محاولات كتير. استنى شوية أو غيّر الباسورد من «نسيت الباسورد».','auth/user-disabled':'الحساب ده متوقف.','auth/operation-not-allowed':'الدخول بالإيميل والباسورد لسه مش متفعّل في Firebase.'})[x.code]||'تعذّر الدخول: '+esc(x.code))}
+    finally{b.disabled=false;b.textContent='دخول'}};
+  $('#forgot').onclick=async()=>{const em=$('#gEmail').value.trim();if(!em){gateErr('اكتب إيميلك في الخانة الأول، وبعدين دوس «نسيت الباسورد».');$('#gEmail').focus();return}
+    try{await U.sendPasswordResetEmail(auth,em);gMsg(true,'لو الإيميل ده عليه حساب، هيوصلك رابط تغيير الباسورد خلال دقيقة. بُص في Spam كمان.')}catch(x){gMsg(false,x.code==='auth/invalid-email'?'الإيميل مش صحيح.':'مااتبعتش: '+esc(x.code))}};
+  $('#signin').onclick=async()=>{gateErr('');st.kicked=false;$('#gateOk').hidden=true;const p=new U.GoogleAuthProvider();p.setCustomParameters({prompt:'select_account'});
     try{await U.signInWithPopup(auth,p)}catch(e){if(/popup-blocked|operation-not-supported|cancelled-popup/.test(e.code))U.signInWithRedirect(auth,p);else if(!/popup-closed/.test(e.code))gateErr('تعذّر الدخول: '+esc(e.code))}}}
 boot().catch(e=>gateErr('تعذّر تحميل اللوحة: '+esc(e.message)));
 
