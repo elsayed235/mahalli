@@ -3326,6 +3326,9 @@ const SOCIAL={facebook:'',instagram:'',tiktok:'',linkedin:''};
    meta = Meta Pixel ID (أرقام فقط)، tiktok = TikTok Pixel ID، ga4 = Google Analytics (مثال: G-XXXXXXX).
    تُرسل أحداث فقط (فتح نموذج العرض، إرسال الطلب، الضغط على واتساب)، ولا يُرسل الاسم أو رقم الجوال أبدًا. */
 const PIXELS={meta:'',tiktok:'',ga4:''};
+/* Firebase: يحفظ طلبات العرض التجريبي ويقيس الزيارات في قاعدة بياناتنا (للداشبورد).
+   الصق هنا قيم firebaseConfig من إعدادات المشروع في Firebase، واتركها فارغة ليبقى معطّلًا. */
+const FIREBASE={apiKey:'AIzaSyBQMcSTHbjKO-OlH31AY5i0tgcte429WxY',authDomain:'no41-c753e.firebaseapp.com',projectId:'no41-c753e',storageBucket:'no41-c753e.firebasestorage.app',messagingSenderId:'975362644252',appId:'1:975362644252:web:71ed3fd380680cdd3782d9'};
 /* سعر البداية لكل باقة، نصًا أو {ar,en}. فارغ = لا يظهر سطر "يبدأ من" (مثال: {ar:'١٬٥٠٠ ج.م شهريًا',en:'EGP 1,500 / month'}) */
 const PRICES=['','',''];
 /* آراء عملاء حقيقيين فقط. القسم يختفي ما دامت القائمة فارغة.
@@ -3457,6 +3460,9 @@ if(PIXELS.meta||PIXELS.tiktok||PIXELS.ga4){
  T.ar.docs.privacy.s.splice(-1,0,['أدوات قياس الإعلانات','نستخدم أدوات قياس من Meta وTikTok وGoogle لنعرف أي إعلاناتنا تصل إلى أصحاب الأنشطة. تحفظ هذه الأدوات ملفات تعريف (كوكيز) في متصفحك، ونرسل لها فقط ما تفعله في الموقع (مثل فتح نموذج العرض أو الضغط على واتساب)، ولا نرسل لها اسمك أو رقم جوالك.']);
  T.en.docs.privacy.s.splice(-1,0,['Ad measurement tools','We use measurement tools from Meta, TikTok and Google to learn which of our ads reach business owners. These tools store cookies in your browser, and we only send them what you do on the site (such as opening the demo form or tapping WhatsApp), never your name or phone number.']);
 }
+if(FIREBASE.apiKey&&FIREBASE.projectId){const fix=(L,m,add)=>{const a=T[L].docs.privacy.s;a.forEach(r=>{if(m[r[0]])r[1]=m[r[0]]});a.splice(-1,0,add)};
+ fix('ar',{'كيف تصلنا بياناتك':'عند إرسال النموذج نحفظ طلبك في قاعدة بيانات محمية على Google Firebase، ثم يجهّز الموقع رسالة واتساب تُرسلها أنت. لا يطّلع على الطلبات إلا فريقنا.','ما يحفظه متصفحك':'نحفظ في متصفحك تفضيلات اللغة والمظهر والتلميحات، ومعرّفًا عشوائيًا لا يحمل اسمك ولا رقمك، لنعرف إن كانت الزيارة جديدة أو متكررة.','خدمات خارجية':'نستخدم واتساب للتواصل، وخطوط Google لعرض الصفحة، وGoogle Firebase لحفظ الطلبات وقياس استخدام الموقع، ومتاجر التطبيقات لنشر تطبيقك. لكل خدمة منها سياسة خصوصية خاصة بها.'},['قياس استخدام الموقع','نسجّل دون اسمك أو رقمك كيف يُستخدم الموقع: البرامج التي تُفتح، والبحث، والضغط على الأزرار، ومن أين جاءت الزيارة (مثل إعلان أو رابط مشاركة)، لنحسّن الموقع وإعلاناتنا.']);
+ fix('en',{'How your details reach us':'When you send the form we save your request in a protected database on Google Firebase, then the site prepares a WhatsApp message that you send yourself. Only our team can see requests.','What your browser keeps':'Your browser keeps your language, theme and tip preferences, plus a random ID that carries neither your name nor your number, so we can tell new visits from returning ones.','Third-party services':'We use WhatsApp to talk with you, Google Fonts to display the page, Google Firebase to save requests and measure how the site is used, and the app stores to publish your app. Each has its own privacy policy.'},['How we measure the site','Without your name or number, we record how the site is used: which apps are opened, searches, button taps, and where the visit came from (such as an ad or a shared link), to improve the site and our ads.'])}
 const t=k=>T[LANG][k];
 const L=p=>p[LANG];
 
@@ -3616,7 +3622,7 @@ function storyFx(){if(stOff){stOff();stOff=null}const st=$('#phStory');if(!st)re
 /* ===== Share an app: native share sheet on phones, copy the deep link elsewhere ===== */
 let toastT=0;
 function toast(msg){const el=$('#toast');el.textContent=msg;el.classList.add('on');clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove('on'),2200)}
-function shareP(n){const p=P[n-1];if(!p)return;const o=L(p),url=location.href.split('#')[0]+'#product-'+n;
+function shareP(n){const p=P[n-1];if(!p)return;const o=L(p),url=location.origin+location.pathname+'?utm_source=share&utm_content=p'+n+'#product-'+n;N41.ev('share',{n});
   if(navigator.share){navigator.share({title:o.name+' · '+t('brand'),text:o.so,url}).catch(()=>{});return}
   const done=()=>toast(t('linkCopied'));if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(url).then(done,()=>toast(url));else toast(url)}
 
@@ -3882,7 +3888,9 @@ function apply(keepPage){if(!keepPage)state.page=1;const qt=toks(state.q);
     $('#emptySug').innerHTML=`<span>${t('emptyTry')}</span>`+t('popular').slice(0,4).map(x=>`<button type="button" class="chip" data-sq="${escH(x)}">${escH(x)}</button>`).join('')}
   const act=[];if(state.q.trim())act.push(['q',`«${escH(state.q.trim())}»`]);if(state.sec)act.push(['sec',S[state.sec][LANG]]);state.need.forEach(k=>act.push(['need:'+k,t('needs')[k]]));
   $('#active').hidden=!act.length;$('#active').innerHTML=act.map(([k,l])=>`<button type="button" class="af" data-af="${k}" aria-label="${t('removeF')}: ${l}">${l}<span aria-hidden="true">×</span></button>`).join('')+(act.length>1?`<button type="button" class="af-clear" data-af="all">${t('clearAll')}</button>`:'');
-  $('#qClear').hidden=!state.q;pager(pages);syncHash()}
+  $('#qClear').hidden=!state.q;pager(pages);syncHash();searchEv(state.q,n)}
+// a search counts once the visitor stops typing; zero-result searches show what people want that we do not offer yet
+let sqT=0,sqLast='';function searchEv(q,n){q=q.trim();clearTimeout(sqT);if(q.length<2||q===sqLast)return;sqT=setTimeout(()=>{sqLast=q;N41.ev('search',{q:q.slice(0,60),results:n})},1200)}
 function resetAll(){state.sec=null;state.q='';state.need=[];state.sort='rel';$('#q').value='';$('#sort').value='rel';apply()}
 function syncHash(){if(xp.hidden)return;const u=new URLSearchParams();if(state.q.trim())u.set('q',state.q.trim());if(state.sec)u.set('sec',state.sec);if(state.need.length)u.set('need',state.need.join(','));if(state.sort!=='rel')u.set('sort',state.sort);
   const h='#apps'+(u.toString()?'?'+u:'');if(location.hash!==h)try{history.replaceState(null,'',location.pathname+location.search+h)}catch(e){}}
@@ -3928,14 +3936,14 @@ function pager(pages){const pg=$('#pager');if(pages<2){pg.innerHTML='';return}co
 // FAQ: animate height via grid rows; keep <details> semantics for keyboard and screen readers
 $('#faqG').addEventListener('click',e=>{const sm=e.target.closest('summary');if(!sm)return;e.preventDefault();const d=sm.parentElement;
   if(d.open){d.classList.remove('show');const a=d.querySelector('.fq-a');const done=()=>{if(!d.classList.contains('show'))d.open=false};a.addEventListener('transitionend',done,{once:true});setTimeout(done,400)}
-  else{d.open=true;requestAnimationFrame(()=>requestAnimationFrame(()=>d.classList.add('show')))}});
+  else{d.open=true;N41.ev('faq',{i:[...d.parentElement.children].indexOf(d)});requestAnimationFrame(()=>requestAnimationFrame(()=>d.classList.add('show')))}});
 $('#probG').addEventListener('click',e=>{const b=e.target.closest('[data-prob]');if(!b)return;openDemo('');$('#fMsg').value=t('probPre')+b.dataset.prob});
 $('#jrG').addEventListener('click',e=>{const b=e.target.closest('.jr-b');if(!b)return;const li=b.parentElement,open=!li.classList.contains('open');$('#jrG').querySelectorAll('li.open').forEach(x=>{x.classList.remove('open');x.firstElementChild.setAttribute('aria-expanded','false')});li.classList.toggle('open',open);b.setAttribute('aria-expanded',String(open))});
 document.addEventListener('click',e=>{if(!e.target.closest('#jrG'))document.querySelectorAll('#jrG li.open').forEach(x=>{x.classList.remove('open');x.firstElementChild.setAttribute('aria-expanded','false')})});
 $('#pager').addEventListener('click',e=>{const b=e.target.closest('[data-pg]');if(!b||b.disabled)return;state.page=+b.dataset.pg;apply(true);$('#xpScroll').scrollTo({top:0,behavior:'smooth'})});
 /* ===== Explorer: all apps with filters + pages ===== */
 const xp=$('#xp');let xpFrom=null;
-function openXP(sec,from){xpFrom=from||null;if(typeof tabOn==='function')tabOn('apps');state.sec=sec||null;state.q='';state.need=[];state.sort='rel';$('#q').value='';$('#sort').value='rel';xp.hidden=false;apply();xp.hidden=false;xp.offsetHeight;xp.classList.add('open');root.style.overflow='hidden';setTimeout(()=>$('#q').focus({preventScroll:true}),350)}
+function openXP(sec,from){N41.ev('catalog',{sec:sec||''});xpFrom=from||null;if(typeof tabOn==='function')tabOn('apps');state.sec=sec||null;state.q='';state.need=[];state.sort='rel';$('#q').value='';$('#sort').value='rel';xp.hidden=false;apply();xp.hidden=false;xp.offsetHeight;xp.classList.add('open');root.style.overflow='hidden';setTimeout(()=>$('#q').focus({preventScroll:true}),350)}
 function closeXP(){if(xp.hidden||!xp.classList.contains('open'))return;sugHide();if(typeof tabOn==='function')tabOn('home');if(/^#apps/.test(location.hash))try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}xp.classList.remove('open');root.style.overflow='';setTimeout(()=>{if(xp.classList.contains('open'))return;xp.hidden=true;if(xpFrom&&document.contains(xpFrom))xpFrom.focus({preventScroll:true})},matchMedia('(prefers-reduced-motion: reduce)').matches?0:420)}
 document.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g){const el=document.querySelector(g.dataset.go);if(el){goTo(el);const pl=g.dataset.pulse&&document.querySelector(g.dataset.pulse);if(pl)setTimeout(()=>{pl.classList.remove('pulse');pl.offsetWidth;pl.classList.add('pulse')},900)}return}const o=e.target.closest('[data-xp]');if(o){openXP(o.dataset.xp,o);return}if(e.target.closest('[data-xpclose]'))closeXP()});
 
@@ -4013,7 +4021,7 @@ function render(n){const p=P[n-1],o=L(p);cur=n;const vis=visible();const list=vi
   try{history.replaceState(null,'','#product-'+n)}catch(e){}
   clearInterval(clockT);const clk=sheet.querySelector('[data-clock]'),clk2=sheet.querySelector('[data-clock2]');
   if(clk){let s=+clk.dataset.clock;const fmt=v=>`${Math.floor(v/3600)}:${String(Math.floor(v/60)%60).padStart(2,'0')}:${String(v%60).padStart(2,'0')}`;clockT=setInterval(()=>{s++;clk.textContent=fmt(s);if(clk2)clk2.textContent=fmt(s)},1000)}}
-function openP(n,from){if(!P[n-1])return;opener=from||null;const r=from&&from.getBoundingClientRect?from.getBoundingClientRect():{left:innerWidth/2,top:innerHeight/2,width:0,height:0};
+function openP(n,from){if(!P[n-1])return;N41.ev('product_view',{n});opener=from||null;const r=from&&from.getBoundingClientRect?from.getBoundingClientRect():{left:innerWidth/2,top:innerHeight/2,width:0,height:0};
   sheet.style.setProperty('--ox',(r.left+r.width/2)+'px');sheet.style.setProperty('--oy',(r.top+r.height/2)+'px');render(n);
   if(sheet.hidden){sheet.hidden=false;sheet.offsetHeight;sheet.classList.add('open');setTimeout(()=>sheet.dispatchEvent(new Event('scroll')),30);document.body.style.overflow='hidden';setTimeout(()=>$('#shClose').focus({preventScroll:true}),60)}}
 function closeP(){if(sheet.hidden)return;sheet.classList.remove('open');document.body.style.overflow='';clearInterval(clockT);try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}
@@ -4028,8 +4036,65 @@ if(PIXELS.tiktok){const q=window.ttq=window.ttq||[];q.methods=['page','track','i
 if(PIXELS.ga4){window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config',PIXELS.ga4);addJs('https://www.googletagmanager.com/gtag/js?id='+encodeURIComponent(PIXELS.ga4))}
 /* one event name per funnel step, per tool (Meta, TikTok, GA4); never send personal details here */
 const EV={demo:['ViewContent','ViewContent','demo_open'],lead:['Lead','SubmitForm','generate_lead'],wa:['Contact','Contact','contact']};
-function track(k,props={}){const [m,tt,g]=EV[k];try{if(window.fbq)fbq('track',m,props);if(window.ttq)ttq.track(tt,props);if(window.gtag)gtag('event',g,props)}catch(e){}}
-document.addEventListener('click',e=>{if(e.target.closest('a[href^="https://wa.me"]'))track('wa')},true);
+function track(k,props={},more={}){N41.ev({demo:'demo_open',lead:'lead',wa:'wa_click'}[k],{...props,...more});const [m,tt,g]=EV[k];try{if(window.fbq)fbq('track',m,props);if(window.ttq)ttq.track(tt,props);if(window.gtag)gtag('event',g,props)}catch(e){}}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="https://wa.me"]');if(a)track('wa',{},{where:(a.closest('[id]')||{}).id||''})},true);
+/* ===== First-party analytics + saved demo requests (Firebase; see FIREBASE in Settings) =====
+   Each browser signs in as an anonymous Firebase user, so it can only write its own visit data.
+   Events are batched every few seconds; a demo request is saved before WhatsApp opens,
+   so a lead is kept even if the visitor never presses send.
+   ?debug=1 logs every event to the console. ?notrack=1 stops counting this browser (the owner's own visits); ?notrack=0 resumes. */
+const N41=(()=>{
+  const ls={get:k=>{try{return localStorage.getItem(k)}catch(e){return null}},set:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}},del:k=>{try{localStorage.removeItem(k)}catch(e){}}};
+  const qp=new URLSearchParams(location.search),dbg=qp.get('debug')==='1';
+  if(qp.get('notrack')==='1')ls.set('n41-notrack','1');if(qp.get('notrack')==='0')ls.del('n41-notrack');
+  const on=!!(FIREBASE.apiKey&&FIREBASE.projectId)&&!navigator.webdriver&&!ls.get('n41-notrack');
+  const rid=()=>(crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2)).replace(/-/g,'').slice(0,20);
+  const cut=(v,n)=>String(v==null?'':v).slice(0,n);
+  // where the visit came from: campaign tags, ad click ids, or the referring site
+  const utm={};['source','medium','campaign','content','term'].forEach(k=>{const v=qp.get('utm_'+k);if(v)utm[k]=cut(v,80)});
+  if(qp.get('fbclid'))utm.click='meta';else if(qp.get('ttclid'))utm.click='tiktok';else if(qp.get('gclid'))utm.click='google';
+  let ref='';try{if(document.referrer&&new URL(document.referrer).origin!==location.origin)ref=new URL(document.referrer).hostname}catch(e){}
+  const src=utm.source||utm.click||ref||'direct';
+  let first=null;try{first=JSON.parse(ls.get('n41-ft')||'null')}catch(e){}
+  if(!first){first={src,utm,ref,landing:cut(location.pathname+location.hash,80),at:Date.now()};ls.set('n41-ft',JSON.stringify(first))}
+  // a session ends after 30 minutes without activity
+  const now=Date.now(),last=+ls.get('n41-last')||0;let sid=ls.get('n41-sid');const fresh=!sid||now-last>30*60e3;
+  if(fresh){sid=rid();ls.set('n41-sid',sid);ls.set('n41-visits',String((+ls.get('n41-visits')||0)+1))}
+  ls.set('n41-last',String(now));
+  const w=innerWidth,touch=matchMedia('(pointer:coarse)').matches,ua=navigator.userAgent;
+  const device={type:touch&&w<768?'mobile':touch||w<1024?'tablet':'desktop',os:/android/i.test(ua)?'android':/iphone|ipad|ipod/i.test(ua)?'ios':/windows/i.test(ua)?'windows':/mac os/i.test(ua)?'mac':'other',
+    browser:/edg\//i.test(ua)?'edge':/fbav|fban|instagram/i.test(ua)?'in-app':/chrome|crios/i.test(ua)?'chrome':/safari/i.test(ua)?'safari':/firefox|fxios/i.test(ua)?'firefox':'other',w,tz:cut(Intl.DateTimeFormat().resolvedOptions().timeZone,40)};
+  const Q=[];let wait=4000,fb=null,boot=null,timer=0,shown=Date.now(),activeMs=0,maxScroll=0,sessionMade=!fresh;
+  const log=(...a)=>{if(dbg)console.log('%c[N41]','color:#14b886;font-weight:700',...a)};
+  function load(){if(boot||!on)return boot;const V='https://www.gstatic.com/firebasejs/10.14.1/';
+    boot=Promise.all([import(V+'firebase-app.js'),import(V+'firebase-auth.js'),import(V+'firebase-firestore-lite.js')]).then(async([A,U,F])=>{
+      const app=A.initializeApp(FIREBASE),auth=U.getAuth(app);
+      const user=auth.currentUser||await new Promise(r=>{const off=U.onAuthStateChanged(auth,u=>{if(u){off();r(u)}});U.signInAnonymously(auth).catch(e=>{log('auth failed',e.code);r(null)})});
+      if(!user)throw new Error('no auth');fb={F,db:F.getFirestore(app),uid:user.uid};log('ready',user.uid);return fb}).catch(e=>{log('firebase off:',e.message);fb=null});
+    return boot}
+  function ev(name,props){const e={name:cut(name,40),props:props||{},path:cut(location.hash||'/',60),t:Date.now()};ls.set('n41-last',String(Date.now()));log(e.name,e.props);if(!on)return;Q.push(e);if(Q.length>=20)flush();else{clearTimeout(timer);timer=setTimeout(flush,4000)}}
+  async function flush(){if(!on)return;if(!fb)await load();if(!fb)return;const {F,db,uid}=fb,b=F.writeBatch(db),ts=F.serverTimestamp(),list=Q.splice(0,20);
+    const visits=+ls.get('n41-visits')||1,sess=F.doc(db,'sessions',sid);
+    const make=!sessionMade;
+    if(make){b.set(sess,{uid,startedAt:ts,lastAt:ts,src,utm,ref,first,landing:cut(location.pathname+location.hash,80),device,lang:LANG,visitNo:visits,returning:visits>1,events:list.length,activeSec:Math.round(activeMs/1000),maxScroll,lead:false});
+      b.set(F.doc(db,'visitors',uid),{uid,lastSeen:ts,visits,first,device,lastSrc:src},{merge:true})}
+    else b.set(sess,{uid,lastAt:ts,events:F.increment(list.length),activeSec:Math.round(activeMs/1000),maxScroll},{merge:true});
+    list.forEach(e=>b.set(F.doc(F.collection(db,'events')),{uid,sid,name:e.name,props:e.props,path:e.path,src,at:ts,clientAt:e.t}));
+    try{await b.commit();if(make)sessionMade=true;log('saved',list.length);wait=4000}catch(err){log('save failed',err.code||err.message);Q.unshift(...list);wait=Math.min(wait*2,120000)}
+    if(Q.length){clearTimeout(timer);timer=setTimeout(flush,wait)}}
+  // a demo request: saved on its own, right away, with where the visitor came from
+  async function lead(f){log('lead',{product:f.product});if(!on)return;if(!fb)await load();if(!fb)return;const {F,db,uid}=fb,ts=F.serverTimestamp();
+    try{await F.addDoc(F.collection(db,'leads'),{uid,sid,status:'new',name:cut(f.name,80),phone:cut(f.phone,20),country:cut(f.country,40),product:cut(f.product,80),productN:+f.productN||0,msg:cut(f.msg,500),lang:LANG,src,utm,ref,first,device,at:ts});
+      await F.setDoc(F.doc(db,'sessions',sid),{uid,lead:true,lastAt:ts},{merge:true});log('lead saved')}catch(err){log('lead save failed',err.code||err.message)}}
+  // engagement: visible time and how far down the page people get
+  const tick=()=>{if(document.visibilityState==='visible'){activeMs+=Date.now()-shown;shown=Date.now()}};
+  addEventListener('scroll',()=>{const h=document.documentElement.scrollHeight-innerHeight;if(h>0){const p=Math.min(100,Math.round(scrollY/h*100));if(p>maxScroll)maxScroll=p}},{passive:true});
+  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'){tick();ev('leave',{sec:Math.round(activeMs/1000),scroll:maxScroll});flush()}else shown=Date.now()});
+  setInterval(tick,15000);
+  if(on)(window.requestIdleCallback||setTimeout)(()=>load(),{timeout:2500});
+  ev(fresh?'visit':'page',{src,returning:(+ls.get('n41-visits')||1)>1,link:/^#product-\d+$/.test(location.hash)?+location.hash.slice(9):0});
+  return {ev,lead,on,src}})();
+
 
 /* ===== Demo modal ===== */
 const modal=$('#modal');let lastFocus=null,lastMsg='';
@@ -4037,7 +4102,7 @@ function waLink(msg){return `https://wa.me/${WHATSAPP}${msg?`?text=${encodeURICo
 function openDemo(n,plan){lastFocus=document.activeElement;$('#mForm').hidden=false;$('#mDone').hidden=true;$('#fErr').hidden=true;
   $('#fProduct').value=n||(cur&&!sheet.hidden?String(cur):'');
   if(plan)$('#fMsg').value=(LANG==='ar'?'الباقة: ':'Plan: ')+plan;
-  track('demo',{content_name:P[n-1]?L(P[n-1]).name:''});
+  track('demo',{content_name:P[n-1]?L(P[n-1]).name:''},{n:+n||0});
   modal.hidden=false;setTimeout(()=>{$('#fMore').open=!!$('#fMsg').value.trim();$('#fName').focus()},50)}
 function closeDemo(){modal.hidden=true;if(lastFocus&&lastFocus.focus)lastFocus.focus({preventScroll:true})}
 modal.addEventListener('click',e=>{if(e.target.closest('[data-close]'))closeDemo()});
@@ -4045,7 +4110,7 @@ $('#demoForm').addEventListener('submit',e=>{e.preventDefault();const f=Object.f
   const bad=[];if(!f.name.trim())bad.push('fName');if(f.phone.replace(/\D/g,'').length<8)bad.push('fPhone');
   ['fName','fPhone'].forEach(id=>$('#'+id).setAttribute('aria-invalid',String(bad.includes(id))));
   if(bad.length){$('#fErr').textContent=t('err');$('#fErr').hidden=false;$('#'+bad[0]).focus();return}
-  f.product=f.product?L(P[f.product-1]).name:t('noProd');lastMsg=t('msg')(f);track('lead',{content_name:f.product});
+  const pn=f.product;f.product=f.product?L(P[f.product-1]).name:t('noProd');lastMsg=t('msg')(f);track('lead',{content_name:f.product},{n:+pn||0});N41.lead({...f,productN:pn});
   $('#dMsg').textContent=lastMsg;$('#dWa').href=waLink(lastMsg);$('#mForm').hidden=true;$('#mDone').hidden=false;$('#dWa').focus()});
 $('#dCopy').addEventListener('click',async()=>{const b=$('#dCopy');try{await navigator.clipboard.writeText(lastMsg);b.textContent=t('copied')}catch(err){const r=document.createRange();r.selectNodeContents($('#dMsg'));const s=getSelection();s.removeAllRanges();s.addRange(r)}setTimeout(()=>b.textContent=t('copyMsg'),1800)});
 
@@ -4054,8 +4119,8 @@ document.addEventListener('keydown',e=>{if(sheet.hidden||!modal.hidden)return;if
 
 /* ===== Theme + language ===== */
 function effTheme(){return root.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}
-$('#themeBtn').addEventListener('click',()=>{const n=effTheme()==='dark'?'light':'dark';root.dataset.theme=n;save('mh-theme',n)});
-$('#langBtn').addEventListener('click',()=>{window.LANG=LANG==='ar'?'en':'ar';save('mh-lang',LANG);root.lang=LANG;root.dir=LANG==='ar'?'rtl':'ltr';renderStatic();renderCards();if(!sheet.hidden&&cur)render(cur)});
+$('#themeBtn').addEventListener('click',()=>{const n=effTheme()==='dark'?'light':'dark';root.dataset.theme=n;save('mh-theme',n);N41.ev('theme',{to:n})});
+$('#langBtn').addEventListener('click',()=>{window.LANG=LANG==='ar'?'en':'ar';N41.ev('lang',{to:LANG});save('mh-lang',LANG);root.lang=LANG;root.dir=LANG==='ar'?'rtl':'ltr';renderStatic();renderCards();if(!sheet.hidden&&cur)render(cur)});
 
 renderStatic();renderCards();startRot();
 {const f=$('#feat');let x0=null;
