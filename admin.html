@@ -464,6 +464,18 @@ a:hover .n41-1{transform:translateY(-2px)}
 .mini b small{font-size:12px;color:var(--faint);font-weight:500}
 .mini .bars{margin:0}
 .ctitle{font-family:var(--f-d);font-size:17px;margin:0 0 12px}
+/* anything that opens something looks and feels clickable */
+.card[data-go]{cursor:pointer;transition:border-color .15s,transform .15s}
+.card[data-go]:hover{border-color:var(--line2)}
+.card[data-go]:active{transform:scale(.995)}
+.card[data-go]:focus-visible,.mlink:focus-visible,.rlink:focus-visible{outline:2px solid var(--em);outline-offset:2px}
+.mlink{cursor:pointer;border-radius:10px;margin:-6px -8px;padding:6px 8px;transition:background .15s}
+.mlink:hover{background:var(--soft)}
+.lnums .mlink{margin:0;padding:12px}.lnums .mlink:hover{background:var(--line)}
+.rlink{all:unset;box-sizing:border-box;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 12px;align-items:center;cursor:pointer;border-radius:10px;margin:-6px -8px;padding:6px 8px;transition:background .15s}
+.rlink:hover{background:var(--soft)}
+.chip.xf{border-color:var(--em);color:var(--em)}
+#view>.anim{animation:fade .22s ease}
 .lostg{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.6fr);gap:4px}
 .lnums{display:grid;grid-template-columns:repeat(3,1fr);align-content:start;gap:10px;padding:var(--pad)}
 .lnums div{padding:12px;border-radius:13px;background:var(--soft)}
@@ -763,10 +775,10 @@ function monthBars(months,c,W=640){const H=220,L=10,R=10,T=14,B=30,mx=Math.max(1
 
 function vMoney(){const all=moneyStats();
   return all.map(m=>`${all.length>1?`<h3 class="ctitle">${m.c==='USD'?'بالدولار':'بالجنيه'}</h3>`:''}<div class="grid g4">
-    ${stat('المتفق عليه','t-green','cash',N(m.agreed),m.c==='USD'?'$':'ج.م',`${N(m.deals)} صفقة · متوسط ${money(m.avg,m.c)}`)}
-    ${stat('اتحصّل','t-gold','inbox',N(m.collected),m.c==='USD'?'$':'ج.م',m.agreed?pct(m.collected,m.agreed)+' من المتفق عليه':'',segBars([[m.collected,'var(--gold)','اتحصّل'],[m.remaining,'var(--line2)','باقي']]))}
-    ${stat('باقي على العملاء','t-red','clock',N(m.remaining),m.c==='USD'?'$':'ج.م',`${N(m.due.length)} عميل عليه باقي`)}
-    ${stat('في الطريق','t-blue','conv',N(m.pipe),m.c==='USD'?'$':'ج.م',`${N(m.pipeN)} عرض سعر أو ديمو`)}
+    ${lk(stat('المتفق عليه','t-green','cash',N(m.agreed),m.c==='USD'?'$':'ج.م',`${N(m.deals)} صفقة · متوسط ${money(m.avg,m.c)}`),'leads','deals')}
+    ${lk(stat('اتحصّل','t-gold','inbox',N(m.collected),m.c==='USD'?'$':'ج.م',m.agreed?pct(m.collected,m.agreed)+' من المتفق عليه':'',segBars([[m.collected,'var(--gold)','اتحصّل'],[m.remaining,'var(--line2)','باقي']])),'leads','deals')}
+    ${lk(stat('باقي على العملاء','t-red','clock',N(m.remaining),m.c==='USD'?'$':'ج.م',`${N(m.due.length)} عميل عليه باقي`),'leads','due')}
+    ${lk(stat('في الطريق','t-blue','conv',N(m.pipe),m.c==='USD'?'$':'ج.م',`${N(m.pipeN)} عرض سعر أو ديمو`),'leads','pipe')}
   </div>
   <div class="grid g21 mt">
     <div class="card">${head('chart','الصفقات شهريًا','حسب شهر الاتفاق',`<div class="legend"><span><i style="background:var(--em)"></i>اتفقنا</span><span><i style="background:var(--gold)"></i>اتحصّل</span></div>`)}<div class="chartbox">${chartSlot(w=>monthBars(m.months,m.c,w))}</div></div>
@@ -796,7 +808,7 @@ const DEV={mobile:'موبايل',desktop:'كمبيوتر',tablet:'تابلت'};
 const PALETTE=['var(--em)','var(--gold)','var(--blue)','var(--violet)','var(--teal)','var(--red)'];
 const PERIODS={1:'اليوم',7:'آخر ٧ أيام',30:'آخر ٣٠ يوم',0:'كل الفترة'};
 
-const st={team:[],owner:false,view:'home',period:7,all:{sessions:[],events:[]},leads:[],products:{},fstatus:'all',q:'',user:null,fb:null,anim:true};
+const st={reason:'',team:[],owner:false,view:'home',period:7,all:{sessions:[],events:[]},leads:[],products:{},fstatus:'all',q:'',user:null,fb:null,anim:true};
 
 /* ---------- the site's logo ---------- */
 const markHTML=id=>`<span class="n41-mk" aria-hidden="true"><span class="n41-o"><svg viewBox="0 0 126 110" aria-hidden="true"><defs><mask id="${id}" maskUnits="userSpaceOnUse"><rect x="-10" y="-10" width="150" height="130" fill="#fff"/><text x="2" y="92.5" font-family="Readex Pro,IBM Plex Sans Arabic,sans-serif" font-weight="700" font-size="100" letter-spacing="-5" fill="#000">40</text></mask></defs><text x="2" y="92.5" font-family="Readex Pro,IBM Plex Sans Arabic,sans-serif" font-weight="700" font-size="100" letter-spacing="-5" fill="none" mask="url(#${id})">40</text></svg></span><span class="n41-p">+</span><span class="n41-1">1</span></span>`;
@@ -892,6 +904,8 @@ function donut(rows,total){const R=80,C=2*Math.PI*R;let off=0;const segs=rows.ma
   return `<svg viewBox="0 0 210 210" aria-hidden="true"><circle r="${R}" cx="105" cy="105" fill="none" stroke="var(--soft)" stroke-width="26"/>${segs}<text x="105" y="98" text-anchor="middle" style="font:500 12px var(--f-b);fill:var(--faint)">الإجمالي</text><text x="105" y="124" text-anchor="middle" style="font:700 26px var(--f-d);fill:var(--ink)">${N(total)}</text></svg>`}
 function rank(rows,fmt,o={}){if(!rows.length)return '<div class="empty">لا توجد بيانات في هذه الفترة بعد</div>';const mx=Math.max(...rows.map(r=>r[1]));
   return `<div class="rank">${rows.slice(0,o.max||7).map(([k,v,extra])=>`<div class="rk${o.gold?' gold':''}"><span class="n">${fmt(k)}</span><span class="c"><span class="num">${N(v)}</span>${o.total?`<small>${pct(v,o.total)}</small>`:''}${extra||''}</span><div class="tr"><i style="width:${Math.max(3,v/mx*100)}%"></i></div></div>`).join('')}</div>`}
+/* turn a card into a link to a page (and a filter) */
+const lk=(h,go,f='',r='')=>h.replace('<div class="card','<div data-go="'+go+'"'+(f?' data-f="'+f+'"':'')+(r?' data-r="'+r+'"':'')+' tabindex="0" role="link" class="card');
 const head=(icon,title,meta,end)=>`<div class="ch">${ic(icon)}<h3>${title}</h3>${meta?`<span class="meta">${meta}</span>`:''}${end?`<div class="end">${end}</div>`:''}</div>`;
 
 /* ---------- views ---------- */
@@ -899,24 +913,24 @@ function vHome(x){const p=x.prev||{},h=new Date().getHours(),who=((st.user&&st.u
   const best=[...x.src].sort((a,b)=>b[1].l-a[1].l)[0];
   const devM=x.dev.find(d=>d[0]==='mobile')?.[1]||0,devD=x.sessions-devM,srcTot=x.src.reduce((a,[,o])=>a+o.s,0);
   return hello(x)+todayRow()+lostCard()+`<div class="grid g4">
-    ${kpi('الزيارات','t-green','eye',N(x.sessions),'زيارة',`${N(x.visitors)} زائر مختلف`,x.days.map(d=>d.s),'var(--em)',x.sessions,p.sessions)}
-    ${kpi('طلبات العرض','t-gold','inbox',N(x.leads),'طلب',`من ${N(x.demo)} فتحوا النموذج`,x.days.map(d=>d.l),'var(--gold)',x.leads,p.leads)}
-    ${kpi('نسبة التحويل','t-blue','conv',N(x.conv,1),'%',`${N(x.leads)} طلب من ${N(x.sessions)} زيارة`,x.days.map(d=>d.c),'var(--blue)',x.conv,p.conv)}
-    ${kpi('ضغطات واتساب','t-teal','wa',N(x.wa),'ضغطة','كل أزرار واتساب في الموقع',x.days.map(d=>d.w),'var(--teal)',x.wa,p.wa)}
+    ${lk(kpi('الزيارات','t-green','eye',N(x.sessions),'زيارة',`${N(x.visitors)} زائر مختلف`,x.days.map(d=>d.s),'var(--em)',x.sessions,p.sessions),'traffic')}
+    ${lk(kpi('طلبات العرض','t-gold','inbox',N(x.leads),'طلب',`من ${N(x.demo)} فتحوا النموذج`,x.days.map(d=>d.l),'var(--gold)',x.leads,p.leads),'leads')}
+    ${lk(kpi('نسبة التحويل','t-blue','conv',N(x.conv,1),'%',`${N(x.leads)} طلب من ${N(x.sessions)} زيارة`,x.days.map(d=>d.c),'var(--blue)',x.conv,p.conv),'traffic')}
+    ${lk(kpi('ضغطات واتساب','t-teal','wa',N(x.wa),'ضغطة','كل أزرار واتساب في الموقع',x.days.map(d=>d.w),'var(--teal)',x.wa,p.wa),'traffic')}
   </div>
   <div class="grid g4 mt">
-    ${stat('الأجهزة','t-violet','users',pct(devM,x.sessions),'موبايل',`${N(devM)} موبايل · ${N(devD)} كمبيوتر`,segBars([[devM,'var(--violet)','موبايل'],[devD,'var(--blue)','كمبيوتر']]))}
-    ${stat('زوار راجعين','t-green','refresh',N(x.ret),'',`${pct(x.ret,x.sessions)} من الزيارات`,segBars([[x.ret,'var(--em)','راجعين'],[x.sessions-x.ret,'var(--line2)','جداد']]))}
-    ${stat('متوسط مدة الزيارة','t-blue','clock',dur(x.avg),'','وقت فعلي والصفحة ظاهرة')}
-    ${stat('بحثوا ومالقوش','t-red','q',N(x.zero.length),'كلمة',x.zero[0]?'أكترها: «'+esc(x.zero[0][0])+'»':'فرص برامج جديدة')}
+    ${lk(stat('الأجهزة','t-violet','users',pct(devM,x.sessions),'موبايل',`${N(devM)} موبايل · ${N(devD)} كمبيوتر`,segBars([[devM,'var(--violet)','موبايل'],[devD,'var(--blue)','كمبيوتر']])),'traffic')}
+    ${lk(stat('زوار راجعين','t-green','refresh',N(x.ret),'',`${pct(x.ret,x.sessions)} من الزيارات`,segBars([[x.ret,'var(--em)','راجعين'],[x.sessions-x.ret,'var(--line2)','جداد']])),'traffic')}
+    ${lk(stat('متوسط مدة الزيارة','t-blue','clock',dur(x.avg),'','وقت فعلي والصفحة ظاهرة'),'traffic')}
+    ${lk(stat('بحثوا ومالقوش','t-red','q',N(x.zero.length),'كلمة',x.zero[0]?'أكترها: «'+esc(x.zero[0][0])+'»':'فرص برامج جديدة'),'apps')}
   </div>
   <div class="grid g21 mt">
     <div class="card">${head('chart','الزيارات والطلبات',PERIODS[st.period],`<div class="legend"><span><i style="background:var(--em)"></i>زيارات</span><span><i style="background:var(--gold)"></i>طلبات</span></div>`)}<div class="chartbox">${chartSlot(w=>lineChart(x.days,w))}</div></div>
-    <div class="card">${head('pie','مصادر الزيارات',PERIODS[st.period])}${srcTot?`<div class="donut">${donut(x.src.slice(0,6).map(([k,o])=>[k,o.s]),srcTot)}<div class="dl">${x.src.slice(0,6).map(([k,o],i)=>`<div><i style="background:${PALETTE[i%PALETTE.length]}"></i>${esc(srcName(k))}<b class="num">${N(o.s)}</b><small>${pct(o.s,srcTot)}</small></div>`).join('')}</div></div>`:'<div class="empty">لسه مفيش زيارات في الفترة دي</div>'}</div>
+    <div class="card" data-go="traffic" tabindex="0" role="link">${head('pie','مصادر الزيارات',PERIODS[st.period])}${srcTot?`<div class="donut">${donut(x.src.slice(0,6).map(([k,o])=>[k,o.s]),srcTot)}<div class="dl">${x.src.slice(0,6).map(([k,o],i)=>`<div><i style="background:${PALETTE[i%PALETTE.length]}"></i>${esc(srcName(k))}<b class="num">${N(o.s)}</b><small>${pct(o.s,srcTot)}</small></div>`).join('')}</div></div>`:'<div class="empty">لسه مفيش زيارات في الفترة دي</div>'}</div>
   </div>
   <div class="grid g3 mt">
-    <div class="card">${head('route','رحلة الزائر','كام وصل لكل خطوة')}<div class="fun">${x.funnel.map(([k,v],i)=>`<div class="fs${i===3?' gold':''}"><span>${k}${i?`<em>${pct(v,x.funnel[i-1][1])}</em>`:''}</span><b class="num">${N(v)}</b><div class="tr"><i style="width:${x.funnel[0][1]?Math.max(2,v/x.funnel[0][1]*100):0}%"></i></div></div>`).join('')}</div></div>
-    <div class="card">${head('apps','أكتر البرامج اللي بتتفتح')}${rank(x.views.map(([k,v])=>[k,v,x.leadsByApp[k]?` <small style="color:var(--gold)">${N(x.leadsByApp[k])} طلب</small>`:'']),pName,{max:6})}</div>
+    <div class="card" data-go="traffic" tabindex="0" role="link">${head('route','رحلة الزائر','كام وصل لكل خطوة')}<div class="fun">${x.funnel.map(([k,v],i)=>`<div class="fs${i===3?' gold':''}"><span>${k}${i?`<em>${pct(v,x.funnel[i-1][1])}</em>`:''}</span><b class="num">${N(v)}</b><div class="tr"><i style="width:${x.funnel[0][1]?Math.max(2,v/x.funnel[0][1]*100):0}%"></i></div></div>`).join('')}</div></div>
+    <div class="card" data-go="apps" tabindex="0" role="link">${head('apps','أكتر البرامج اللي بتتفتح')}${rank(x.views.map(([k,v])=>[k,v,x.leadsByApp[k]?` <small style="color:var(--gold)">${N(x.leadsByApp[k])} طلب</small>`:'']),pName,{max:6})}</div>
     <div class="card">${head('leads','آخر الطلبات','',`<button class="btn" data-go="leads" style="height:34px">الكل</button>`)}${st.leads.length?`<div class="rank">${st.leads.slice(0,6).map(l=>`<div class="rk lrow" data-lead="${l.id}"><span class="n"><b>${esc(l.name)}</b> · <span style="color:var(--dim)">${esc(l.product||'—')}</span></span><span class="c"><small>${ago(toD(l.at))}</small></span></div>`).join('')}</div>`:'<div class="empty">أول طلب هيظهر هنا فورًا</div>'}</div>
   </div>`}
 
@@ -939,7 +953,7 @@ function hello(x){const h=new Date().getHours(),who=((st.user&&st.user.displayNa
   const nNew=L.filter(l=>norm(l.status)==='new').length,inBuild=L.filter(l=>stageOf(l.status)==='build').length,urgent=L.filter(l=>flags(l).some(f=>f[0]==='red'||f[0]==='gold')).length;
   return `<div class="card hello${prefs.heroImg?'':' noimg'}">${prefs.heroImg?'<img class="hello-img" src="img/hero-art-960.webp" srcset="img/hero-art-960.webp 960w, img/hero-art.webp 1536w" sizes="(min-width:1100px) 55vw, 100vw" alt="" aria-hidden="true" decoding="async">':''}
   <div class="hello-tx"><span class="hello-k">${h<12?'صباح الخير':'مساء الخير'}${who?'، '+esc(who):''}</span>${helloSlides(x,best)}
-  <div class="hello-st"><button type="button" data-go="leads" data-f="new"><b class="num">${nNew}</b><span>طلب جديد مستني رد</span></button><button type="button" data-go="leads" data-f="build"><b class="num">${inBuild}</b><span>مشروع في التنفيذ</span></button><button type="button" data-go="leads" data-f="all"><b class="num${urgent?' warn':''}">${urgent}</b><span>محتاج انتباه</span></button></div>
+  <div class="hello-st"><button type="button" data-go="leads" data-f="new"><b class="num">${nNew}</b><span>طلب جديد مستني رد</span></button><button type="button" data-go="leads" data-f="build"><b class="num">${inBuild}</b><span>مشروع في التنفيذ</span></button><button type="button" data-go="leads" data-f="urgent"><b class="num${urgent?' warn':''}">${urgent}</b><span>محتاج انتباه</span></button></div>
   <div class="row"><button class="tbtn dark" type="button" data-new>${ic('plus')}طلب جديد</button><button class="tbtn" type="button" data-go="leads" data-f="all">كل الطلبات</button></div></div></div>`}
 /* cancelled + on hold: how many, at which stage, the reasons ranked, and what to do about the top one */
 function lostStats(){const b=bounds(),inR=d=>!st.period||(d&&new Date(d)>=b.from);
@@ -949,20 +963,25 @@ function lostStats(){const b=bounds(),inR=d=>!st.period||(d&&new Date(d)>=b.from
     sales:lost.filter(l=>(l.lostStage||'sales')==='sales').length,after:lost.filter(l=>l.lostStage&&l.lostStage!=='sales').length}}
 function lostCard(){const z=lostStats(),closed=z.lost.length+z.won.length,top=z.reasons.find(r=>r[0]!=='none');
   const empty=!z.lost.length&&!z.hold.length;
-  return `<div class="card mb">${head('route','طلبات ماكملتش وليه',PERIODS[st.period],`<button class="btn" data-go="leads" data-f="stop" style="height:34px">شوفهم</button>`)}
+  return `<div class="card mb">${head('route','طلبات ماكملتش وليه',PERIODS[st.period],`<button class="btn" data-go="leads" data-f="lost" style="height:34px">شوف الملغي</button>`)}
   ${empty?'<div class="empty">مفيش طلبات اتلغت أو وقفت في الفترة دي 👌 لما تلغي طلب هتختار السبب، ويظهر هنا ترتيب الأسباب واللي محتاج يتصلّح.</div>':`<div class="lostg">
-    <div class="lnums"><div><b class="num">${N(z.lost.length)}</b><span>اتلغى</span></div><div><b class="num">${closed?pct(z.lost.length,closed):'—'}</b><span>من الطلبات اللي اتقفلت</span></div><div><b class="num">${N(z.hold.length)}</b><span>متوقف مؤقتًا</span></div>
+    <div class="lnums"><div data-go="leads" data-f="lost" class="mlink"><b class="num">${N(z.lost.length)}</b><span>اتلغى</span></div><div data-go="leads" data-f="lost" class="mlink"><b class="num">${closed?pct(z.lost.length,closed):'—'}</b><span>من الطلبات اللي اتقفلت</span></div><div data-go="leads" data-f="hold" class="mlink"><b class="num">${N(z.hold.length)}</b><span>متوقف مؤقتًا</span></div>
       <p class="lsplit">${N(z.sales)} قبل الاتفاق · ${N(z.after)} بعد ما بدأنا</p></div>
-    <div>${z.reasons.length?rank(z.reasons.map(([k,v])=>[k,v]),k=>k==='none'?'من غير سبب (طلبات قديمة)':RS[k][1],{max:6,total:z.lost.length,gold:true}):'<div class="empty">لسه مفيش طلبات ملغية</div>'}
+    <div>${z.reasons.length?(()=>{const mx=z.reasons[0][1];return `<div class="rank">${z.reasons.slice(0,6).map(([k,v])=>`<button type="button" class="rk gold rlink" data-go="leads" data-f="lost" data-r="${k}" title="اعرض الطلبات دي"><span class="n">${k==='none'?'من غير سبب (طلبات قديمة)':RS[k][1]}</span><span class="c"><span class="num">${N(v)}</span><small>${pct(v,z.lost.length)}</small></span><div class="tr"><i style="width:${Math.max(3,v/mx*100)}%"></i></div></button>`).join('')}</div>`})():'<div class="empty">لسه مفيش طلبات ملغية</div>'}
       ${top?`<div class="ltip"><b>أكتر سبب: ${RS[top[0]][1]}</b><span>${RS[top[0]][2]}</span></div>`:''}</div></div>`}</div>`}
 function todayRow(){const t=todo(),m=moneyStats()[0],u=m.c==='USD'?'$':'ج.م';
   return `<div class="grid g21 mb"><div class="card">${head('cal','مهام النهارده',t.length?t.length+' حاجة':'')}${t.length?`<div class="todo">${t.slice(0,7).map(([p,l,why,note])=>`<button type="button" class="td" data-lead="${l.id}"><i class="dot d-${pri(p)}"></i><span><b>${esc(l.name)}</b><small>${esc(why)}${note?' · '+esc(note):''}</small></span><span class="pill">${STATUS[norm(l.status)]}</span></button>`).join('')}${t.length>7?`<button type="button" class="td more" data-go="leads" data-f="all">و${t.length-7} كمان في الطلبات</button>`:''}</div>`:'<div class="empty">مفيش حاجة مستعجلة النهارده 🎉</div>'}</div>
-  <div class="card">${head('cash','الفلوس','',`<button class="btn" data-go="money" style="height:34px">التفاصيل</button>`)}<div class="mini"><div><span>المتفق عليه</span><b class="num">${N(m.agreed)} <small>${u}</small></b></div><div><span>اتحصّل</span><b class="num" style="color:var(--gold)">${N(m.collected)} <small>${u}</small></b></div><div><span>باقي على العملاء</span><b class="num" style="color:var(--red)">${N(m.remaining)} <small>${u}</small></b></div><div class="bars">${segBars([[m.collected,'var(--gold)','اتحصّل'],[m.remaining,'var(--line2)','باقي']])}</div><div><span>في الطريق (عروض وديمو)</span><b class="num">${N(m.pipe)} <small>${u}</small></b></div></div></div></div>`}
-function vLeads(){const groups=[['all','الكل'],['today','محتاج متابعة'],['new','جديد'],...STAGES.map(g=>[g[0],g[1]])];
-  const inG=(l,k)=>k==='all'||(k==='today'?todo().some(t=>t[1]===l):k==='new'?norm(l.status)==='new':stageOf(l.status)===k);
+  <div class="card">${head('cash','الفلوس','',`<button class="btn" data-go="money" style="height:34px">التفاصيل</button>`)}<div class="mini"><div data-go="leads" data-f="deals" class="mlink"><span>المتفق عليه</span><b class="num">${N(m.agreed)} <small>${u}</small></b></div><div data-go="money" class="mlink"><span>اتحصّل</span><b class="num" style="color:var(--gold)">${N(m.collected)} <small>${u}</small></b></div><div data-go="leads" data-f="due" class="mlink"><span>باقي على العملاء</span><b class="num" style="color:var(--red)">${N(m.remaining)} <small>${u}</small></b></div><div class="bars">${segBars([[m.collected,'var(--gold)','اتحصّل'],[m.remaining,'var(--line2)','باقي']])}</div><div><span>في الطريق (عروض وديمو)</span><b class="num">${N(m.pipe)} <small>${u}</small></b></div></div></div></div>`}
+/* filters that cards elsewhere link to; they get a removable chip on the orders page */
+const XF={urgent:['محتاج انتباه',l=>flags(l).some(f=>f[0]==='red'||f[0]==='gold')],deals:['صفقات اتفقنا عليها',l=>inWork(l)],due:['عليهم باقي فلوس',l=>inWork(l)&&remainOf(l)>0],pipe:['عروض سعر وديمو',l=>['demo','quoted'].includes(norm(l.status))],
+  manual:['ضفتها بإيدك',l=>!!l.manual]};
+const inG=(l,k)=>k==='all'||(k==='today'?todo().some(t=>t[1]===l):XF[k]?XF[k][1](l):STATUS[k]?norm(l.status)===k:stageOf(l.status)===k);
+function vLeads(){const groups=[['all','الكل'],['today','محتاج متابعة'],['new','جديد'],...STAGES.slice(0,3).map(g=>[g[0],g[1]]),['hold','متوقف مؤقتًا'],['lost','ملغي']];
+  if(!groups.some(g=>g[0]===st.fstatus)&&!XF[st.fstatus])st.fstatus='all';
   const counts=Object.fromEntries(groups.map(([k])=>[k,st.leads.filter(l=>inG(l,k)).length]));
-  const q=st.q.trim().toLowerCase(),list=st.leads.filter(l=>inG(l,st.fstatus)&&(!q||[l.name,l.phone,l.product,l.country,l.note].join(' ').toLowerCase().includes(q)));
-  return `<div class="ltools"><div class="chips">${groups.map(([k,v])=>`<button class="chip${st.fstatus===k?' on':''}" data-fs="${k}">${v} <b class="num">${N(counts[k]||0)}</b></button>`).join('')}</div>
+  const q=st.q.trim().toLowerCase(),list=st.leads.filter(l=>inG(l,st.fstatus)&&(!st.reason||(st.reason==='none'?!(l.lostReason&&RS[l.lostReason]):l.lostReason===st.reason))&&(!q||[l.name,l.phone,l.product,l.country,l.note].join(' ').toLowerCase().includes(q)));
+  const xchip=(XF[st.fstatus]?`<button class="chip on xf" data-fs="all" title="شيل الفلتر">${XF[st.fstatus][0]} <b class="num">${N(st.leads.filter(l=>inG(l,st.fstatus)).length)}</b> ✕</button>`:'')+(st.reason?`<button class="chip on xf" data-fs="${st.fstatus}" title="شيل الفلتر">السبب: ${st.reason==='none'?'من غير سبب':RS[st.reason]?RS[st.reason][1]:''} ✕</button>`:'');
+  return `<div class="ltools"><div class="chips">${xchip}${groups.map(([k,v])=>`<button class="chip${st.fstatus===k?' on':''}" data-fs="${k}">${v} <b class="num">${N(counts[k]||0)}</b></button>`).join('')}</div>
     <label class="lsearch">${ic('search')}<input id="lq" placeholder="ابحث بالاسم أو الرقم أو البرنامج" value="${esc(st.q)}"></label><button class="btn" id="csv">${ic('dl')}تصدير Excel</button></div>
   <div class="card">${list.length?`<div class="scroll"><table class="tbl"><thead><tr><th>العميل</th><th>البرنامج</th><th class="lhide">المدفوع</th><th class="lhide">المصدر</th><th>الحالة</th><th></th></tr></thead><tbody>${list.map(l=>{const s=norm(l.status);return `<tr class="lrow" data-lead="${l.id}"><td><div class="lname${s==='new'?' isnew':''}"><span class="ava">${esc((l.name||'؟').trim().charAt(0))}</span><span><b>${esc(l.name)}</b><small>${esc(l.phone)}${l.country?' · '+esc(l.country):''}</small></span></div></td><td>${esc(l.product||'—')}${l.pkg&&PKG[l.pkg]?`<div class="sub">باقة ${PKG[l.pkg].n}</div>`:''}${inWork(l)?(()=>{const [d,t]=taskProg(l);return `<div class="sub">مهام ${d} من ${t}</div>`})():''}<div class="flags">${flagHTML(l)}</div></td><td class="lhide" style="white-space:nowrap">${l.price?`<b class="num">${N(l.paid||0)}</b> من <span class="num">${N(l.price)}</span> ${l.currency==='USD'?'$':'ج.م'}`:'—'}</td><td class="lhide"><span class="pill src">${esc(srcName(l.src))}${l.utm&&l.utm.campaign?' · '+esc(l.utm.campaign):''}</span><div class="sub">${ago(toD(l.at))}</div></td><td><select class="status" data-st="${l.id}" data-s="${s}">${statusOpts(s)}</select></td><td><a class="wa" href="${waOf(l)}" target="_blank" rel="noopener">${ic('wa')}<span class="lhide">واتساب</span></a></td></tr>`}).join('')}</tbody></table></div>`:'<div class="empty">لا توجد طلبات هنا</div>'}</div>`}
 
@@ -1017,7 +1036,21 @@ function navBadges(){const n=st.leads.filter(l=>norm(l.status)==='new').length;d
 const hidden=k=>k==='team'&&!st.owner;
 function buildNav(){$('#navD').innerHTML=NAV.map(([g,items])=>`<div class="sec-lbl">${g}</div>`+items.filter(i=>!hidden(i[0])).map(([k,l,i])=>`<button class="nav${st.view===k?' on':''}" data-go="${k}" title="${l}">${ic(i)}<span>${l}</span>${k==='leads'?'<span class="badge" hidden></span>':''}</button>`).join('')).join('');
   $('#navM').innerHTML=VIEWS.filter(v=>!['account','team'].includes(v[0])).map(([k,l,i])=>`<button class="nav${st.view===k?' on':''}" data-go="${k}">${ic(i)}<span>${{settings:'الإعدادات',home:'الرئيسية',traffic:'الزيارات',apps:'البرامج',report:'التقرير'}[k]||l}</span>${k==='leads'?'<span class="badge" hidden></span>':''}</button>`).join('');navBadges()}
-function go(v){if(hidden(v))v='home';st.view=v;st.anim=true;try{history.replaceState(null,'','#'+v)}catch(e){}document.querySelectorAll('.nav').forEach(b=>b.classList.toggle('on',b.dataset.go===v));render();scrollTo({top:0})}
+const hashOf=()=>'#'+st.view+(st.view==='leads'&&st.fstatus!=='all'?'/'+st.fstatus+(st.reason?'/'+st.reason:''):'');
+function readHash(){const [v,f,r]=decodeURIComponent(location.hash.slice(1)).split('/');return {v:VIEWS.some(x=>x[0]===v)&&!hidden(v)?v:'home',f:v==='leads'&&f?f:'all',r:v==='leads'&&r?r:''}}
+/* mode: 'push' adds a step to history, 'replace' just updates the address, 'none' leaves it */
+function go(v,mode='push'){if(hidden(v))v='home';st.view=v;st.anim=true;
+  try{if(mode==='push'){if(location.hash!==hashOf()){history.replaceState({...(history.state||{}),y:scrollY},'');history.pushState({},'',hashOf())}}else if(mode==='replace')history.replaceState({},'',hashOf())}catch(e){}
+  document.querySelectorAll('.nav').forEach(b=>b.classList.toggle('on',b.dataset.go===v));render();if(mode!=='none')scrollTo({top:0})}
+/* the order window is its own history step: back closes it */
+function showLead(id){if($('#dlg').hidden)try{history.pushState({lead:id||'new'},'',location.hash)}catch(e){}openLead(id)}
+function closeDlg(){if($('#dlg').hidden)return;if(history.state&&history.state.lead)history.back();else $('#dlg').hidden=true}
+try{history.scrollRestoration='manual'}catch(e){}
+addEventListener('popstate',e=>{if($('#app').hidden)return;const s=e.state||{};
+  document.querySelectorAll('.ask').forEach(a=>a.remove());
+  if(!s.lead&&!$('#dlg').hidden)$('#dlg').hidden=true;
+  const h=readHash();if(h.v!==st.view||h.f!==st.fstatus||h.r!==(st.reason||'')){st.fstatus=h.f;st.reason=h.r;go(h.v,'none');requestAnimationFrame(()=>scrollTo({top:s.y||0}))}
+  if(s.lead&&$('#dlg').hidden&&(s.lead==='new'||st.leads.some(l=>l.id===s.lead)))openLead(s.lead==='new'?null:s.lead)});
 
 /* ---------- one order: create or edit everything about it, see the customer's other orders ---------- */
 const CC={'مصر':'20','Egypt':'20','السعودية':'966','Saudi Arabia':'966','الإمارات':'971','UAE':'971','الكويت':'965','Kuwait':'965','قطر':'974','Qatar':'974','الأردن':'962','Jordan':'962','المغرب':'212','Morocco':'212'};
@@ -1075,11 +1108,11 @@ function openLead(id){const isNew=!id,l=isNew?{status:'new',country:'مصر',cur
     const patch={followUp:v.followUp||'',followNote:(v.followNote||'').trim().slice(0,120),name:v.name.trim().slice(0,80),phone:v.phone.trim().slice(0,20),country:v.country,productN:+v.productN||0,product:v.productN?pName(+v.productN):'',pkg:v.pkg||'',due:v.due||'',
       price:v.price===''?null:+v.price,paid:v.paid===''?null:+v.paid,currency:v.currency,note:(v.note||'').slice(0,1000)};
     if(v.src)patch.src=v.src;
-    if(isNew){await addLead({...patch,status:norm(v.status)});$('#dlg').hidden=true;return}
-    if(await setStatus(l,v.status,patch))$('#dlg').hidden=true}}
+    if(isNew){await addLead({...patch,status:norm(v.status)});closeDlg();return}
+    if(await setStatus(l,v.status,patch))closeDlg()}}
 /* permanent delete (owners only, also enforced by the rules): gone from Firebase, no trace in the numbers */
 async function delLead(l){if(!await ask(`تحذف طلب «${l.name||''}» نهائيًا؟ هيتمسح من قاعدة البيانات بكل بياناته وسجله، ومش هيظهر في أي رقم، ومايترجعش. لو العميل بس ماكملش، استخدم «إلغاء الطلب» بدل الحذف.`,'احذفه نهائيًا'))return;
-  $('#dlg').hidden=true;
+  closeDlg();
   if(DEMO){st.leads=st.leads.filter(x=>x.id!==l.id);toast('اتحذف الطلب (معاينة)');navBadges();render(false);return}
   try{const {F,db}=st.fb;await F.deleteDoc(F.doc(db,'leads',l.id));toast('اتحذف الطلب نهائيًا')}catch(e){toast(e.code==='permission-denied'?'الحذف للمالكين بس، أو القواعد لسه القديمة':'مااتحذفش: '+e.code)}}
 async function addLead(p){const doc={...p,manual:true,createdBy:st.user.email,utm:{},lang:'ar',log:[{s:p.status||'new',from:'',at:new Date().toISOString(),by:st.user.email}]},pk=PKG[p.pkg];
@@ -1187,24 +1220,25 @@ document.addEventListener('click',e=>{const t=e.target;
   if(t.closest('#pbtn')){const m=$('#pmenuL');m.hidden=!m.hidden;m.innerHTML=Object.entries(PERIODS).map(([k,l])=>`<button type="button" data-per="${k}" class="${+k===st.period?'on':''}">${l}${+k===st.period?' ✓':''}</button>`).join('');return}
   const per=t.closest('[data-per]');if(per){$('#pmenuL').hidden=true;st.period=+per.dataset.per;loadRange();return}
   if(!t.closest('#pmenu'))$('#pmenuL').hidden=true;
-  const g=t.closest('[data-go]');if(g){e.preventDefault();if(g.dataset.f)st.fstatus=g.dataset.f;go(g.dataset.go);return}
-  const fs=t.closest('[data-fs]');if(fs){st.fstatus=fs.dataset.fs;render(false);return}
+  const g=t.closest('[data-go]');if(g&&!t.closest('[data-lead]')){e.preventDefault();st.fstatus=g.dataset.f||'all';st.reason=g.dataset.r||'';go(g.dataset.go);return}
+  const fs=t.closest('[data-fs]');if(fs){st.fstatus=fs.dataset.fs;st.reason='';render(false);try{history.replaceState(history.state,'',hashOf())}catch(x){}return}
   if(t.closest('#csv')){csv();return}
   if(t.closest('#printR')){window.print();return}
   if(t.closest('#copyR')){navigator.clipboard.writeText(st.reportText||'').then(()=>toast('اتنسخ التقرير، الصقه في واتساب'),()=>toast('ماقدرتش أنسخ'));return}
-  if(t.closest('#newOrder,[data-new]')){openLead(null);return}
+  if(t.closest('#newOrder,[data-new]')){showLead(null);return}
   const hd=t.closest('[data-hdot]');if(hd){helloShow(+hd.dataset.hdot);helloRotate();return}
   if(t.closest('#sideT')){setPref('side',prefs.side==='mini'?'full':'mini');return}
   if(t.closest('.sbox')&&prefs.side==='mini'){setPref('side','full');setTimeout(()=>$('#gsearch').focus(),60);return}
-  const ld0=t.closest('[data-lead]');if(ld0&&!t.closest('select,a,input,textarea')){openLead(ld0.dataset.lead);return}
+  const ld0=t.closest('[data-lead]');if(ld0&&!t.closest('select,a,input,textarea')){if(t.closest('#dlgP'))openLead(ld0.dataset.lead);else showLead(ld0.dataset.lead);return}
   if(t.closest('#refresh')){loadRange();return}
-  if(t.closest('[data-x]')){$('#dlg').hidden=true;return}
+  if(t.closest('[data-x]')){closeDlg();return}
   if(t.closest('select,a,button,input'))return;
-  const ld=t.closest('[data-lead]');if(ld)openLead(ld.dataset.lead)});
+  const ld=t.closest('[data-lead]');if(ld)showLead(ld.dataset.lead)});
 document.addEventListener('change',e=>{const s=e.target.closest('[data-st]');if(s){const l=st.leads.find(x=>x.id===s.dataset.st);if(!l)return;const prev=norm(l.status);setStatus(l,s.value).then(ok=>{if(!ok){s.value=prev;s.dataset.s=prev}else{s.dataset.s=norm(s.value);navBadges()}});return}
   const p=e.target.closest('select[data-pk]');if(p)setPref(p.dataset.pk,p.value)});
 document.addEventListener('input',e=>{const r=e.target.closest('input[type=range][data-pk]');if(!r)return;prefs[r.dataset.pk]=+r.value;try{localStorage.setItem('n41-admin-prefs',JSON.stringify(prefs))}catch(x){}applyPrefs();const o=$('#rv');if(o)o.textContent=r.value+'px'});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){$('#dlg').hidden=true;$('#pmenuL').hidden=true}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDlg();$('#pmenuL').hidden=true}
+  if(e.key==='Enter'&&e.target.matches('[data-go][tabindex]')){e.target.click();return}
   /* [ or ] opens/closes the sidebar (when you're not typing); Ctrl/⌘+B too */
   const typing=e.target.closest('input,textarea,select,[contenteditable]');
   if(!typing&&!e.metaKey&&!e.ctrlKey&&!e.altKey&&(e.key==='['||e.key===']'||e.code==='BracketLeft'||e.code==='BracketRight')&&!$('#app').hidden&&$('#dlg').hidden){e.preventDefault();setPref('side',prefs.side==='mini'?'full':'mini');return}
@@ -1217,7 +1251,7 @@ $('#refresh').innerHTML=ic('refresh');{const mac=/Mac|iPhone|iPad/.test(navigato
 /* ---------- sign-in ---------- */
 function enter(user){st.user=user;$('#gate').hidden=true;$('#app').hidden=false;$('#uName').textContent=user.displayName||'';$('#uMail').textContent=user.email||'';
   $('#uAva').innerHTML=user.photoURL?`<img src="${esc(user.photoURL)}" alt="">`:esc((user.displayName||'؟').charAt(0));
-  buildNav();const h=location.hash.slice(1);if(VIEWS.some(v=>v[0]===h)&&!hidden(h))st.view=h;if(hidden(st.view))st.view='home';go(st.view);loadRange();watchLeads()}
+  buildNav();const h=location.hash.slice(1);{const r=readHash();if(location.hash){st.view=r.v;st.fstatus=r.f;st.reason=r.r}}if(hidden(st.view))st.view='home';go(st.view,'replace');loadRange();watchLeads()}
 function gateErr(m){const e=$('#gateErr');e.innerHTML=m;e.hidden=!m;if(m){$('#splash').hidden=true;$('#gate').hidden=false}}
 /* stay signed in while working; sign out after the chosen idle time (shared across tabs) */
 const ACT='n41-admin-act';let lastTouch=0;
