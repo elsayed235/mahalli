@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#F1F3F1" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#161B19" media="(prefers-color-scheme: dark)">
-<script>try{var p=JSON.parse(localStorage.getItem("n41-admin-prefs")||"{}"),t=p.theme||"light";if(t==="auto")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme="light"}</script>
+<script>try{var p=JSON.parse(localStorage.getItem("n41-admin-prefs")||"{}"),t=p.theme||"light";if(t==="auto")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.dataset.theme=t;if(p.lang==="en"){document.documentElement.lang="en";document.documentElement.dir="ltr"}}catch(e){document.documentElement.dataset.theme="light"}</script>
 <title>لوحة Nº41</title>
 <link rel="icon" href="img/brand/apple-touch-icon-41.png">
 <link rel="apple-touch-icon" href="img/brand/apple-touch-icon-41.png">
@@ -76,16 +76,17 @@ a:hover .n41-1{transform:translateY(-2px)}
 /* ===== shell ===== */
 .app{display:grid;grid-template-columns:var(--sidew,284px) minmax(0,1fr);transition:grid-template-columns .35s cubic-bezier(.2,.8,.2,1);gap:14px;min-height:100dvh;padding:14px;zoom:var(--zoom)}
 .side{position:sticky;top:14px;height:calc(100dvh - 28px);display:flex;flex-direction:column;gap:4px;padding:6px 4px 4px;overflow-y:auto;scrollbar-width:none}
+.side>*{flex-shrink:0}
 .brandrow{display:flex;align-items:center;gap:12px;padding:6px 8px 14px}
 .brandtile{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow)}
 .brandtile .n41-mk{font-size:15px}
 .brandrow b{display:block;font-family:var(--f-d);font-size:16px;font-weight:700}
 .brandrow small{display:block;font-size:12px;color:var(--faint);margin-top:2px}
-.sbox{display:flex;align-items:center;gap:9px;margin:2px 4px 12px;padding:0 12px 0 8px;height:48px;border-radius:14px;background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);cursor:text}
+.sbox{display:flex;align-items:center;gap:10px;margin:2px 4px 12px;padding:0 14px 0 9px;height:46px;border-radius:14px;background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);cursor:text}
 .sbox svg{width:16px;height:16px;color:var(--faint)}
 .sbox input{all:unset;flex:1;min-width:0;height:100%;font-size:14px}
 .sbox input::placeholder{color:var(--faint)}
-.kbd{display:inline-grid;place-items:center;min-width:20px;height:22px;padding:0 6px;border-radius:6px;border:1px solid var(--line);background:var(--soft);font-size:10.5px;font-weight:600;color:var(--faint);font-family:var(--f-b);direction:ltr;white-space:nowrap;flex:none}
+.kbd{display:inline-grid;place-items:center;min-width:20px;height:26px;padding:0 8px;border-radius:8px;border:1px solid var(--line);background:var(--soft);font-size:11px;font-weight:600;color:var(--faint);line-height:1;font-family:var(--f-b);direction:ltr;white-space:nowrap;flex:none}
 .sec-lbl{font-size:12px;color:var(--faint);font-weight:600;padding:14px 12px 6px}
 .nav{all:unset;box-sizing:border-box;display:flex;align-items:center;gap:12px;width:100%;padding:11px 12px;border-radius:13px;font-weight:500;color:var(--dim);cursor:pointer;transition:background .15s,color .15s;border:1px solid transparent}
 .nav svg{width:20px;height:20px}
@@ -207,7 +208,8 @@ a:hover .n41-1{transform:translateY(-2px)}
 .tbl th{text-align:start;font-size:12px;font-weight:600;color:var(--faint);padding:12px var(--pad);border-bottom:1px solid var(--line);white-space:nowrap}
 .tbl td{padding:13px var(--pad);border-bottom:1px solid var(--line);font-size:13.5px}
 .tbl tr:last-child td{border-bottom:0}
-.tbl tbody tr:hover td{background:var(--soft)}
+.tbl tbody tr.lrow:hover td{background:var(--soft)}
+.lrow{cursor:pointer}
 .scroll{overflow-x:auto}
 .pill{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:99px;font-size:12px;font-weight:600;background:var(--soft);color:var(--dim);white-space:nowrap}
 .pill.src{background:var(--em-soft);color:var(--em)}
@@ -538,6 +540,23 @@ a:hover .n41-1{transform:translateY(-2px)}
   .app{display:block;padding:0;zoom:1}.main{border:0;background:#fff}.body{padding:0}
   .card{box-shadow:none;break-inside:avoid}.anim .card{animation:none}
 }
+/* ===== English: left-to-right ===== */
+#pbtn span,.tbtn,.crumb{white-space:nowrap}
+@media (max-width:560px){#langQ{display:none}}
+@media (max-width:1180px) and (min-width:881px){.live,#cGroup,#cGroup+svg{display:none}}
+.lang-b{font-family:var(--f-d);font-weight:700;font-size:13px;min-width:44px}
+.gate-lang{display:block;margin:14px auto 0;color:var(--dim);font-size:13px;font-weight:600;all:unset;cursor:pointer}
+.gate-card .gate-lang{display:block;margin:16px auto 0;text-align:center}
+:root[dir=ltr] .lname small{text-align:left}
+:root[dir=ltr] .anim .tr i,:root[dir=ltr] .anim .bars i,:root[dir=ltr] .anim .paybar i{transform-origin:left}
+:root[dir=ltr] .hello-img{-webkit-mask-image:linear-gradient(to left,#000 45%,transparent 100%);mask-image:linear-gradient(to left,#000 45%,transparent 100%);object-position:65% 60%}
+:root[dir=ltr] .crumb svg{transform:scaleX(-1)}
+:root[dir=ltr] .status{background-position:right 9px center;padding:0 30px 0 12px}
+:root[dir=ltr] .sel{background-position:right 12px center}
+:root[dir=ltr] .brandrow b{text-align:left!important}
+:root[dir=ltr] .tl li{padding:0 0 14px 16px}
+:root[dir=ltr] body{font-family:"Readex Pro","IBM Plex Sans Arabic",system-ui,sans-serif}
+@media (max-width:880px){:root[dir=ltr] .hello-img{-webkit-mask-image:linear-gradient(to bottom,#000 55%,transparent);mask-image:linear-gradient(to bottom,#000 55%,transparent)}}
 </style>
 </head>
 <body>
@@ -558,7 +577,7 @@ a:hover .n41-1{transform:translateY(-2px)}
     </form>
     <div class="gate-ok" id="gateOk" hidden></div>
     <div class="gate-err" id="gateErr" hidden></div>
-    <a class="gate-demo" href="?demo=1">معاينة اللوحة ببيانات تجريبية ←</a>
+    <button class="lnk gate-lang" type="button" id="gLang"></button><a class="gate-demo" href="?demo=1">معاينة اللوحة ببيانات تجريبية ←</a>
   </div>
 </div>
 
@@ -577,7 +596,7 @@ a:hover .n41-1{transform:translateY(-2px)}
       <div class="top-l">
         <span class="live"><i></i><span id="upd">مباشر</span></span>
         <button class="tbtn" id="refresh" type="button" title="تحديث" aria-label="تحديث"></button>
-        <button class="tbtn" id="themeQ" type="button" title="فاتح / داكن" aria-label="فاتح أو داكن"></button>
+        <button class="tbtn lang-b" id="langQ" type="button" data-pk="lang" title="English / عربي" aria-label="English / عربي"></button><button class="tbtn" id="themeQ" type="button" title="فاتح / داكن" aria-label="فاتح أو داكن"></button>
         <div class="pmenu" id="pmenu"><button class="tbtn" id="pbtn" type="button"></button><div class="menu" id="pmenuL" hidden></div></div>
         <button class="tbtn dark" id="newOrder" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><span>طلب جديد</span></button>
         <button class="tbtn" id="logoutM" type="button" title="تسجيل الخروج" aria-label="تسجيل الخروج" style="display:none"></button>
@@ -598,10 +617,156 @@ a:hover .n41-1{transform:translateY(-2px)}
 /* Nº41 owner dashboard. Reads what the site writes to Firestore (sessions, events, leads).
    Only the emails allowed in firebase/firestore.rules can read; ?demo=1 shows sample data instead. */
 const FIREBASE={apiKey:'AIzaSyBQMcSTHbjKO-OlH31AY5i0tgcte429WxY',authDomain:'no41-c753e.firebaseapp.com',projectId:'no41-c753e',storageBucket:'no41-c753e.firebasestorage.app',messagingSenderId:'975362644252',appId:'1:975362644252:web:71ed3fd380680cdd3782d9'};
-const ADMINS=['elsaed3766@gmail.com','noapp384@gmail.com'];
+const ADMINS=['elsaed3766@gmail.com','noapp384@gmail.com','noapps27@gmail.com'];
 const V='https://www.gstatic.com/firebasejs/10.14.1/';
 const $=s=>document.querySelector(s);
 const DEMO=new URLSearchParams(location.search).get('demo')==='1';
+const LANG=(()=>{try{return JSON.parse(localStorage.getItem('n41-admin-prefs')||'{}').lang==='en'?'en':'ar'}catch(e){return 'ar'}})(),EN=LANG==='en';
+const L=(ar,en)=>EN?en:ar,LOC=EN?'en-GB':'ar-EG-u-nu-latn';if(EN)document.title='Nº41 Dashboard';
+/* ---------- English: every label the dashboard shows, translated on screen when the language is English ----------
+   Arabic stays the source in the code; this table + the patterns below turn it into English as it appears.
+   Customer data (names, notes) is never in this table, so it stays as typed. WhatsApp message bodies stay Arabic (they go to the customer). */
+const EN_DICT={
+/* navigation & frame */
+'نظرة عامة':'Overview','لوحة التحكم':'Dashboard','المبيعات':'Sales','الطلبات':'Orders','الفلوس':'Money','التسويق':'Marketing','الزيارات والمصادر':'Traffic & sources','البرامج والبحث':'Programs & search',
+'التقارير':'Reports','التقرير الدوري':'Periodic report','الإعدادات':'Settings','المظهر':'Appearance','حسابي':'My account','الفريق':'Team','الرئيسية':'Home','الزيارات':'Traffic','البرامج':'Programs','التقرير':'Report',
+'لوحة التحكم · no41.app':'Dashboard · no41.app','بحث في الطلبات…':'Search orders…','مباشر':'Live','تحديث':'Refresh','فاتح / داكن':'Light / dark','فاتح أو داكن':'Light or dark','طلب جديد':'New order','تسجيل الخروج':'Sign out',
+'تصغير أو توسيع القائمة':'Collapse or expand the menu','جاري التحميل':'Loading','معاينة ببيانات تجريبية، الأرقام هنا للتوضيح فقط.':'Preview with sample data. Numbers are for illustration only.','الدخول للبيانات الحقيقية':'Go to real data',
+'معاينة':'Preview','إغلاق':'Close','أقل':'Less','أكتر':'More','رقم ٤١: الموقع':'Nº41: the website',
+/* sign-in */
+'الطلبات والزيارات ومصادر الإعلانات، في مكان واحد.':'Orders, visits and ad sources in one place.','الدخول بحساب جوجل':'Sign in with Google','أو بالإيميل والباسورد':'or with email and password','الإيميل':'Email','الباسورد':'Password','دخول':'Sign in','بيدخل…':'Signing in…','نسيت الباسورد؟':'Forgot your password?','معاينة اللوحة ببيانات تجريبية ←':'Preview the dashboard with sample data →',
+'اكتب الإيميل والباسورد':'Enter your email and password','اكتب إيميلك في الخانة الأول، وبعدين دوس «نسيت الباسورد».':'Type your email first, then press “Forgot your password?”.','لو الإيميل ده عليه حساب، هيوصلك رابط تغيير الباسورد خلال دقيقة. بُص في Spam كمان.':'If this email has an account, a reset link will arrive within a minute. Check Spam too.',
+'الإيميل مش صحيح.':'That email isn’t valid.','الإيميل أو الباسورد غلط.':'Wrong email or password.','الباسورد غلط.':'Wrong password.','مفيش حساب بالإيميل ده.':'No account with this email.','محاولات كتير. استنى شوية أو غيّر الباسورد من «نسيت الباسورد».':'Too many attempts. Wait a bit or reset your password.','الحساب ده متوقف.':'This account is disabled.','الدخول بالإيميل والباسورد لسه مش متفعّل في Firebase.':'Email & password sign-in isn’t enabled in Firebase yet.',
+'صلاحيتك على اللوحة اتشالت. كلّم صاحب الحساب.':'Your access to the dashboard was removed. Contact the owner.',' لو لسه ماحطّتش باسورد: ادخل بجوجل، وبعدين «حسابي» ← حط باسورد.':' If you haven’t set a password yet: sign in with Google, then My account → set a password.',
+/* periods */
+'اليوم':'Today','آخر ٧ أيام':'Last 7 days','آخر ٣٠ يوم':'Last 30 days','كل الفترة':'All time','عن الفترة السابقة':'vs previous period','من البداية':'since the start',
+/* home */
+'مهام النهارده':'Today’s tasks','طلب جديد مستني رد':'new orders waiting','مشروع في التنفيذ':'projects in progress','محتاج انتباه':'need attention','كل الطلبات':'All orders','التفاصيل':'Details','المتفق عليه':'Agreed','اتحصّل':'Collected','باقي على العملاء':'Owed by clients','في الطريق (عروض وديمو)':'In the pipeline (quotes & demos)','في الطريق':'In the pipeline',
+'طلبات ماكملتش وليه':'Orders that didn’t finish, and why','شوف الملغي':'See cancelled','اتلغى':'cancelled','من الطلبات اللي اتقفلت':'of closed orders','متوقف مؤقتًا':'On hold','أكتر سبب:':'Top reason:','اعرض الطلبات دي':'Show these orders','من غير سبب (طلبات قديمة)':'No reason (older orders)','لسه مفيش طلبات ملغية':'No cancelled orders yet',
+'مفيش طلبات اتلغت أو وقفت في الفترة دي 👌 لما تلغي طلب هتختار السبب، ويظهر هنا ترتيب الأسباب واللي محتاج يتصلّح.':'No cancelled or paused orders in this period 👌 When you cancel an order you pick a reason, and the reasons are ranked here with what to fix.',
+'الزيارات':'Visits','زيارة':'visits','طلبات العرض':'Demo requests','طلب':'orders','نسبة التحويل':'Conversion rate','ضغطات واتساب':'WhatsApp taps','ضغطة':'taps','كل أزرار واتساب في الموقع':'All WhatsApp buttons on the site',
+'الأجهزة':'Devices','موبايل':'mobile','كمبيوتر':'desktop','زوار راجعين':'Returning visitors','متوسط مدة الزيارة':'Avg. visit length','وقت فعلي والصفحة ظاهرة':'Active time with the page visible','بحثوا ومالقوش':'Searched, found nothing','كلمة':'terms','فرص برامج جديدة':'Ideas for new programs',
+'الزيارات والطلبات':'Visits & orders','زيارات':'Visits','طلبات':'Orders','مصادر الزيارات':'Traffic sources','الإجمالي':'Total','لسه مفيش زيارات في الفترة دي':'No visits in this period yet','رحلة الزائر':'Visitor journey','كام وصل لكل خطوة':'How many reached each step',
+'فتحوا برنامج':'Opened a program','فتحوا نموذج الطلب':'Opened the order form','أرسلوا طلبًا':'Sent an order','ضغطوا واتساب':'Tapped WhatsApp','أكتر البرامج اللي بتتفتح':'Most viewed programs','آخر الطلبات':'Latest orders','الكل':'All','أول طلب هيظهر هنا فورًا':'Your first order will appear here instantly',
+'لا توجد بيانات في هذه الفترة بعد':'No data in this period yet','مفيش مهام النهارده 👌':'Nothing due today 👌',
+/* orders list */
+'محتاج متابعة':'Needs follow-up','جديد':'New','مبيعات':'Sales','تنفيذ':'In progress','بعد التسليم':'After delivery','متوقف':'Stopped','ملغي':'Cancelled','ابحث بالاسم أو الرقم أو البرنامج':'Search by name, phone or program','تصدير Excel':'Export to Excel',
+'العميل':'Client','البرنامج':'Program','المدفوع':'Paid','المصدر':'Source','الحالة':'Status','واتساب':'WhatsApp','اتصال':'Call','لا توجد طلبات':'No orders','مفيش طلبات بالفلتر ده':'No orders match this filter',
+'صفقات اتفقنا عليها':'Agreed deals','عليهم باقي فلوس':'Clients who owe','عروض سعر وديمو':'Quotes & demos','ضفتها بإيدك':'Added by hand','شيل الفلتر':'Clear filter',
+/* statuses & stages */
+'تم التواصل':'Contacted','عرض تجريبي':'Demo','أرسلنا عرض السعر':'Quote sent','اتفقنا ودفع العربون':'Agreed & deposit paid','تجهيز البيانات والحسابات':'Preparing data & accounts','جاري التنفيذ':'Building','مراجعة مع العميل':'Client review','في مراجعة المتاجر':'In store review',
+'تم التسليم':'Delivered','فترة الدعم المجاني':'Free support period','مكتمل':'Completed',
+/* packages, channels, countries, sources */
+'الأساسية':'Basic','الاحترافية':'Pro','المتكاملة':'Complete','مخصص':'Custom','باقة الأساسية':'Basic package','باقة الاحترافية':'Pro package','باقة المتكاملة':'Complete package','الباقة: الأساسية':'Package: Basic','الباقة: الاحترافية':'Package: Pro','الباقة: المتكاملة':'Package: Complete',
+'مكالمة':'Call','فيسبوك':'Facebook','إنستجرام':'Instagram','تيك توك':'TikTok','جوجل':'Google','زيارة':'Visit','ترشيح':'Referral','أخرى':'Other','رابط مشاركة':'Shared link','داخل فيسبوك/إنستجرام':'Inside Facebook/Instagram','إيميل':'Email','سناب شات':'Snapchat','يوتيوب':'YouTube','لينكد إن':'LinkedIn','تويتر':'X (Twitter)','بحث جوجل':'Google search','إعلان جوجل':'Google Ads',
+'مصر':'Egypt','السعودية':'Saudi Arabia','الإمارات':'UAE','الكويت':'Kuwait','قطر':'Qatar','الأردن':'Jordan','المغرب':'Morocco','دولة أخرى':'Other country','جنيه':'EGP','دولار':'USD',
+'آيفون':'iPhone','أندرويد':'Android','ويندوز':'Windows','ماك':'Mac','كروم':'Chrome','سفاري':'Safari','فايرفوكس':'Firefox','إيدج':'Edge','تابلت':'Tablet',
+/* order window */
+'إضافة طلب':'Add order','لعميل كلّمك على واتساب أو بالتليفون أو جالك بنفسه':'For a client who contacted you on WhatsApp, by phone or in person','المتابعة الجاية':'Next follow-up','عشان إيه':'About what','مثلًا: يرد على عرض السعر':'e.g. reply to the quote','بكرة':'Tomorrow','بعد ٣ أيام':'In 3 days','بعد أسبوع':'In a week','مفيش':'None',
+'الاسم':'Name','رقم الموبايل':'Mobile number','الدولة':'Country','جالنا منين':'Came from','لم يحدد بعد':'Not chosen yet','المشروع':'Project','الباقة':'Package','موعد التسليم':'Delivery date','السعر المتفق':'Agreed price','العملة':'Currency','ملاحظة العميل:':'Client’s note:','ملاحظاتك':'Your notes',
+'مثلًا: عايز اللوجو أخضر، التسليم بعد العيد، اتفقنا على عربون ٥٠٪':'e.g. wants a green logo, delivery after Eid, 50% deposit agreed','حفظ الطلب':'Save order','حفظ التعديلات':'Save changes','الديمو':'Demos','مهام المشروع':'Project tasks','اختار الباقة علشان تظهر مهامها كاملة':'Pick the package to see all its tasks',
+'رسائل واتساب جاهزة':'Ready WhatsApp messages','بتفتح واتساب والرسالة مكتوبة باسم العميل، وتقدر تعدّلها قبل ما تبعت.':'Opens WhatsApp with the message written to the client. You can edit it before sending. (Messages stay in Arabic.)','سجل الطلب':'Order history',
+'إلغاء أو حذف':'Cancel or delete','إلغاء الطلب مع السبب':'Cancel with a reason','تغيير سبب الإلغاء':'Change cancel reason','حذف نهائي':'Delete permanently','الإلغاء':'Cancelling','الحذف النهائي':'Permanent delete','بيسيب الطلب في الأرقام علشان نعرف بنخسر فين.':'keeps the order in the numbers so we learn where we lose.','بيمسحه من قاعدة البيانات خالص، ومايترجعش: للطلبات الوهمية أو المكررة أو التجارب.':'erases it from the database for good, no undo: for fake, duplicate or test orders.',
+'قبل الاتفاق':'before agreeing','بعد ما بدأنا':'after we started','أضفته يدويًا':'added by hand','افتح الطلب':'Open order',
+/* tasks */
+'جروب واتساب خاص بالمشروع':'Private WhatsApp group for the project','استلام العربون':'Receive the deposit','فتح حساب مطوّر باسم العميل (Apple وGoogle)':'Open developer accounts in the client’s name (Apple & Google)','اختبار Google ١٤ يوم لو الحساب شخصي':'Google 14-day test if the account is personal','استلام بيانات النشاط والمحتوى':'Receive business data & content',
+'الشعار والهوية: مفهومين وجولتين تعديل':'Logo & identity: 2 concepts, 2 revision rounds','تجهيز لوحة التحكم':'Set up the dashboard','الموقع باسم العميل (والدومين باسمه)':'Website in the client’s name (domain too)','تطبيق الموبايل باسمه وشعاره':'Mobile app with their name & logo','الميزة المخصّصة (حتى ٥ أيام عمل)':'Custom feature (up to 5 working days)',
+'ديمو ومراجعة مع العميل':'Demo & review with the client','رفع التطبيق لمراجعة المتاجر':'Submit the app for store review','استلام باقي المبلغ':'Receive the balance','التسليم وتدريب العميل':'Handover & client training','حملة الإطلاق: ٦ تصميمات + فيديو + خطة أسبوعين':'Launch campaign: 6 designs + video + 2-week plan','تسليم السورس كود':'Hand over the source code',
+/* message buttons */
+'ترحيب وتحديد ديمو':'Welcome & book a demo','تأكيد ميعاد الديمو':'Confirm demo time','إرسال عرض السعر':'Send the quote','تذكير بانتهاء العرض':'Quote expiry reminder','مبروك وطلب البيانات':'Congrats & ask for data','النسخة جاهزة للمراجعة':'Version ready for review','التطبيق في مراجعة المتاجر':'App in store review',
+'تذكير بباقي المبلغ':'Balance reminder','الدعم المجاني قرب يخلص':'Free support ending soon','سؤال ومتابعة':'Check-in',
+/* flags */
+'الدعم المجاني خلص':'Free support ended','ديمو زيادة عن الباقة':'More demos than the package','متابعة النهارده':'Follow up today','من غير سبب':'No reason','طلب جديد، رد عليه':'New order, reply to it',
+/* cancel reasons */
+'السعر أعلى من ميزانيته':'Price above their budget','بطّل يرد':'Stopped replying','مش وقته، أجّل':'Not now, postponed','راح لحد تاني':'Went with someone else','البرنامج مش مناسب لنشاطه':'Program doesn’t fit their business','محتاج ميزة مش عندنا':'Needs a feature we don’t have','مش مطمّن، عايز يشوف شغل أكتر':'Not confident, wants to see more work',
+'المدة طويلة عليه':'Timeline too long','العميل وقّف بعد ما بدأنا':'Client stopped after we started','طلب وهمي أو رقم غلط':'Fake order or wrong number','سبب تاني':'Other reason',
+'اعرض الباقة الأساسية أو قسّط على دفعتين، ووضّح هياخد إيه مقابل السعر.':'Offer the Basic package or split it into two payments, and spell out what they get for the price.','رد على الطلب الجديد في أول ساعة، وتابع ٣ مرات (بكرة، بعد ٣ أيام، بعد أسبوع) قبل ما تلغي.':'Reply to new orders within the first hour, and follow up 3 times (tomorrow, in 3 days, in a week) before cancelling.',
+'بدل الإلغاء: «متوقف مؤقتًا» مع ميعاد متابعة.':'Instead of cancelling: “On hold” with a follow-up date.','اسأله اختار مين وليه (السعر؟ المدة؟ ميزة؟)، الإجابة دي نقطة الضعف بالظبط.':'Ask who they chose and why (price? timeline? a feature?). That answer is exactly our weak spot.','راجع وصف البرنامج واستهداف الإعلان، يمكن بيجيب ناس مش مناسبة.':'Check the program description and ad targeting; they may be bringing the wrong people.',
+'اكتب الميزة في الملاحظة؛ لو اتكررت تبقى إضافة مدفوعة أو برنامج جديد.':'Write the feature in the note; if it repeats, make it a paid add-on or a new program.','ابعت ديمو حي وشغل سابق وآراء عملاء، وخلّي الضمان والشروط واضحة.':'Send a live demo, past work and reviews, and make the guarantee and terms clear.','وضّح جدول التسليم من الأول، واعرض الباقة الأسرع.':'Show the delivery schedule upfront and offer the faster package.',
+'ثبّت العربون والشروط كتابة قبل البدء، ومواعيد مراجعة واضحة.':'Fix the deposit and terms in writing before starting, with clear review dates.','لو بيتكرر: الإعلان محتاج استهداف أدق أو النموذج محتاج تأكيد للرقم.':'If it repeats: the ad needs tighter targeting or the form needs phone verification.','اكتب السبب في الملاحظة.':'Write the reason in the note.',
+'اختار السبب. بيتجمع في الرئيسية علشان نعرف بنخسر فين ونصلّح إيه.':'Pick the reason. It’s collected on the home page so we see where we lose and what to fix.','تفاصيل (اختياري): مثلًا عرض المنافس كان كام، أو الميزة اللي طلبها':'Details (optional): e.g. the competitor’s price, or the feature they asked for','إلغاء الطلب':'Cancel order','رجوع':'Back','اختار سبب الأول':'Pick a reason first','اكتب السبب في التفاصيل':'Write the reason in the details','سبب الإلغاء':'Cancel reason',
+/* confirm dialogs */
+'إلغاء':'Cancel','أيوه، رجّعه':'Yes, move it back','افتحه تاني':'Reopen it','سجّله':'Log it','احذفه نهائيًا':'Delete permanently','رجّعه':'Restore','أيوه، أوقفه':'Yes, pause','احذفه':'Delete','الطلب ده ملغي. عايز تفتحه تاني؟':'This order is cancelled. Reopen it?',
+/* toasts */
+'اكتب الاسم ورقم صحيح':'Enter a name and a valid number','اتحذف الطلب (معاينة)':'Order deleted (preview)','اتحذف الطلب نهائيًا':'Order deleted permanently','الحذف للمالكين بس، أو القواعد لسه القديمة':'Only owners can delete, or the rules are still the old ones','اتضاف الطلب (معاينة)':'Order added (preview)','اتضاف الطلب':'Order added','اتحفظ (معاينة)':'Saved (preview)','اتحفظ':'Saved',
+'الباسورد لازم ٨ حروف أو أرقام على الأقل':'Password needs at least 8 characters','الباسورد والتأكيد مش زي بعض':'Passwords don’t match','اتحفظ الباسورد (معاينة)':'Password saved (preview)','اتغيّر الباسورد':'Password changed','تمام، تقدر تدخل بالإيميل والباسورد من دلوقتي':'Done. You can sign in with email and password from now on',
+'اكتب الاسم وإيميل صحيح':'Enter a name and a valid email','ده إيميل مالك، عنده صلاحية بالفعل':'That’s an owner email; it already has access','العضو ده موجود ونشط بالفعل':'This member already exists and is active','اتبعت الرابط (معاينة)':'Link sent (preview)','اتنسخ التقرير، الصقه في واتساب':'Report copied, paste it in WhatsApp','ماقدرتش أنسخ':'Couldn’t copy',
+'الباسورد الحالي غلط':'Current password is wrong','الباسورد ضعيف، خليه أطول':'Weak password, make it longer','الدخول بالإيميل والباسورد لسه مش متفعّل في Firebase':'Email & password sign-in isn’t enabled in Firebase yet','لازم تأكد بجوجل الأول عشان نحفظ الباسورد':'Confirm with Google first so we can save the password','حسابك عليه باسورد بالفعل':'Your account already has a password',
+'الإيميل ده عليه حساب قبل كده بباسورد تاني. امسحه من Firebase ← Authentication أو استخدم إيميل تاني':'This email already has an account with another password. Delete it in Firebase → Authentication or use another email','الإيميل مش صحيح':'Invalid email','فعّل «Email/Password» في Firebase ← Authentication الأول':'Enable “Email/Password” in Firebase → Authentication first','قواعد Firebase لسه القديمة. انشر الملف الجديد firestore.rules':'Firebase rules are still the old ones. Publish the new firestore.rules',
+/* money */
+'باقي على العملاء ':'Owed by clients ','الصفقات شهريًا':'Deals per month','حسب شهر الاتفاق':'by month agreed','اتفقنا':'Agreed','حسب الباقة':'By package','بدون باقة':'No package','المستحقات':'Receivables','مين عليه باقي، الأكبر الأول':'Who owes what, largest first','الباقي':'Balance','اتدفع':'Paid','تذكير':'Reminder','بالجنيه':'In EGP','بالدولار':'In USD','مفيش مستحقات 👌':'No receivables 👌','كل المتفق عليه اتحصّل 👏':'Everything agreed has been collected 👏',
+/* traffic & apps */
+'المصادر':'Sources','مين بيجيب زيارات، ومين بيجيب طلبات':'Who brings visits, and who brings orders','تحويل':'Conversion','لا توجد زيارات بعد':'No visits yet','الحملات الإعلانية':'Ad campaigns','الحملة':'Campaign','من utm_campaign في رابط الإعلان':'From utm_campaign in the ad link','النظام والمتصفح':'OS & browser','البلد بالتقريب':'Approximate country','من المنطقة الزمنية':'From the time zone',
+'زوار مختلفين':'Unique visitors','زيارة ← طلب':'visit → order','أكتر البرامج اللي اتفتحت':'Most viewed programs','أكتر البرامج اللي اتشاركت':'Most shared programs','والطلبات على كل برنامج':'and orders per program','روابط البرامج المفتوحة':'Program links opened','زيارات بدأت من رابط متشارك':'Visits that started from a shared link','أكتر كلمات البحث':'Top search terms',
+'فرص: بحثوا ومالقوش':'Opportunities: searched, found nothing','أفكار للبرنامج رقم ٤١ بيطلبها السوق':'Ideas for program Nº41 the market asks for','الحماية من الطلبات الوهمية':'Protection from fake orders',
+/* report */
+'طباعة أو حفظ PDF':'Print or save as PDF','نسخ كرسالة':'Copy as message','زوار مختلفين ':'Unique visitors ','طلبات عرض':'Demo requests','صفقات اتفقنا عليها ':'Agreed deals ','مشاريع اتسلّمت':'Projects delivered','طلبات اتلغت':'Orders cancelled','أحسن مصدر':'Best source','أحسن حملة':'Best campaign','الصفقات':'Deals',
+/* settings */
+'الوضع واللون':'Mode & colour','فاتح':'Light','داكن':'Dark','تلقائي':'Auto','اللون الأساسي':'Main colour','زمردي':'Emerald','أزرق':'Blue','بنفسجي':'Violet','تركواز':'Teal','كهرماني':'Amber','وردي':'Pink','الخطوط':'Fonts','خط العناوين والأرقام':'Headings & numbers font','خط النصوص':'Body font',
+'الحجم والمساحات':'Size & spacing','حجم الكلام':'Text size','صغير':'Small','عادي':'Normal','كبير':'Large','أكبر':'Larger','المسافات':'Spacing','مريحة':'Comfortable','مضغوطة':'Compact','استدارة حواف الكروت':'Card corner radius','الحركة والافتراضي':'Motion & defaults','الحركة':'Motion','ظهور الكروت بهدوء لما تفتح صفحة':'Cards fade in gently when a page opens',
+'صورة الترحيب':'Welcome image','صورة الموقع في كارت الترحيب بلوحة التحكم':'The site photo in the welcome card','الفترة لما تفتح اللوحة':'Default period','الصفحة اللي تفتح عليها':'Start page','الأمان والقائمة':'Security & menu','خروج تلقائي لو مفيش نشاط':'Sign out after inactivity','٣٠ دقيقة':'30 min','ساعة':'1 hour','٤ ساعات':'4 hours','٨ ساعات':'8 hours','أبدًا':'Never',
+'القائمة الجانبية':'Sidebar','· اختصار:':'· shortcut:','كاملة':'Full','أيقونات بس':'Icons only','الإعدادات دي محفوظة على الجهاز ده بس.':'These settings are saved on this device only.','رجوع للإعدادات الأصلية':'Reset to defaults','٧ أيام':'7 days','٣٠ يوم':'30 days','اللغة':'Language / اللغة',
+/* account */
+'حسابك':'Your account','مالك':'Owner','عضو في الفريق':'Team member','تقدر تدخل بـ':'You can sign in with','جوجل ✓':'Google ✓','جوجل (مش مربوط)':'Google (not linked)','إيميل وباسورد ✓':'Email & password ✓','إيميل وباسورد (مفيش باسورد لسه)':'Email & password (no password yet)',
+'حسابك شغّال بالطريقتين: زرار جوجل، أو الإيميل والباسورد من أي جهاز.':'Your account works both ways: the Google button, or email and password from any device.','دلوقتي بتدخل بجوجل بس. حط باسورد هنا، وبعد كده تقدر تدخل من أي جهاز بالإيميل':'Right now you sign in with Google only. Set a password here, then you can sign in from any device with the email','والباسورد، من غير ما تفتح حساب جوجل عليه.':'and the password, without opening a Google account on it.',
+'بتدخل بالإيميل والباسورد. لو الإيميل ده جيميل، تقدر كمان تدوس «الدخول بحساب جوجل» وهيفتح نفس الحساب.':'You sign in with email and password. If it’s a Gmail address, “Sign in with Google” opens the same account.','تغيير الباسورد':'Change password','حط باسورد لحسابك':'Set a password for your account','الباسورد الحالي':'Current password','الباسورد الجديد (٨ حروف أو أرقام على الأقل)':'New password (at least 8 characters)','اكتبه تاني':'Type it again','غيّر الباسورد':'Change password','احفظ الباسورد':'Save password',
+/* team */
+'إضافة عضو':'Add member','مثلًا: أحمد، المبيعات':'e.g. Ahmed, sales','اقترح باسورد':'Suggest a password','ضيفه':'Add','ابعتله الإيميل والباسورد، ويدخل من':'Send them the email and password; they sign in at','. العضو بيشوف ويعدّل الطلبات والأرقام، لكن مايقدرش يضيف أو يشيل حد.':'. Members see and edit orders and numbers, but can’t add or remove anyone.',
+'إيقاف':'Pause','بيقفل عليه فورًا وتقدر ترجّعه.':'locks them out at once; you can restore them.','حذف':'Remove','بيشيل وصوله خالص؛ ولو عايز تمسح حسابه نفسه: Firebase ← Authentication.':'removes their access completely; to delete the account itself: Firebase → Authentication.','رابط باسورد جديد':'New password link','يوصله إيميل يغيّر منه الباسورد':'Emails them a link to change the password',
+'تفعيل':'Activate','نشط':'Active','موقوف':'Paused','لسه مادخلش':'Hasn’t signed in yet','إنت':'You','لسه مفيش أعضاء. ضيف أول واحد من الكارت اللي جنبك.':'No members yet. Add the first one from the card next to this.',
+/* misc units */
+'الآن':'now','أمس':'yesterday','و':'and','اختصار:':'shortcut:','الزيارات والطلبات يومًا بيوم':'Visits and orders day by day','أسبوع':'1 week','أسبوعين':'2 weeks','شهر':'1 month','٣ شهور':'3 months','٣ إلى ٤ أسابيع':'3 to 4 weeks','المدة المتفق عليها':'the agreed time','من':'of','عندك':'You have','أولها:':'First:','يوم':'days'
+};
+/* sentences that carry numbers or names: [Arabic pattern, English replacement] */
+const EN_PAT=[
+[/^منذ (\d+) د$/,'$1m ago'],[/^(\d+) أسابيع$/,'$1 weeks'],[/^منذ (\d+) س$/,'$1h ago'],[/^آخر دخول (.+)$/,m=>'Last sign-in '+enTr(m[1])],
+[/^(\d[\d,]*) د (\d+) ث$/,'$1m $2s'],[/^(\d+) ث$/,'$1s'],
+[/^(صباح|مساء) الخير(?:، (.*))?$/,m=>(m[1]==='صباح'?'Good morning':'Good evening')+(m[2]?', '+enTr(m[2]):'')],
+[/^([\d,.]+) زيارة$/,'$1 visits'],[/^([\d,.]+) طلب$/,'$1 orders'],[/^([\d,.]+) طلب عرض$/,'$1 demo requests'],[/^([\d,.]+) زائر مختلف$/,'$1 unique visitors'],[/^([\d,.]+) صفقة$/,'$1 deals'],[/^متوسط (.+)$/,m=>'avg '+enTr(m[1])],
+[/^([\d,.]+) طلب من ([\d,.]+) زيارة$/,'$1 orders from $2 visits'],[/^من ([\d,.]+) فتحوا النموذج$/,'of $1 who opened the form'],[/^([\d,.]+%) من الزيارات$/,'$1 of visits'],[/^([\d,.]+%) من المتفق عليه$/,'$1 of agreed'],
+[/^([\d,.]+) عميل عليه باقي$/,'$1 clients owe money'],[/^([\d,.]+) عرض سعر أو ديمو$/,'$1 quotes or demos'],[/^([\d,.]+) (حاجة|حاجات)$/,m=>m[1]+(m[1]==='1'?' item':' items')],[/^([\d,.]+) أشخاص$/,'$1 people'],
+[/^([\d,.]+) موبايل$/,'$1 mobile'],[/^([\d,.]+) كمبيوتر$/,'$1 desktop'],[/^(موبايل|كمبيوتر|راجعين|جداد|اتحصّل|باقي): (.+)$/,m=>({'موبايل':'Mobile','كمبيوتر':'Desktop','راجعين':'Returning','جداد':'New','اتحصّل':'Collected','باقي':'Balance'})[m[1]]+': '+m[2]],
+[/^أكترها: «(.+)»$/,'Top: “$1”'],[/^و([\d,]+) كمان في الطلبات$/,'+$1 more in Orders'],[/^مهام ([\d,]+) من ([\d,]+)$/,'Tasks $1 of $2'],[/^([\d,]+) من ([\d,]+)$/,'$1 of $2'],
+[/^الباقة (\S+) فيها (\d+) ديمو$/,m=>'The '+enTr(m[1])+' package includes '+m[2]+' demos'],[/^الباقة (\S+): تسليم خلال (.+) · (\d+) ديمو · دعم مجاني (.+)$/,m=>enTr(m[1])+' package: delivery in '+enTr(m[2])+' · '+m[3]+' demos · free support '+enTr(m[4])],
+[/^اتدفع (.+) من (.+)$/,m=>'Paid '+enTr(m[1])+' of '+enTr(m[2])],[/^فاضل$/,'left'],
+[/^التسليم بعد (\d+) يوم$/,'Delivery in $1d'],[/^التسليم النهارده$/,'Delivery today'],[/^التسليم (?!متأخر|بعد|النهارده)(.+)$/,m=>'Delivery '+m[1]],[/^متأخر (\d+) يوم$/,'$1d late'],[/^التسليم متأخر (\d+) يوم$/,'Delivery $1d late'],
+[/^العرض صالح (\d+) يوم$/,'Quote valid $1d'],[/^العرض صالح لآخر النهارده$/,'Quote valid until tonight'],[/^العرض انتهى من (\d+) يوم$/,'Quote expired $1d ago'],[/^العرض انتهى$/,'Quote expired'],[/^العرض بينتهي (بكرة|النهارده)$/,m=>'Quote ends '+(m[1]==='بكرة'?'tomorrow':'today')],
+[/^دعم مجاني فاضل (\d+) يوم$/,'Free support: $1d left'],[/^الدعم المجاني بيخلص بعد (\d+) يوم$/,'Free support ends in $1d'],[/^متابعة متأخرة (\d+) يوم$/,'Follow-up $1d overdue'],[/^متابعة بعد (\d+) يوم$/,'Follow up in $1d'],
+[/^طلب جديد مستني رد من (\d+) (ساعة|يوم)$/,m=>'New order waiting '+m[1]+(m[2]==='ساعة'?'h':'d')],[/^تحصيل باقي المبلغ: (.+)$/,m=>'Collect the balance: '+enTr(m[1])],
+[/^السبب: (.+)$/,m=>'Reason: '+enTr(m[1])],[/^ملغي: (.+)$/,m=>'Cancelled: '+enTr(m[1])],[/^ملغي$/,'Cancelled'],[/^أكتر سبب: (.+)$/,m=>'Top reason: '+enTr(m[1])],
+[/^([\d,]+) قبل الاتفاق$/,'$1 before agreeing'],[/^([\d,]+) بعد ما بدأنا$/,'$1 after we started'],[/^إلغاء طلب «(.*)»$/,'Cancel “$1”'],
+[/^اتفقنا على (.+)$/,m=>'Agreed '+enTr(m[1])],[/^اتحصّل (.+)$/,m=>'Collected '+enTr(m[1])],[/^الشريحة (\d+)$/,'Slide $1'],[/^كل الرسائل \((\d+)\)$/,'All messages ($1)'],
+[/^(.+) \((\d+) طلب\)$/,m=>enTr(m[1])+' ('+m[2]+' orders)'],[/^تقرير (.+)$/,m=>'Report: '+enTr(m[1])],[/^حملة (.+)$/,'campaign $1'],[/^أول ما عرفنا: (.+)$/,m=>'first came via '+enTr(m[1])],[/^برنامج #(\d+)$/,'Program #$1'],
+[/^طلب جديد من (.*)$/,'New order from $1'],[/^تعذّر (تحميل البيانات|تحميل الطلبات|تحميل الفريق|الدخول|تحميل اللوحة): (.*)$/,m=>'Couldn’t '+({'تحميل البيانات':'load data','تحميل الطلبات':'load orders','تحميل الفريق':'load the team','الدخول':'sign in','تحميل اللوحة':'load the dashboard'})[m[1]]+': '+m[2]],
+[/^(ماتحفظش|مااتضافش|مااتحذفش|مااتبعتش): (.*)$/,m=>({'ماتحفظش':'Not saved','مااتضافش':'Not added','مااتحذفش':'Not deleted','مااتبعتش':'Not sent'})[m[1]]+': '+m[2]],
+[/^اتضاف (.+?)(?: \(معاينة\)|\. ابعتله الإيميل والباسورد|، وبيانات الدخول اتنسخت عشان تبعتهاله)$/,(m,s)=>'Added '+m[1]+(/معاينة/.test(s)?' (preview)':/اتنسخت/.test(s)?'; sign-in details copied to send them':'. Send them the email and password')],
+[/^(اتوقف|رجع|اتحذف) (.+?)( \(معاينة\))?$/,m=>({'اتوقف':'Paused ','رجع':'Restored ','اتحذف':'Removed '})[m[1]]+m[2]+(m[3]?' (preview)':'')],[/^رجع (.+) للفريق$/,'$1 is back on the team'],
+[/^اتبعت رابط تغيير الباسورد على (.+)$/,'Password reset link sent to $1'],[/^اتقفلت الجلسة لأنك ماكنتش نشط لمدة (.+)\. ادخل تاني\.$/,m=>'Signed out after '+enTr(m[1])+' of inactivity. Sign in again.'],
+[/^الحساب (.+) مش مسموح له يدخل اللوحة\.(.*)$/,m=>'The account '+m[1]+' isn’t allowed into the dashboard.'+(m[2]?' If you’re on the team, ask the owner to add or activate you.':'')],
+[/^الطلب دلوقتي في «(.+)»\. متأكد إنك ترجّعه لـ «(.+)»؟$/,m=>'This order is at “'+enTr(m[1])+'”. Move it back to “'+enTr(m[2])+'”?'],
+[/^الباقة (\S+) فيها (\d+) ديمو بس\./,m=>'The '+enTr(m[1])+' package includes only '+m[2]+' demos. Log an extra demo? (extras are charged)'],
+[/^تحذف طلب «(.*)» نهائيًا؟/,'Delete “$1” permanently? It’s erased from the database with all its data and history, won’t appear in any number, and can’t be undone. If the client just didn’t continue, use “Cancel order” instead.'],
+[/^«(.+)» كان عضو قبل كده\./,'“$1” was a member before. Restore them? (They sign in with their old password, or send a new password link.)'],
+[/^توقف «(.+)»؟/,'Pause “$1”? They’re locked out at once until you restore them.'],[/^تحذف «(.+)» من الفريق؟/,'Remove “$1” from the team? They won’t be able to sign in again.'],
+[/^آخر تحديث (.+)$/,'Updated $1'],[/^تقرير Nº41 ·/,'Nº41 report ·'],
+];
+const enTr=s=>{if(!s)return s;if(EN_DICT[s]!=null)return EN_DICT[s];if(EN_PN[s])return EN_PN[s];
+  for(const [re,to] of EN_PAT){const m=s.match(re);if(m)return typeof to==='function'?to(m,s):s.replace(re,to)}
+  if(s.includes(' · '))return s.split(' · ').map(enTr).join(' · ');if(s.includes('|'))return s.split('|').map(enTr).join('|');
+  if(s.includes('، '))return s.split('، ').map(enTr).join(', ');
+  return s.replace(/ج\.م/g,'EGP')};
+const EN_PN={};/* product names Arabic → English, filled from the site */
+const AR_RE=/[؀-ۿ]/;
+function enText(t){const lead=t.match(/^\s*/)[0],trail=t.match(/\s*$/)[0],core=t.trim();if(!core||!AR_RE.test(core))return t;const o=core.startsWith('· ')?'· '+enTr(core.slice(2)):enTr(core);return o===core?t:lead+o.replace(/ج\.م/g,'EGP')+trail}
+function enNode(root){if(!EN||!root)return;if(root.nodeType===3){const v=enText(root.nodeValue);if(v!==root.nodeValue)root.nodeValue=v;return}if(root.nodeType!==1)return;
+  if(root.closest&&root.closest('[data-keep-ar]'))return;
+  const tw=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>n.parentElement&&n.parentElement.closest('script,style,[data-keep-ar],textarea')?2:1});let n;const list=[];while(n=tw.nextNode())list.push(n);
+  list.forEach(n=>{const v=enText(n.nodeValue);if(v!==n.nodeValue)n.nodeValue=v});
+  const els=[root,...root.querySelectorAll('[placeholder],[title],[aria-label],[data-tip],[label],input[disabled][value]')];
+  els.forEach(e=>{if(!e.getAttribute||e.closest('[data-keep-ar]'))return;['placeholder','title','aria-label','data-tip','label'].forEach(a=>{const v=e.getAttribute(a);if(v&&AR_RE.test(v)&&!(a==='title'&&e.classList.contains('msg')))e.setAttribute(a,enText(v))});
+    if(e.matches&&e.matches('input[disabled]')&&AR_RE.test(e.value))e.value=enText(e.value)})}
+if(EN){enNode(document.body);new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(enNode))).observe(document.body,{childList:true,subtree:true})}
+
 
 /* ---------- helpers ---------- */
 const N=(n,d=0)=>Number(n||0).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
@@ -610,7 +775,7 @@ const pct=(a,b)=>b?N(pctN(a,b),pctN(a,b)<10?1:0)+'%':'—';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
 const toD=x=>x?(x.toDate?x.toDate():new Date(x)):null;
 const dayKey=d=>d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
-const ago=d=>{if(!d)return '';const s=(Date.now()-d)/1000;if(s<60)return 'الآن';if(s<3600)return 'منذ '+Math.floor(s/60)+' د';if(s<86400)return 'منذ '+Math.floor(s/3600)+' س';if(s<172800)return 'أمس';return d.toLocaleDateString('ar-EG-u-nu-latn',{day:'numeric',month:'short'})};
+const ago=d=>{if(!d)return '';const s=(Date.now()-d)/1000;if(s<60)return 'الآن';if(s<3600)return 'منذ '+Math.floor(s/60)+' د';if(s<86400)return 'منذ '+Math.floor(s/3600)+' س';if(s<172800)return 'أمس';return d.toLocaleDateString(LOC,{day:'numeric',month:'short'})};
 const dur=s=>!s?'—':s<60?Math.round(s)+' ث':Math.floor(s/60)+' د '+Math.round(s%60)+' ث';
 const isTest=x=>/test|claude/i.test(x?.src||'')||/claude test/i.test(x?.name||'');
 const toast=m=>{const t=document.createElement('div');t.className='toast';t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),2400)};
@@ -694,7 +859,7 @@ const PKG={basic:{n:'الأساسية',weeks:1,demos:1,support:14,sup:'أسبو�
 const today=()=>new Date().toISOString().slice(0,10);
 const addDays=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x.toISOString().slice(0,10)};
 const daysTo=d=>Math.round((new Date(d)-new Date(today()))/864e5);
-const fmtD=d=>d?new Date(d).toLocaleDateString('ar-EG-u-nu-latn',{day:'numeric',month:'short'}):'';
+const fmtD=d=>d?new Date(d).toLocaleDateString(LOC,{day:'numeric',month:'short'}):'';
 function ask(text,yes){return new Promise(r=>{const d=document.createElement('div');d.className='ask';d.innerHTML=`<div class="ask-c" role="alertdialog" aria-modal="true"><p>${esc(text)}</p><div class="row"><button class="wa${/احذف|أوقفه/.test(yes)?' danger-bg':''}" type="button" data-y>${esc(yes)}</button><button class="btn" type="button" data-n>إلغاء</button></div></div>`;document.body.appendChild(d);
   const done=v=>{d.remove();r(v)};d.addEventListener('click',e=>{e.stopPropagation();if(e.target.closest('[data-y]'))done(true);else if(e.target.closest('[data-n]')||e.target===d)done(false)});d.querySelector('[data-y]').focus()})}
 /* one place changes a status: warns on going backwards, fills the dates the package implies, keeps a history */
@@ -771,7 +936,7 @@ function moneyStats(){const cur=[...new Set(st.leads.filter(l=>l.price||l.paid).
       pipe:pipe.reduce((a,l)=>a+(l.price||0),0),pipeN:pipe.length,months,byPkg:Object.entries(byPkg).sort((a,b)=>b[1].v-a[1].v),due:won.filter(l=>remainOf(l)>0).sort((a,b)=>remainOf(b)-remainOf(a))}})}
 function monthBars(months,c,W=640){const H=220,L=10,R=10,T=14,B=30,mx=Math.max(1,...months.map(m=>m.a)),n=months.length,bw=(W-L-R)/n;
   return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="الصفقات شهريًا">${[0,1,2].map(k=>`<line x1="${L}" x2="${W-R}" y1="${T+(H-T-B)*k/2}" y2="${T+(H-T-B)*k/2}" stroke="var(--line)" stroke-dasharray="3 5" vector-effect="non-scaling-stroke"/>`).join('')}
-  ${months.map((m,i)=>{const x=W-R-(i+1)*bw,h1=(H-T-B)*m.a/mx,h2=(H-T-B)*m.p/mx,w=Math.min(26,bw*.28);return `<rect x="${x+bw/2-w-2}" y="${H-B-h1}" width="${w}" height="${Math.max(0,h1)}" rx="5" fill="var(--em)" opacity=".9"/><rect x="${x+bw/2+2}" y="${H-B-h2}" width="${w}" height="${Math.max(0,h2)}" rx="5" fill="var(--gold)"/><text class="ax" x="${x+bw/2}" y="${H-8}" text-anchor="middle">${m.d.toLocaleDateString('ar-EG-u-nu-latn',{month:'short'})}</text><rect x="${x}" y="${T}" width="${bw}" height="${H-T-B}" fill="transparent" data-tip="${m.d.toLocaleDateString('ar-EG-u-nu-latn',{month:'long',year:'numeric'})}|اتفقنا على ${money(m.a,c)} · اتحصّل ${money(m.p,c)}"/>`}).join('')}</svg>`}
+  ${months.map((m,i)=>{const x=EN?L+i*bw:W-R-(i+1)*bw,h1=(H-T-B)*m.a/mx,h2=(H-T-B)*m.p/mx,w=Math.min(26,bw*.28);return `<rect x="${x+bw/2-w-2}" y="${H-B-h1}" width="${w}" height="${Math.max(0,h1)}" rx="5" fill="var(--em)" opacity=".9"/><rect x="${x+bw/2+2}" y="${H-B-h2}" width="${w}" height="${Math.max(0,h2)}" rx="5" fill="var(--gold)"/><text class="ax" x="${x+bw/2}" y="${H-8}" text-anchor="middle">${m.d.toLocaleDateString(LOC,{month:'short'})}</text><rect x="${x}" y="${T}" width="${bw}" height="${H-T-B}" fill="transparent" data-tip="${m.d.toLocaleDateString(LOC,{month:'long',year:'numeric'})}|اتفقنا على ${money(m.a,c)} · اتحصّل ${money(m.p,c)}"/>`}).join('')}</svg>`}
 
 function vMoney(){const all=moneyStats();
   return all.map(m=>`${all.length>1?`<h3 class="ctitle">${m.c==='USD'?'بالدولار':'بالجنيه'}</h3>`:''}<div class="grid g4">
@@ -790,14 +955,14 @@ function vMoney(){const all=moneyStats();
 function vReport(x){const b=bounds(),inR=d=>d&&new Date(d)>=b.from;
   const won=st.leads.filter(l=>inR(l.wonAt)),deliv=st.leads.filter(l=>inR(l.deliveredAt)),bestSrc=[...x.src].sort((a,b)=>b[1].l-a[1].l||b[1].s-a[1].s)[0],bestCamp=x.camp[0];
   const sumBy=list=>{const m={};list.forEach(l=>{const c=l.currency||'EGP';m[c]=(m[c]||0)+(l.price||0)});return Object.entries(m).map(([c,v])=>money(v,c)).join(' + ')||'—'};
-  const range=`${b.from.toLocaleDateString('ar-EG-u-nu-latn',{day:'numeric',month:'long'})} – ${new Date().toLocaleDateString('ar-EG-u-nu-latn',{day:'numeric',month:'long',year:'numeric'})}`;
+  const range=`${b.from.toLocaleDateString(LOC,{day:'numeric',month:'long'})} – ${new Date().toLocaleDateString(LOC,{day:'numeric',month:'long',year:'numeric'})}`;
   const lines=[['زيارات',N(x.sessions)],['زوار مختلفين',N(x.visitors)],['طلبات عرض',N(x.leads)],['نسبة التحويل',pct(x.leads,x.sessions)],['ضغطات واتساب',N(x.wa)],['صفقات اتفقنا عليها',N(won.length)+' · '+sumBy(won)],['مشاريع اتسلّمت',N(deliv.length)],(()=>{const z=lostStats(),t=z.reasons.find(r=>r[0]!=='none');return ['طلبات اتلغت',N(z.lost.length)+(t?' · أكتر سبب: '+RS[t[0]][1]:'')]})(),['أحسن مصدر',bestSrc?srcName(bestSrc[0])+(bestSrc[1].l?` (${bestSrc[1].l} طلب)`:''):'—'],['أحسن حملة',bestCamp?bestCamp[0]+` (${bestCamp[1].l} طلب)`:'—']];
   st.reportText=`تقرير Nº41 · ${PERIODS[st.period]}\n${range}\n\n`+lines.map(([k,v])=>`• ${k}: ${v}`).join('\n')+(x.views[0]?`\n• أكتر برنامج اتفتح: ${pName(x.views[0][0])}`:'')+(x.zero[0]?`\n• بحثوا ومالقوش: ${x.zero.slice(0,3).map(z=>z[0]).join('، ')}`:'');
   return `<div class="rbtns"><button class="tbtn dark" type="button" id="printR">${ic('dl')}طباعة أو حفظ PDF</button><button class="tbtn" type="button" id="copyR">${ic('wa')}نسخ كرسالة</button></div>
   <div class="card report"><div class="rhead"><span data-logo-r></span><div><h2>تقرير ${PERIODS[st.period]}</h2><small>${range}</small></div></div>
     <div class="rgrid">${lines.map(([k,v])=>`<div><span>${k}</span><b>${esc(v)}</b></div>`).join('')}</div>
     <div class="grid g2 mt"><div><h4>المصادر</h4>${rank(x.src.map(([k,o])=>[k,o.s,o.l?` <small style="color:var(--gold)">${o.l} طلب</small>`:'']),srcName,{max:5})}</div><div><h4>أكتر البرامج اللي اتفتحت</h4>${rank(x.views,pName,{max:5})}</div></div>
-    ${won.length?`<h4 class="mt">الصفقات</h4><div class="scroll"><table class="tbl"><tbody>${won.map(l=>`<tr><td><b>${esc(l.name)}</b></td><td>${esc(l.product||'—')}</td><td>${PKGS[l.pkg||'']}</td><td class="num">${money(l.price,l.currency)}</td></tr>`).join('')}</tbody></table></div>`:''}
+    ${won.length?`<h4 class="mt">الصفقات</h4><div class="scroll"><table class="tbl"><tbody>${won.map(l=>`<tr class="lrow" data-lead="${l.id}" title="افتح الطلب"><td><b>${esc(l.name)}</b></td><td>${esc(l.product||'—')}</td><td>${PKGS[l.pkg||'']}</td><td class="num">${money(l.price,l.currency)}</td></tr>`).join('')}</tbody></table></div>`:''}
     ${x.zero.length?`<h4 class="mt">بحثوا ومالقوش</h4><p class="rnote">${x.zero.slice(0,8).map(z=>esc(z[0])).join(' · ')}</p>`:''}
   </div>`}
 const NAV=[['نظرة عامة',[['home','لوحة التحكم','home']]],['المبيعات',[['leads','الطلبات','leads'],['money','الفلوس','cash']]],['التسويق',[['traffic','الزيارات والمصادر','traffic'],['apps','البرامج والبحث','apps']]],['التقارير',[['report','التقرير الدوري','report']]],['الإعدادات',[['settings','المظهر','brush'],['account','حسابي','user'],['team','الفريق','users']]]];
@@ -818,7 +983,7 @@ document.querySelectorAll('[data-logo]').forEach((el,i)=>el.insertAdjacentHTML('
 const ACCENTS={emerald:['زمردي','#0E9F6E','#22C08A','14,159,110','34,192,138'],teal:['تركواز','#0F8F87','#2CC4B8','15,143,135','44,196,184'],ocean:['أزرق','#2F6FEB','#6B9BF7','47,111,235','107,155,247'],violet:['بنفسجي','#7A5AE0','#A28BF2','122,90,224','162,139,242'],rose:['وردي','#E0446A','#F27896','224,68,106','242,120,150'],amber:['كهرماني','#C98510','#E8AE3A','201,133,16','232,174,58']};
 const FD={'Readex Pro':'400;500;600;700','Cairo':'400;500;600;700','Tajawal':'400;500;700','El Messiri':'400;500;600;700','Noto Kufi Arabic':'400;500;600;700','Almarai':'400;700;800'};
 const FB={'IBM Plex Sans Arabic':'400;500;600;700','Noto Sans Arabic':'400;500;600;700','Tajawal':'400;500;700','Cairo':'400;500;600;700','Almarai':'400;700'};
-const DEF={theme:'light',accent:'emerald',fd:'Readex Pro',fb:'IBM Plex Sans Arabic',size:1,density:'comfy',radius:18,motion:true,heroImg:true,idle:60,side:'full',period:7,start:'home'};
+const DEF={theme:'light',accent:'emerald',fd:'Readex Pro',fb:'IBM Plex Sans Arabic',size:1,density:'comfy',radius:18,motion:true,heroImg:true,idle:60,side:'full',period:7,start:'home',lang:'ar'};
 const prefs=(()=>{try{return {...DEF,...JSON.parse(localStorage.getItem('n41-admin-prefs')||'{}')}}catch(e){return {...DEF}}})();
 const loaded=new Set(['Readex Pro','IBM Plex Sans Arabic']);
 function loadFont(f,w){if(loaded.has(f))return;loaded.add(f);const l=document.createElement('link');l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family='+f.replace(/ /g,'+')+':wght@'+w+'&display=swap';document.head.appendChild(l)}
@@ -830,12 +995,12 @@ function applyPrefs(){const r=document.documentElement,d=dark(),a=ACCENTS[prefs.
   r.style.setProperty('--f-d','"'+prefs.fd+'","IBM Plex Sans Arabic",system-ui,sans-serif');r.style.setProperty('--f-b','"'+prefs.fb+'","Readex Pro",system-ui,sans-serif');
   r.style.setProperty('--zoom',prefs.size);r.style.setProperty('--r',prefs.radius+'px');r.classList.toggle('no-motion',!prefs.motion);r.classList.toggle('side-mini',prefs.side==='mini');
   document.querySelector('meta[name=theme-color]').content=d?'#0A0E0C':'#F1F3F1';$('#themeQ').innerHTML=ic(d?'sun':'moon')}
-function setPref(k,v){prefs[k]=v;try{localStorage.setItem('n41-admin-prefs',JSON.stringify(prefs))}catch(e){}applyPrefs();if(!$('#app').hidden){const y=scrollY;render(false);scrollTo(0,y)}}
+function setPref(k,v){prefs[k]=v;try{localStorage.setItem('n41-admin-prefs',JSON.stringify(prefs))}catch(e){}if(k==='lang'){location.reload();return}applyPrefs();if(!$('#app').hidden){const y=scrollY;render(false);scrollTo(0,y)}}
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{if(prefs.theme==='auto'){applyPrefs();if(!$('#app').hidden)render(false)}});
 st.period=prefs.period;st.view=prefs.start;applyPrefs();
 
 /* product names come from the site itself, so the dashboard never drifts from the catalog */
-async function loadProducts(){try{const h=await (await fetch('index.html',{cache:'no-store'})).text();const a=h.indexOf('window.SECTORS=');const b=h.indexOf('];',h.indexOf('window.PRODUCTS=['));const w={};new Function('window',h.slice(a,b+2))(w);(w.PRODUCTS||[]).forEach(p=>st.products[p.n]=p.ar.name)}catch(e){}}
+async function loadProducts(){try{const h=await (await fetch('index.html',{cache:'no-store'})).text();const a=h.indexOf('window.SECTORS=');const b=h.indexOf('];',h.indexOf('window.PRODUCTS=['));const w={};new Function('window',h.slice(a,b+2))(w);(w.PRODUCTS||[]).forEach(p=>{st.products[p.n]=p.ar.name;if(p.en&&p.en.name)EN_PN[p.ar.name]=p.en.name})}catch(e){}}
 const pName=n=>st.products[n]||('برنامج #'+n);
 
 /* ---------- data: the current period plus the one before it, for comparisons ---------- */
@@ -845,7 +1010,7 @@ async function loadRange(){st.anim=true;$('#view').innerHTML=skeleton();const b=
   const {F,db}=st.fb,start=F.Timestamp.fromDate(b.prev||b.from);
   try{const [s,e]=await Promise.all([F.getDocs(F.query(F.collection(db,'sessions'),F.where('startedAt','>=',start))),F.getDocs(F.query(F.collection(db,'events'),F.where('at','>=',start)))]);
     st.all={sessions:s.docs.map(d=>({id:d.id,...d.data()})).filter(x=>!isTest(x)),events:e.docs.map(d=>({id:d.id,...d.data()})).filter(x=>!isTest(x))};
-    $('#upd').textContent='آخر تحديث '+new Date().toLocaleTimeString('ar-EG-u-nu-latn',{hour:'numeric',minute:'2-digit'})}catch(err){toast('تعذّر تحميل البيانات: '+(err.code||err.message))}
+    $('#upd').textContent='آخر تحديث '+new Date().toLocaleTimeString(LOC,{hour:'numeric',minute:'2-digit'})}catch(err){toast('تعذّر تحميل البيانات: '+(err.code||err.message))}
   render()}
 function watchLeads(){if(DEMO)return;const {F,db}=st.fb;
   F.onSnapshot(F.query(F.collection(db,'leads'),F.orderBy('at','desc'),F.limit(500)),snap=>{const first=!st.leadsReady;st.leads=snap.docs.map(d=>({id:d.id,...d.data()})).filter(x=>!isTest(x));
@@ -883,7 +1048,7 @@ let rzT;addEventListener('resize',()=>{clearTimeout(rzT);rzT=setTimeout(drawChar
 function smooth(pts){if(pts.length<2)return '';let d='M'+pts[0][0]+','+pts[0][1];for(let i=0;i<pts.length-1;i++){const p0=pts[i-1]||pts[i],p1=pts[i],p2=pts[i+1],p3=pts[i+2]||p2;const c1=[p1[0]+(p2[0]-p0[0])/6,p1[1]+(p2[1]-p0[1])/6],c2=[p2[0]-(p3[0]-p1[0])/6,p2[1]-(p3[1]-p1[1])/6];d+=` C${c1[0].toFixed(1)},${c1[1].toFixed(1)} ${c2[0].toFixed(1)},${c2[1].toFixed(1)} ${p2[0]},${p2[1]}`}return d}
 let gid=0;
 function spark(vals,color){const W=300,H=74,pad=8,v2=vals.length>1?vals:[vals[0]||0,vals[0]||0],mx=Math.max(...v2),mn=Math.min(...v2),rg=Math.max(1e-9,mx-mn),n=v2.length;
-  const pts=v2.map((v,i)=>[+(W-pad-i*(W-2*pad)/(n-1)).toFixed(1),+(mx===mn?H/2:H-10-(v-mn)/rg*(H-26)).toFixed(1)]);
+  const pts=v2.map((v,i)=>[+(EN?pad+i*(W-2*pad)/(n-1):W-pad-i*(W-2*pad)/(n-1)).toFixed(1),+(mx===mn?H/2:H-10-(v-mn)/rg*(H-26)).toFixed(1)]);
   const line=smooth(pts),id='g'+(++gid),last=pts[pts.length-1];
   return `<svg class="spark" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${color}" stop-opacity=".12"/><stop offset="1" stop-color="${color}" stop-opacity="0"/></linearGradient></defs><line x1="${pad}" x2="${W-pad}" y1="${H/2}" y2="${H/2}" stroke="var(--line2)" stroke-dasharray="3 4" vector-effect="non-scaling-stroke"/><path d="${line} L${last[0]},${H} L${pts[0][0]},${H} Z" fill="url(#${id})"/><path d="${line}" fill="none" stroke="${color}" stroke-width="2.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/><circle cx="${last[0]}" cy="${last[1]}" r="4" fill="var(--card)" stroke="${color}" stroke-width="2.2" vector-effect="non-scaling-stroke"/></svg>`}
 function delta(cur,prev){if(prev==null)return '<span class="delta flat">—</span>';if(!prev&&!cur)return '<span class="delta flat">0%</span>';if(!prev)return '<span class="delta up">'+ic('up')+'جديد</span>';
@@ -892,11 +1057,11 @@ function kpi(t,tile,icon,val,unit,sub,vals,color,cur,prev){return `<div class="c
 function stat(t,tile,icon,val,unit,sub,bars){return `<div class="card stat"><div class="sx"><span>${t}</span><div class="sv"><span class="${/[\u0600-\u06FF]/.test(val)?'':'num'}">${val}</span>${unit?` <small>${unit}</small>`:''}</div>${sub?`<div class="ss">${sub}</div>`:''}${bars?`<div class="bars">${bars}</div>`:''}</div><span class="tile ${tile}">${ic(icon)}</span></div>`}
 function segBars(parts){const tot=parts.reduce((a,p)=>a+p[0],0)||1;return parts.filter(p=>p[0]).map(p=>`<i style="flex:${p[0]/tot};background:${p[1]}" title="${esc(p[2])}: ${N(p[0])}"></i>`).join('')}
 function lineChart(days,W=760){const H=260,L=10,R=46,T=14,B=30,mx=Math.max(4,...days.map(d=>d.s)),ml=Math.max(1,...days.map(d=>d.l)),n=days.length;
-  const nice=Math.ceil(mx/4)*4,x=i=>n<2?L+(W-L-R)/2:(W-R)-i*(W-L-R)/(n-1),y=v=>T+(H-T-B)*(1-v/nice),yl=v=>T+(H-T-B)*(1-v/ml*.8);
+  const nice=Math.ceil(mx/4)*4,x=i=>n<2?L+(W-L-R)/2:EN?L+i*(W-L-R)/(n-1):(W-R)-i*(W-L-R)/(n-1),y=v=>T+(H-T-B)*(1-v/nice),yl=v=>T+(H-T-B)*(1-v/ml*.8);
   const ps=days.map((d,i)=>[+x(i).toFixed(1),+y(d.s).toFixed(1)]),pl=days.map((d,i)=>[+x(i).toFixed(1),+yl(d.l).toFixed(1)]);
   const grid=[0,1,2,3,4].map(k=>{const v=nice*k/4;return `<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)" ${k?'stroke-dasharray="3 5"':''} vector-effect="non-scaling-stroke"/><text class="ax" x="${W-R+10}" y="${y(v)+4}" text-anchor="start">${N(v)}</text>`}).join('');
   const step=Math.ceil(n/8),lab=days.map((d,i)=>i%step===0||i===n-1?`<text class="ax" x="${x(i)}" y="${H-8}" text-anchor="middle">${d.d.toLocaleDateString('en-GB',{day:'numeric',month:'numeric'})}</text>`:'').join('');
-  const w=(W-L-R)/Math.max(1,n),hit=days.map((d,i)=>`<rect x="${x(i)-w/2}" y="${T}" width="${w}" height="${H-T-B}" fill="transparent" data-tip="${esc(d.d.toLocaleDateString('ar-EG-u-nu-latn',{weekday:'long',day:'numeric',month:'short'}))}|${N(d.s)} زيارة · ${N(d.l)} طلب"/>`).join('');
+  const w=(W-L-R)/Math.max(1,n),hit=days.map((d,i)=>`<rect x="${x(i)-w/2}" y="${T}" width="${w}" height="${H-T-B}" fill="transparent" data-tip="${esc(d.d.toLocaleDateString(LOC,{weekday:'long',day:'numeric',month:'short'}))}|${N(d.s)} زيارة · ${N(d.l)} طلب"/>`).join('');
   const line2=pl.length>1?`<path d="${smooth(pl)}" fill="none" stroke="var(--gold)" stroke-width="2" stroke-dasharray="6 6" stroke-linecap="round" vector-effect="non-scaling-stroke"/>`:'';
   return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="الزيارات والطلبات يومًا بيوم"><defs><linearGradient id="lg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--em)" stop-opacity=".1"/><stop offset="1" stop-color="var(--em)" stop-opacity="0"/></linearGradient></defs>${grid}${lab}
     ${ps.length>1?`<path d="${smooth(ps)} L${ps[ps.length-1][0]},${y(0)} L${ps[0][0]},${y(0)} Z" fill="url(#lg1)"/><path d="${smooth(ps)}" fill="none" stroke="var(--em)" stroke-width="2.4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>`:`<circle cx="${ps[0][0]}" cy="${ps[0][1]}" r="5" fill="var(--em)"/>`}${line2}${hit}</svg>`}
@@ -935,10 +1100,11 @@ function vHome(x){const p=x.prev||{},h=new Date().getHours(),who=((st.user&&st.u
   </div>`}
 
 function helloSlides(x,best){const t=todo(),m=moneyStats()[0],z=lostStats(),top=z.reasons.find(r=>r[0]!=='none');
-  const sl=[`<h2>${PERIODS[st.period]} جالك <em>${N(x.sessions)} زيارة</em> و<strong>${N(x.leads)} طلب عرض</strong>.</h2>${best&&best[1].l?`<p>أكتر مصدر جاب طلبات: <b>${esc(srcName(best[0]))}</b></p>`:'<p>كل زيارة وطلب بيتسجلوا هنا لحظة بلحظة.</p>'}`];
-  if(t.length)sl.push(`<h2>عندك <em>${N(t.length)} ${t.length===1?'حاجة':'حاجات'}</em> محتاجة متابعة النهارده.</h2><p>أولها: <b>${esc(t[0][1].name)}</b> · ${esc(t[0][2])}</p>`);
-  if(m.agreed)sl.push(`<h2>اتحصّل <em class="num">${money(m.collected,m.c)}</em> من <strong class="num">${money(m.agreed,m.c)}</strong> متفق عليه.</h2><p>${m.remaining?'باقي على العملاء '+money(m.remaining,m.c)+'.':'كل المتفق عليه اتحصّل 👏'}</p>`);
-  if(top)sl.push(`<h2>أكتر سبب بنخسر بيه طلبات: <strong>${RS[top[0]][1]}</strong>.</h2><p>${RS[top[0]][2]}</p>`);
+  const PE={1:'Today',7:'In the last 7 days',30:'In the last 30 days',0:'So far'}[st.period];
+  const sl=[L(`<h2>${PERIODS[st.period]} جالك <em>${N(x.sessions)} زيارة</em> و<strong>${N(x.leads)} طلب عرض</strong>.</h2>`,`<h2>${PE} you got <em>${N(x.sessions)} visits</em> and <strong>${N(x.leads)} demo requests</strong>.</h2>`)+(best&&best[1].l?`<p>${L('أكتر مصدر جاب طلبات:','Source that brought the most orders:')} <b>${esc(srcName(best[0]))}</b></p>`:`<p>${L('كل زيارة وطلب بيتسجلوا هنا لحظة بلحظة.','Every visit and order shows up here in real time.')}</p>`)];
+  if(t.length)sl.push(L(`<h2>عندك <em>${N(t.length)} ${t.length===1?'حاجة':'حاجات'}</em> محتاجة متابعة النهارده.</h2>`,`<h2>You have <em>${N(t.length)} ${t.length===1?'item':'items'}</em> to follow up today.</h2>`)+`<p>${L('أولها:','First:')} <b>${esc(t[0][1].name)}</b> · ${esc(t[0][2])}</p>`);
+  if(m.agreed)sl.push(L(`<h2>اتحصّل <em class="num">${money(m.collected,m.c)}</em> من <strong class="num">${money(m.agreed,m.c)}</strong> متفق عليه.</h2>`,`<h2>Collected <em class="num">${money(m.collected,m.c)}</em> of <strong class="num">${money(m.agreed,m.c)}</strong> agreed.</h2>`)+`<p>${m.remaining?L('باقي على العملاء ','Clients still owe ')+money(m.remaining,m.c)+'.':L('كل المتفق عليه اتحصّل 👏','Everything agreed has been collected 👏')}</p>`);
+  if(top)sl.push(L(`<h2>أكتر سبب بنخسر بيه طلبات: <strong>${RS[top[0]][1]}</strong>.</h2>`,`<h2>Top reason we lose orders: <strong>${RS[top[0]][1]}</strong>.</h2>`)+`<p>${RS[top[0]][2]}</p>`);
   const i=(st.hs||0)%sl.length;
   return `<div class="hs" data-hs>${sl.map((h,k)=>`<div class="hsl${k===i?' on':''}">${h}</div>`).join('')}</div>${sl.length>1?`<div class="hdots">${sl.map((_,k)=>`<button type="button" class="${k===i?'on':''}" data-hdot="${k}" aria-label="الشريحة ${k+1}"></button>`).join('')}</div>`:''}`}
 function helloShow(i){const w=document.querySelector('[data-hs]');if(!w)return;const sl=w.querySelectorAll('.hsl');st.hs=(i+sl.length)%sl.length;
@@ -1011,6 +1177,7 @@ function vSettings(){const on=(k,v)=>prefs[k]===v?' on':'';const seg=(k,opts)=>`
   const tg=(k,t,s)=>`<div class="tg"><span><b>${t}</b><small>${s}</small></span><button type="button" class="swt" role="switch" aria-checked="${!!prefs[k]}" data-pk="${k}" data-pv='${JSON.stringify(!prefs[k])}' aria-label="${t}"></button></div>`;
   return `${setTabs()}<div class="prefs">
   <div class="card">${head('sun','الوضع واللون')}<div class="cpad"><div class="opt"><div class="themes">${[['light','فاتح','l'],['dark','داكن','d'],['auto','تلقائي','a']].map(([v,l,c])=>`<button type="button" class="th${on('theme',v)}" data-pk="theme" data-pv='"${v}"'><i class="${c}"></i><span>${l}</span></button>`).join('')}</div></div>
+    <div class="opt"><span class="flbl">اللغة</span>${seg('lang',[['ar','عربي'],['en','English']])}</div>
     <div class="opt"><span class="flbl">اللون الأساسي</span><div class="sw">${Object.entries(ACCENTS).map(([k,a])=>`<button type="button" class="${on('accent',k).trim()}" style="--c:${a[1]}" data-pk="accent" data-pv='"${k}"' title="${a[0]}" aria-label="${a[0]}"></button>`).join('')}</div></div></div></div>
   <div class="card">${head('type','الخطوط')}<div class="cpad"><div class="opt"><label class="flbl" for="pfd">خط العناوين والأرقام</label><select class="sel" id="pfd" data-pk="fd">${Object.keys(FD).map(f=>`<option${f===prefs.fd?' selected':''}>${f}</option>`).join('')}</select></div>
     <div class="opt"><label class="flbl" for="pfb">خط النصوص</label><select class="sel" id="pfb" data-pk="fb">${Object.keys(FB).map(f=>`<option${f===prefs.fb?' selected':''}>${f}</option>`).join('')}</select></div>
@@ -1059,7 +1226,7 @@ const PKGS={'':'—',...Object.fromEntries(Object.entries(PKG).map(([k,v])=>[k,v
 const CHANNELS={whatsapp:'واتساب',call:'مكالمة',facebook:'فيسبوك',instagram:'إنستجرام',tiktok:'تيك توك',walkin:'زيارة',referral:'ترشيح',other:'أخرى'};
 const phoneKey=p=>String(p||'').replace(/[^\d]/g,'').replace(/^(00)?(20|966|971|965|974|962|212)/,'').replace(/^0/,'');
 function waOf(l){let p=String(l.phone||'').replace(/[^\d]/g,'').replace(/^00/,'');const cc=CC[l.country];if(cc&&!p.startsWith(cc))p=cc+p.replace(/^0/,'');return 'https://wa.me/'+p}
-const money=(v,c)=>v||v===0?N(v)+' '+(c==='USD'?'$':'ج.م'):'—';
+const money=(v,c)=>v||v===0?N(v)+' '+(c==='USD'?'$':L('ج.م','EGP')):'—';
 function openLead(id){const isNew=!id,l=isNew?{status:'new',country:'مصر',currency:'EGP',src:'whatsapp'}:st.leads.find(x=>x.id===id);if(!l)return;
   const d=toD(l.at),f=l.first||{},s=norm(l.status),pk=PKG[l.pkg],others=isNew?[]:st.leads.filter(x=>x.id!==l.id&&phoneKey(x.phone)&&phoneKey(x.phone)===phoneKey(l.phone));
   const opt=(o,v)=>Object.entries(o).map(([k,t])=>`<option value="${k}"${k===(v||'')?' selected':''}>${t}</option>`).join('');
@@ -1072,7 +1239,7 @@ function openLead(id){const isNew=!id,l=isNew?{status:'new',country:'مصر',cur
   const lostBox=s==='lost'?`<div class="lostbox"><b>ملغي${l.lostReason&&RS[l.lostReason]?': '+RS[l.lostReason][1]:''}</b>${l.lostNote?'<br>'+esc(l.lostNote):''}${l.lostAt?'<br><small>'+fmtD(l.lostAt)+(l.lostStage&&l.lostStage!=='sales'?' · بعد ما بدأنا':' · قبل الاتفاق')+'</small>':''}</div>`:'';
   const danger=isNew?'':`<div class="ofsec" style="margin-top:22px">إلغاء أو حذف</div><div class="dz">${s==='lost'?'<button type="button" class="btn sm" data-recause>تغيير سبب الإلغاء</button>':'<button type="button" class="btn sm" data-cancel>إلغاء الطلب مع السبب</button>'}${st.owner?'<button type="button" class="btn sm danger" data-del>حذف نهائي</button>':''}<p><b>الإلغاء</b> بيسيب الطلب في الأرقام علشان نعرف بنخسر فين. <b>الحذف النهائي</b> بيمسحه من قاعدة البيانات خالص، ومايترجعش: للطلبات الوهمية أو المكررة أو التجارب.</p></div>`;
   $('#dlgP').innerHTML=`<div class="dlg-h"><div style="display:flex;justify-content:space-between;align-items:center">${isNew?'<span class="pill src">طلب جديد</span>':`<span class="pill src">${esc(srcName(l.src))}${l.manual?' · أضفته يدويًا':''}</span>`}<button class="icon-btn" data-x aria-label="إغلاق">${ic('x')}</button></div>
-  <h2>${isNew?'إضافة طلب':esc(l.name)}</h2>${isNew?'<div style="color:var(--dim);font-size:13px">لعميل كلّمك على واتساب أو بالتليفون أو جالك بنفسه</div>':`<div style="color:var(--faint);font-size:12.5px">${d?d.toLocaleString('ar-EG-u-nu-latn',{weekday:'long',day:'numeric',month:'long',hour:'numeric',minute:'2-digit'}):''}${l.utm&&l.utm.campaign?' · حملة '+esc(l.utm.campaign):''}${f.src&&!l.manual?' · أول ما عرفنا: '+esc(srcName(f.src)):''}</div>`}
+  <h2>${isNew?'إضافة طلب':esc(l.name)}</h2>${isNew?'<div style="color:var(--dim);font-size:13px">لعميل كلّمك على واتساب أو بالتليفون أو جالك بنفسه</div>':`<div style="color:var(--faint);font-size:12.5px">${d?d.toLocaleString(LOC,{weekday:'long',day:'numeric',month:'long',hour:'numeric',minute:'2-digit'}):''}${l.utm&&l.utm.campaign?' · حملة '+esc(l.utm.campaign):''}${f.src&&!l.manual?' · أول ما عرفنا: '+esc(srcName(f.src)):''}</div>`}
   ${steps}${isNew||s==='lost'?'':`<div class="flags">${flagHTML(l)}</div>`}${lostBox}</div>
   <div class="dlg-b"><div class="dcol">
   <form id="of" class="of" autocomplete="off">
@@ -1080,7 +1247,7 @@ function openLead(id){const isNew=!id,l=isNew?{status:'new',country:'مصر',cur
     <div class="fg2"><label>المتابعة الجاية<input name="followUp" type="date" value="${esc(l.followUp||'')}"></label><label>عشان إيه<input name="followNote" maxlength="120" placeholder="مثلًا: يرد على عرض السعر" value="${esc(l.followNote||'')}"></label></div>
     <div class="quick"><button type="button" data-fu="1">بكرة</button><button type="button" data-fu="3">بعد ٣ أيام</button><button type="button" data-fu="7">بعد أسبوع</button><button type="button" data-fu="">مفيش</button></div>
     <div class="fg2"><label>الاسم<input name="name" required maxlength="80" value="${esc(l.name||'')}"></label><label>رقم الموبايل<input name="phone" required maxlength="20" dir="ltr" value="${esc(l.phone||'')}"></label></div>
-    <div class="fg2"><label>الدولة<select name="country">${COUNTRIES.map(c=>`<option${c===l.country?' selected':''}>${c}</option>`).join('')}</select></label>${isNew||l.manual?`<label>جالنا منين<select name="src">${opt(CHANNELS,l.src)}</select></label>`:`<label>المصدر<input value="${esc(srcName(l.src))}" disabled></label>`}</div>
+    <div class="fg2"><label>الدولة<select name="country">${COUNTRIES.map(c=>`<option value="${c}"${c===l.country?' selected':''}>${c}</option>`).join('')}</select></label>${isNew||l.manual?`<label>جالنا منين<select name="src">${opt(CHANNELS,l.src)}</select></label>`:`<label>المصدر<input value="${esc(srcName(l.src))}" disabled></label>`}</div>
     <label>البرنامج<select name="productN"><option value="">لم يحدد بعد</option>${prods}</select></label>
     <div class="ofsec">المشروع</div>
     <div class="fg2"><label>الباقة<select name="pkg">${opt(PKGS,l.pkg)}</select></label><label>موعد التسليم<input name="due" type="date" value="${esc(l.due||'')}"></label></div>
@@ -1093,7 +1260,7 @@ function openLead(id){const isNew=!id,l=isNew?{status:'new',country:'مصر',cur
   </form></div>${isNew?'':'<div class="dcol">'}
   ${!isNew&&inWork(l)?(()=>{const list=tasksFor(l),[dn,tt]=taskProg(l);return `<div class="ofsec" style="margin-top:22px">مهام المشروع <span class="tprog">${dn} من ${tt}</span></div><div class="paybar"><i style="width:${tt?dn/tt*100:0}%"></i></div>${l.pkg?'':'<div class="pkinfo">اختار الباقة علشان تظهر مهامها كاملة</div>'}<div class="tasks">${list.map(([k,t])=>`<label class="tk${l.tasks&&l.tasks[k]?' on':''}"><input type="checkbox" data-task="${k}"${l.tasks&&l.tasks[k]?' checked':''}><i>${ic('check')}</i><span>${t}</span></label>`).join('')}</div>`})():''}
   ${isNew?'':(()=>{const rel=MSG.filter(m=>!m[2]||m[2].includes(s)),rest=MSG.filter(m=>!rel.includes(m));const b=m=>`<a class="msg" href="${waText(l,m[3](l))}" target="_blank" rel="noopener" title="${esc(m[3](l))}">${ic('wa')}<span>${m[1]}</span></a>`;return `<div class="ofsec" style="margin-top:22px">رسائل واتساب جاهزة</div><div class="msgs">${rel.map(b).join('')}</div>${rest.length?`<details class="moremsg"><summary>كل الرسائل (${MSG.length})</summary><div class="msgs">${rest.map(b).join('')}</div></details>`:''}<div class="pkinfo">بتفتح واتساب والرسالة مكتوبة باسم العميل، وتقدر تعدّلها قبل ما تبعت.</div>`})()}
-  ${log.length?`<div class="ofsec" style="margin-top:22px">سجل الطلب</div><ol class="tl">${log.map(e=>`<li><b>${STATUS[e.s]||e.s}${e.why&&RS[e.why]?' · '+RS[e.why][1]:''}</b><small>${new Date(e.at).toLocaleString('ar-EG-u-nu-latn',{day:'numeric',month:'short',hour:'numeric',minute:'2-digit'})}${e.by?' · '+esc(e.by.split('@')[0]):''}</small></li>`).join('')}</ol>`:''}
+  ${log.length?`<div class="ofsec" style="margin-top:22px">سجل الطلب</div><ol class="tl">${log.map(e=>`<li><b>${STATUS[e.s]||e.s}${e.why&&RS[e.why]?' · '+RS[e.why][1]:''}</b><small>${new Date(e.at).toLocaleString(LOC,{day:'numeric',month:'short',hour:'numeric',minute:'2-digit'})}${e.by?' · '+esc(e.by.split('@')[0]):''}</small></li>`).join('')}</ol>`:''}
   ${others.length?`<div class="ofsec" style="margin-top:22px">طلبات تانية لنفس العميل (${others.length})</div><div class="hist">${others.map(o=>`<button type="button" class="hrow" data-lead="${o.id}"><span><b>${esc(o.product||'لم يحدد')}</b><small>${ago(toD(o.at))}</small></span><span class="pill">${STATUS[norm(o.status)]}</span></button>`).join('')}</div>`:''}${danger}${isNew?'':'</div>'}</div>`;
   $('#dlgP').classList.toggle('narrow',isNew);$('#dlg').hidden=false;$('#dlgP').scrollTop=0;
   $('#dlgP').querySelectorAll('[data-cancel]').forEach(b=>b.onclick=async()=>{if(await setStatus(l,'lost'))openLead(l.id)});
@@ -1246,7 +1413,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDlg();$('#pmen
   if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();$('#gsearch').focus()}});
 $('#gsearch').addEventListener('input',e=>{st.q=e.target.value;st.fstatus='all';if(st.view!=='leads')go('leads');else render(false)});
 document.addEventListener('mouseover',e=>{const h=e.target.closest('[data-tip]'),tp=$('#tip');if(!h){tp.hidden=true;return}const [a,b]=h.dataset.tip.split('|');tp.innerHTML=`<b>${a}</b><br>${b}`;tp.hidden=false;const r=h.getBoundingClientRect();tp.style.top=(r.top+r.height*.25)+'px';tp.style.left=Math.min(innerWidth-tp.offsetWidth-10,Math.max(10,r.left+r.width/2-tp.offsetWidth/2))+'px'});
-$('#refresh').innerHTML=ic('refresh');{const mac=/Mac|iPhone|iPad/.test(navigator.platform||navigator.userAgent);$('#kbdK').textContent=mac?'⌘K':'Ctrl K';$('#sideT').title='تصغير / توسيع القائمة ( [ أو '+(mac?'⌘':'Ctrl')+'+B )'}$('#logoutM').innerHTML=ic('logout');
+$('#refresh').innerHTML=ic('refresh');{const q=$('#langQ');q.textContent=EN?'ع':'EN';q.dataset.pv=JSON.stringify(EN?'ar':'en');const g=$('#gLang');g.textContent=EN?'عربي':'English';g.onclick=()=>setPref('lang',EN?'ar':'en')}{const mac=/Mac|iPhone|iPad/.test(navigator.platform||navigator.userAgent);$('#kbdK').textContent=mac?'⌘K':'Ctrl K';$('#sideT').title=L('تصغير / توسيع القائمة ( [ أو ','Collapse / expand the menu ( [ or ')+(mac?'⌘':'Ctrl')+'+B )'}$('#logoutM').innerHTML=ic('logout');
 
 /* ---------- sign-in ---------- */
 function enter(user){st.user=user;$('#gate').hidden=true;$('#app').hidden=false;$('#uName').textContent=user.displayName||'';$('#uMail').textContent=user.email||'';
