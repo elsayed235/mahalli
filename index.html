@@ -2511,6 +2511,195 @@ html.booting{overflow:hidden}
   .foot-g > div:nth-child(2){display:none}
 }
 .pl-fine{margin:14px auto 0;max-width:760px;text-align:center;font-size:13.5px;line-height:1.7;color:var(--dim)}
+
+/* ===== Phone app home (max-width:640px only; larger screens are untouched) =====
+   compact header with search, sector tabs, banner, packages, sectors, two-column apps.
+   Long sections become their own screens: packages tab, and journey / about / FAQ from "learn more". */
+.mapp,.m-search,.mv-back,.m-seg{display:none}
+@media (max-width:640px){
+  /* one screen at a time */
+  .hero,#who,#system,#featured,#products,#contact{display:none}
+  :root:not([data-mv="plans"]) #plans,:root:not([data-mv="journey"]) #journey,:root:not([data-mv="about"]) #about,:root:not([data-mv="faq"]) #faq{display:none}
+  :root[data-mv="home"] .mapp{display:block}
+  :root:not([data-mv="home"]) .foot{display:none}
+  .foot{margin-top:26px}
+  .sec{padding-block:14px 30px}
+  #proof{display:none}
+
+  /* header: mark + search + language + theme */
+  .hdr{padding-top:calc(4px + env(safe-area-inset-top,0px))}
+  .hdr-in{gap:8px;padding-inline:10px;min-height:52px}
+  .hdr .bword{display:none}
+  .m-search{all:unset;box-sizing:border-box;display:flex;align-items:center;gap:8px;flex:1;min-width:0;height:38px;padding-inline:12px;border-radius:19px;background:var(--surface);border:1px solid var(--line);color:var(--faint);font-size:13.5px;cursor:text}
+  .m-search svg{width:18px;height:18px;flex:none;color:var(--em)}
+  .m-search span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .hdr .tools{margin-inline-start:0;gap:6px}
+
+  .mapp{padding-bottom:6px}
+
+  /* sector tabs */
+  .m-tabs{display:flex;gap:20px;padding-inline:16px;margin-top:4px;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none;white-space:nowrap}
+  .m-tabs::-webkit-scrollbar,.m-chips::-webkit-scrollbar,.m-ban::-webkit-scrollbar{display:none}
+  .m-tabs button{all:unset;flex:none;position:relative;padding:8px 0 10px;font-size:14px;color:var(--dim);cursor:pointer}
+  .m-tabs button.on{color:var(--em-ink);font-weight:600}
+  .m-tabs button.on::after{content:"";position:absolute;inset-inline:0;bottom:0;height:2.5px;border-radius:2px;background:var(--em)}
+
+  /* banner */
+  .m-banw{position:relative;margin:12px 14px 0}
+  .m-ban{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;border-radius:20px;overscroll-behavior-x:contain}
+  .m-sl{position:relative;flex:0 0 100%;height:168px;scroll-snap-align:start;overflow:hidden;background:#073D2A;color:#fff;border-radius:20px}
+  .m-sl img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .m-sl::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(var(--vdir),#06402B 0%,rgba(6,64,43,.94) 42%,rgba(6,64,43,.3) 76%,transparent 100%)}
+  .m-sl.s1 img{object-position:18% 60%}
+  .m-sl.s2{background:radial-gradient(90% 120% at 0% 0%,rgba(242,193,78,.28),transparent 60%),#073D2A}
+  .m-sl.s2::before{display:none}
+  .m-sl.s3 img{width:46%;object-position:top}
+  [dir="ltr"] .m-sl.s3 img{left:auto;right:0}
+  [dir="rtl"] .m-sl.s3 img{right:auto;left:0}
+  .m-sl.s3::before{background:linear-gradient(var(--vdir),#06402B 52%,transparent 72%)}
+  .m-sl > div{position:relative;z-index:2;box-sizing:border-box;width:68%;height:100%;padding:14px 16px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center}
+  .m-sl.s2 > div{width:92%}
+  .m-sl.s3 > div{width:58%}
+  .m-sl small{font-size:11px;font-weight:500;background:rgba(255,255,255,.14);padding:3px 9px;border-radius:99px;margin-bottom:7px}
+  .m-sl h2{margin:0;font-family:var(--f-display);font-size:20px;font-weight:700;line-height:1.4;color:#fff}
+  .m-sl.s3 h2,.m-sl.s2 h2{font-size:17px}
+  .m-sl h2 em{font-style:normal;color:#9BE28A}
+  .m-go{all:unset;box-sizing:border-box;display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:8px 14px;border-radius:99px;background:#fff;color:#0B6B47!important;font-family:var(--f-display)!important;font-size:13px!important;font-weight:600!important;cursor:pointer}
+  .m-go .arr{color:inherit}
+  .m-dots{position:absolute;z-index:3;bottom:9px;inset-inline-end:14px;display:flex;gap:5px;pointer-events:none}
+  .m-dots i{width:6px;height:6px;border-radius:3px;background:rgba(255,255,255,.45);transition:width .25s,background .25s}
+  .m-dots i.on{width:16px;background:#fff}
+
+  /* trust strip */
+  .m-trust{display:grid;grid-template-columns:repeat(4,1fr);margin:10px 14px 0;padding:9px 4px;list-style:none;background:var(--surface);border:1px solid var(--line);border-radius:14px}
+  .m-trust li{display:flex;flex-direction:column;align-items:center;gap:4px;padding-inline:4px;font-size:10.5px;line-height:1.35;text-align:center;color:var(--dim);border-inline-start:1px solid var(--line)}
+  .m-trust li:first-child{border:0}
+  .m-trust svg{width:17px;height:17px;color:var(--em)}
+
+  /* section heads */
+  .m-h{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:16px 16px 9px}
+  .m-h b{font-family:var(--f-display);font-size:16.5px;font-weight:600;color:var(--ink)}
+  .m-h button{all:unset;flex:none;font-size:12.5px;font-weight:600;color:var(--em-ink)!important;cursor:pointer}
+
+  /* packages strip */
+  .m-pks{display:flex;gap:9px;padding-inline:14px}
+  .m-pk{all:unset;box-sizing:border-box;position:relative;flex:1 1 0;min-width:0;display:flex;flex-direction:column;padding:11px 10px 10px;border-radius:16px;background:var(--surface);border:1px solid var(--line);cursor:pointer}
+  .m-pk b{font-family:var(--f-display);font-size:14.5px;font-weight:600;color:var(--ink)}
+  .m-pk small{flex:1;margin:3px 0 8px;font-size:10.5px;line-height:1.45;color:var(--dim)}
+  .m-pk span{padding:4px 0;border-radius:10px;text-align:center;font-family:var(--f-display);font-size:10.5px;font-weight:600;color:var(--em-ink);background:var(--em-soft)}
+  .m-pk.hl{background:#073D2A;border-color:#073D2A}
+  .m-pk.hl b{color:#fff}.m-pk.hl small{color:#B9D6C8}
+  .m-pk.hl span{background:#E0AE3A;color:#1A1305}
+  .m-pk i{position:absolute;top:-8px;inset-inline-start:10px;padding:2px 8px;border-radius:10px;background:#E0AE3A;color:#1A1305;font-style:normal;font-family:var(--f-display);font-size:9.5px;font-weight:600}
+  .m-pk:active,.m-cat:active,.m-row:active{transform:scale(.97)}
+
+  /* sectors */
+  .m-cats{display:grid;grid-template-columns:repeat(6,1fr);padding-inline:10px}
+  .m-cat{all:unset;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;gap:5px;font-size:11px;line-height:1.35;text-align:center;color:var(--ink);cursor:pointer}
+  .m-cat > span{position:relative;display:grid;place-items:center;width:52px;height:52px;border-radius:50%;background:var(--em-soft);color:var(--em-ink)}
+  .m-cat svg{width:23px;height:23px}
+  .m-cat em{position:absolute;top:-3px;inset-inline-end:-3px;box-sizing:border-box;min-width:18px;height:18px;padding-inline:3px;border-radius:9px;background:var(--surface);border:1px solid var(--line);font-style:normal;font-family:var(--f-display);font-size:9.5px;font-weight:600;line-height:16px;color:var(--dim)}
+  .m-cat u{text-decoration:none;max-width:60px}
+
+  /* need chips */
+  .m-chips{display:flex;gap:8px;padding:0 14px 10px;overflow-x:auto;scrollbar-width:none;white-space:nowrap}
+  .m-chip{all:unset;flex:none;padding:7px 13px;border-radius:99px;border:1px solid var(--line);background:var(--surface);color:var(--dim)!important;font-size:12.5px!important;cursor:pointer}
+  .m-chip.on{border-color:var(--em);background:var(--em-soft);color:var(--em-ink)!important;font-weight:600!important}
+
+  /* two-column app cards: home grid and the catalog */
+  #mGrid,#xp #cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  #mGrid{padding-inline:14px}
+  #mGrid .card,#xp #cards .card{display:flex;flex-direction:column;align-items:stretch;padding:0;border-radius:16px;overflow:hidden;box-shadow:none;border:1px solid var(--line);transform:none;--rx:0deg!important;--ry:0deg!important}
+  #mGrid .card .cimg,#xp #cards .card .cimg{width:100%;aspect-ratio:1/1.04;border-radius:0}
+  #mGrid .card .cimg .fg,#xp #cards .card .cimg .fg{object-fit:cover;object-position:top}
+  #mGrid .card .cgo,#mGrid .card .cshare,#xp #cards .card .cgo,#xp #cards .card .cshare{display:none}
+  #mGrid .card .cb,#xp #cards .card .cb,[dir="ltr"] #xp #cards .card .cb{position:relative;padding:8px 10px 10px;gap:0}
+  #mGrid .card .cb::after,#xp #cards .card .cb::after{content:none}
+  #mGrid .card .cmeta,#xp #cards .card .cmeta{align-self:flex-start;padding:2px 8px;font-size:10.5px;border-radius:99px;gap:5px}
+  #mGrid .card .cmeta::before,#xp #cards .card .cmeta::before{width:5px;height:5px;box-shadow:none}
+  #mGrid .card h3,#xp #cards .card h3{margin:6px 0 0;font-size:13px;line-height:1.5;height:39px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;text-wrap:initial}
+  #mGrid .card .pr,#xp #cards .card .pr{display:none!important}
+  #mGrid .card .cact,#xp #cards .card .cact{display:block;margin-top:7px}
+  #mGrid .card .more,#xp #cards .card .more{display:flex;justify-content:space-between;align-items:center;font-size:11px;font-weight:500;color:var(--dim)}
+  #mGrid .card .more .arr,#xp #cards .card .more .arr{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--btn);color:var(--on-btn);font-size:13px;line-height:1}
+  #mGrid .card:active,#xp #cards .card:active{transform:scale(.98)}
+  .m-all{padding:12px 14px 0}
+  .m-all .btn{width:100%;min-height:48px;border-radius:14px}
+  .m-empty{grid-column:1/-1;padding:18px;text-align:center;font-size:13px;color:var(--dim)}
+
+  /* how we start + learn more */
+  .m-how{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding-inline:14px;margin:0;list-style:none}
+  .m-how li{padding:10px 9px;border-radius:14px;background:var(--surface);border:1px solid var(--line);font-size:11.5px;line-height:1.55;color:var(--ink)}
+  .m-how b{display:block;margin-bottom:2px;font-family:var(--f-display);font-size:13px;font-weight:700;color:var(--em-ink)}
+  .m-rows{margin:0 14px;border-radius:16px;background:var(--surface);border:1px solid var(--line);overflow:hidden}
+  .m-row{all:unset;box-sizing:border-box;display:flex;align-items:center;gap:10px;width:100%;padding:13px 14px;font-size:13.5px;color:var(--ink)!important;border-top:1px solid var(--line);cursor:pointer}
+  .m-row:first-child{border-top:0}
+  .m-row > svg{width:19px;height:19px;flex:none;color:var(--em)}
+  .m-row .arr{margin-inline-start:auto;color:var(--faint)}
+
+  /* inner screens: back bar */
+  :root[data-mv="journey"] .mv-back,:root[data-mv="about"] .mv-back,:root[data-mv="faq"] .mv-back{display:block;padding:6px 14px 0}
+  .mv-back button{all:unset;display:inline-flex;align-items:center;gap:6px;padding:8px 12px 8px 4px;font-size:14px;font-weight:600;color:var(--em-ink);cursor:pointer}
+  .mv-back .arr{color:inherit;transform:scaleX(calc(var(--flip) * -1))}
+
+  /* packages screen: all three stacked, compact */
+  #plans .sh{margin-bottom:10px}
+  #plans .sh p{display:none}
+  .m-seg{display:flex;margin:0 0 12px;padding:3px;border-radius:13px;background:var(--bg2)}
+  .m-seg button{all:unset;box-sizing:border-box;flex:1;padding:8px;border-radius:10px;text-align:center;font-size:13px;color:var(--dim);cursor:pointer}
+  .m-seg button.on{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.1)}
+  #plans .pl-note{margin-bottom:10px;font-size:12.5px}
+  #plans .plans{display:flex;flex-direction:column;gap:10px;overflow:visible;margin-inline:0;padding:0}
+  #plans .plan{flex:none;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;column-gap:10px;padding:14px 16px 16px;border-radius:18px}
+  #plans .plan .tag{grid-column:1/-1;justify-self:start;margin-bottom:6px;font-size:11px}
+  #plans .plan .pp{margin:0;font-size:19px}
+  #plans .plan .ps{margin:0;padding:4px 10px;font-size:11.5px}
+  #plans .plan .ps svg{width:14px;height:14px}
+  #plans .plan .pfrom,#plans .plan ul,#plans .plan .btn{grid-column:1/-1}
+  #plans .plan ul{margin:10px 0 12px;font-size:13px}
+  #plans .plan li{margin-top:4px}
+  #plans .plan .btn{min-height:44px;border-radius:13px;font-size:14px}
+  #plans .pl-fine{font-size:12px}
+  #plans[data-seg="add"] .plans,#plans[data-seg="add"] .pl-note,#plans[data-seg="add"] .pl-fine,#plans:not([data-seg="add"]) .pl-add{display:none}
+  #plans .pl-add{margin-top:0;padding:16px}
+  #plans .pa-g{display:grid;grid-auto-flow:row;grid-template-columns:1fr;grid-auto-columns:auto;overflow:visible;margin-inline:0;padding:0}
+
+  /* inner screens show at once, no scroll-in animation */
+  #plans .rv2,#journey .rv2,#about .rv2,#faq .rv2{opacity:1!important;transform:none!important;transition:none!important}
+  #plans .rv2 .h2,#journey .rv2 .h2,#about .rv2 .h2,#faq .rv2 .h2{clip-path:none!important;transform:none!important}
+
+  /* catalog sheet */
+  .xp-scroll{padding-inline:14px}
+
+  /* app details on phones: a plain page. No pinned scroll scenes, framed panels or drawn backdrop */
+  #sheet .ph-story{height:auto!important;margin:0}
+  #sheet .ps-stick{position:static;height:auto;overflow:visible;border-radius:0;background:none;border:0;box-shadow:none}
+  #sheet .ps-cam,#sheet .ps-cue,#sheet .pe-veil,#sheet .tr-arc,#sheet .tr-view .sx-lv,#sheet .tr-fc{display:none}
+  #sheet .ps-tx{position:static;transform:none;width:auto;display:flex;flex-direction:column;gap:10px;padding-block:6px}
+  #sheet .ps-swap{display:flex;flex-direction:column;gap:10px}
+  #sheet .ps-step,#sheet .ps-step.s2,#sheet .ph-story.s2on .s1{opacity:1;transform:none;pointer-events:auto;padding:16px;border-radius:16px;background:var(--surface);border:1px solid var(--line);box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
+  #sheet .ph-story [data-step]{opacity:1!important;transform:none!important}
+  #sheet .ps-pains li{color:var(--ink)}
+  #sheet .cap{box-shadow:none;border-color:var(--line);border-radius:14px}
+  #sheet .cap .cap-bar{display:none}
+  #sheet .ph-img{border-radius:16px;box-shadow:none}
+  #sheet .ph-close{border-radius:16px;padding:18px;background:var(--surface)}
+  #sheet .rel{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  /* what you get: swipe sideways between app, website and dashboard */
+  #sheet .tour{height:auto!important;margin-block:10px}
+  #sheet .tr-stick{position:static;height:auto}
+  #sheet .tr-view{flex:none;height:min(58dvh,440px);overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;border-radius:16px;background:var(--surface2);border:1px solid var(--line)}
+  #sheet .tr-view::-webkit-scrollbar{display:none}
+  #sheet .tr-view::before{display:none}
+  #sheet .tr-track{transform:none!important}
+  #sheet .tr-panel{scroll-snap-align:center;opacity:1!important;padding:14px}
+  #sheet .tr-cap{opacity:1;transform:none}
+
+  /* catalog: a full screen, not a sheet over the page */
+  #xp .xp-panel{height:100dvh;border-radius:0;box-shadow:none;border:0}
+  #xp .xp-panel::before{display:none}
+  #xp .xp-back{background:var(--bg);-webkit-backdrop-filter:none;backdrop-filter:none}
+}
 </style>
 <script>(function(){try{var d=document.documentElement,m=localStorage.getItem('mh-theme');if(m==='light'||m==='dark')d.dataset.theme=m;d.classList.add(sessionStorage.getItem('mh-boot')?'no-boot':'booting')}catch(e){}})();</script>
 </head>
@@ -2526,6 +2715,7 @@ document.addEventListener('DOMContentLoaded',function(){(document.fonts&&documen
   <div class="wrap hdr-in">
     <a class="brand" href="#top" aria-label="Nº41"><span class="bmark n41-mk" aria-hidden="true"><span class="n41-o"><svg viewBox="0 0 126 110" aria-hidden="true"><defs><mask id="n41m" maskUnits="userSpaceOnUse"><rect x="-10" y="-10" width="150" height="130" fill="#fff"/><text x="2" y="92.5" font-family="Readex Pro,IBM Plex Sans Arabic,sans-serif" font-weight="700" font-size="100" letter-spacing="-5" fill="#000">40</text></mask></defs><text x="2" y="92.5" font-family="Readex Pro,IBM Plex Sans Arabic,sans-serif" font-weight="700" font-size="100" letter-spacing="-5" fill="none" mask="url(#n41m)">40</text></svg></span><span class="n41-p">+</span><span class="n41-1">1</span></span><span class="bword"><span id="brandTx"></span><small id="brandSub">40 ready + yours</small></span></a>
     <nav class="nav" id="nav"></nav>
+    <button class="m-search" id="mSearch" type="button" data-tab="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg><span id="mSearchT"></span></button>
     <div class="tools">
       <button class="lang-sw" id="langBtn" type="button"><i aria-hidden="true"></i><span lang="ar">ع</span><span lang="en">EN</span></button>
       <button class="tbtn" id="searchBtn" type="button" data-xp=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
@@ -2535,6 +2725,9 @@ document.addEventListener('DOMContentLoaded',function(){(document.fonts&&documen
     </div>
   </div>
 </header>
+
+<div class="mapp" id="mapp"></div>
+<div class="mv-back"><button type="button" data-mv="home"><span class="arr" aria-hidden="true">←</span><span id="mvBackT"></span></button></div>
 
 <section class="hero" id="top">
   <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
@@ -2596,7 +2789,7 @@ document.addEventListener('DOMContentLoaded',function(){(document.fonts&&documen
   <button class="tb on" type="button" data-tab="home" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 10.5 12 4l8.5 6.5V19a1.5 1.5 0 0 1-1.5 1.5h-4v-6h-6v6H5A1.5 1.5 0 0 1 3.5 19z"/></svg><span id="tbHome"></span></button>
   <button class="tb" type="button" data-tab="apps"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="6.5" height="6.5" rx="1.8"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.8"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.8"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.8"/></svg><span id="tbApps"></span></button>
   <button class="tb tb-main" type="button" data-demo=""><i class="tb-fab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M8 3v4M16 3v4M3.5 10h17M8.8 14.6l2.1 2.1 4.4-4.4"/></svg></i><span id="tbDemo"></span></button>
-  <button class="tb" type="button" data-tab="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg><span id="tbSearch"></span></button>
+  <button class="tb" type="button" data-tab="plans"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3.5 8.5 4.5-8.5 4.5L3.5 8z"/><path d="m3.5 12 8.5 4.5 8.5-4.5M3.5 16l8.5 4.5 8.500-4.500"/></svg><span id="tbPlans"></span></button>
   <button class="tb" type="button" data-tab="menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5.5" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="18.5" cy="12" r="1.4"/></svg><span id="tbMenu"></span></button>
 </nav>
 
@@ -3351,7 +3544,7 @@ const IC={clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',spark:'
 const svg=(k,cls='')=>`<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[k]}</svg>`;
 
 const T={
-ar:{brand:'رقم ٤١',logo:'رقم ٤١',logoSub:'٤٠ جاهزة + فكرتك',tbHome:'الرئيسية',tbApps:'البرامج',tbDemo:'اطلب عرضًا',tbSearch:'بحث',tbMenu:'المزيد',tabsAria:'التنقل الرئيسي',searchAria:'ابحث في البرامج',sugAria:'اقتراحات البحث',clearQ:'مسح البحث',needLbl:'أحتاج:',needs:{book:'حجوزات ومواعيد',pay:'مدفوعات وحسابات',team:'متابعة الفريق',track:'متابعة الطلبات والحالات'},sortLbl:'ترتيب',sortRel:'الأنسب',sortAz:'أبجديًا',found:(n,q)=>`نتائج «${q}»: <b>${n}</b>`,popLbl:'الأكثر بحثًا',recent:'عمليات بحثك الأخيرة',clearRecent:'مسح',popular:['عيادة','مطعم','حجز مواعيد','ورشة','مدفوعات','مدرسة','صالون','إيجارات'],seeAll:q=>`اعرض كل النتائج لـ «${q}»`,clearAll:'مسح الكل',removeF:'إزالة',emptyQ:q=>`لا يوجد برنامج جاهز لـ «${q}» حتى الآن، لكن يمكننا بناؤه لك.`,emptyTry:'جرّب:',waCustom:'مرحبًا، أبحث عن برنامج لـ: ',customBtn:'اطلب برنامجًا مخصصًا',stCost:'والنتيجة كل يوم: وقت يضيع، ومال يضيع، وعملاء يذهبون لغيرك.',dAll:'تصفح كل البرامج',dApps:'برنامجًا جاهزًا',dSecs:'الأقسام',dPage:'في الصفحة',dContact:'تواصل معنا',dLegal:'معلومات قانونية',faqAll:n=>`عرض كل الأسئلة (${n})`,faqLess:'عرض أقل',docUpd:'آخر تحديث: أكتوبر ٢٠٢٦',
+ar:{brand:'رقم ٤١',logo:'رقم ٤١',logoSub:'٤٠ جاهزة + فكرتك',tbHome:'الرئيسية',tbApps:'البرامج',tbDemo:'اطلب عرضًا',tbSearch:'بحث',tbPlans:'الباقات',tbMenu:'المزيد',tabsAria:'التنقل الرئيسي',searchAria:'ابحث في البرامج',sugAria:'اقتراحات البحث',clearQ:'مسح البحث',needLbl:'أحتاج:',needs:{book:'حجوزات ومواعيد',pay:'مدفوعات وحسابات',team:'متابعة الفريق',track:'متابعة الطلبات والحالات'},sortLbl:'ترتيب',sortRel:'الأنسب',sortAz:'أبجديًا',found:(n,q)=>`نتائج «${q}»: <b>${n}</b>`,popLbl:'الأكثر بحثًا',recent:'عمليات بحثك الأخيرة',clearRecent:'مسح',popular:['عيادة','مطعم','حجز مواعيد','ورشة','مدفوعات','مدرسة','صالون','إيجارات'],seeAll:q=>`اعرض كل النتائج لـ «${q}»`,clearAll:'مسح الكل',removeF:'إزالة',emptyQ:q=>`لا يوجد برنامج جاهز لـ «${q}» حتى الآن، لكن يمكننا بناؤه لك.`,emptyTry:'جرّب:',waCustom:'مرحبًا، أبحث عن برنامج لـ: ',customBtn:'اطلب برنامجًا مخصصًا',stCost:'والنتيجة كل يوم: وقت يضيع، ومال يضيع، وعملاء يذهبون لغيرك.',dAll:'تصفح كل البرامج',dApps:'برنامجًا جاهزًا',dSecs:'الأقسام',dPage:'في الصفحة',dContact:'تواصل معنا',dLegal:'معلومات قانونية',faqAll:n=>`عرض كل الأسئلة (${n})`,faqLess:'عرض أقل',docUpd:'آخر تحديث: أكتوبر ٢٠٢٦',
  docs:{terms:{t:'الشروط والأحكام',s:[
  ['عن الخدمة','«رقم ٤١» تقدّم برامج جاهزة للأنشطة التجارية، يستلمها العميل كاملة: لوحة تحكم وموقع ويب وتطبيق موبايل، إلى جانب خدمات مرتبطة بها مثل الاسم والهوية والبرمجة والرفع على المتاجر والإعلانات.'],
  ['العرض التجريبي والاتفاق','العرض التجريبي مجاني وبدون أي التزام. يبدأ التنفيذ بعد موافقة العميل على عرض سعر مكتوب (توقيعًا أو برسالة «موافق») يحدد البرنامج والباقة والمدة والتكلفة وما يشمله العرض.'],
@@ -3403,7 +3596,7 @@ ar:{brand:'رقم ٤١',logo:'رقم ٤١',logoSub:'٤٠ جاهزة + فكرتك
  mTitle:'اطلب عرضًا تجريبيًا',mSub:'اترك بياناتك وسنتواصل معك عبر واتساب.',lName:'الاسم',lBiz:'اسم النشاط',lCountry:'الدولة',lPhone:'رقم الجوال',lProduct:'البرنامج',lMsg:'أضف ملاحظة (اختياري)',fNote:'بدون أي التزام. نكمل معك المحادثة على واتساب.',rvKick:'تجارب أصحاب الأنشطة',rvTitle:'أصحاب أنشطة بدأوا معنا',pFrom:'يبدأ من',social:{facebook:'فيسبوك',instagram:'إنستجرام',tiktok:'تيك توك',linkedin:'لينكدإن'},countries:['مصر','السعودية','الإمارات','الكويت','قطر','الأردن','المغرب','دولة عربية أخرى','دولة أخرى'],noProd:'لم أحدد بعد',submit:'إرسال عبر واتساب',err:'اكتب الاسم ورقم الجوال.',
  dTitle:'رسالتك جاهزة',dSub:'اضغط الزر لإرسالها عبر واتساب، أو انسخها وأرسلها بطريقتك.',wa:'إرسال عبر واتساب',copyMsg:'نسخ الرسالة',copied:'تم النسخ',
  msg:(f)=>`مرحبًا، أريد عرضًا تجريبيًا.\nالاسم: ${f.name}\nالدولة: ${f.country}\nالجوال: ${f.phone}\nالبرنامج: ${f.product}${f.msg?`\nملاحظات: ${f.msg}`:''}`,close:'إغلاق'},
-en:{brand:'Nº41',logo:'Nº41',logoSub:'40 ready + yours',tbHome:'Home',tbApps:'Apps',tbDemo:'Demo',tbSearch:'Search',tbMenu:'More',tabsAria:'Main navigation',searchAria:'Search the apps',sugAria:'Search suggestions',clearQ:'Clear search',needLbl:'I need:',needs:{book:'Bookings & appointments',pay:'Payments & accounts',team:'Team follow-up',track:'Order & status tracking'},sortLbl:'Sort',sortRel:'Best match',sortAz:'A–Z',found:(n,q)=>`<b>${n}</b> results for “${q}”`,popLbl:'Popular searches',recent:'Your recent searches',clearRecent:'Clear',popular:['clinic','restaurant','booking','workshop','payments','school','salon','rent'],seeAll:q=>`See all results for “${q}”`,clearAll:'Clear all',removeF:'Remove',emptyQ:q=>`No ready-made app for “${q}” yet, but we can build it for you.`,emptyTry:'Try:',waCustom:'Hello, I am looking for an app for: ',customBtn:'Request a custom app',stCost:'The result, every day: lost time, lost money, and customers who go elsewhere.',dAll:'Browse all apps',dApps:'ready-made apps',dSecs:'Categories',dPage:'On this page',dContact:'Contact us',dLegal:'Legal',faqAll:n=>`Show all questions (${n})`,faqLess:'Show less',docUpd:'Last updated: October 2026',
+en:{brand:'Nº41',logo:'Nº41',logoSub:'40 ready + yours',tbHome:'Home',tbApps:'Apps',tbDemo:'Demo',tbSearch:'Search',tbPlans:'Packages',tbMenu:'More',tabsAria:'Main navigation',searchAria:'Search the apps',sugAria:'Search suggestions',clearQ:'Clear search',needLbl:'I need:',needs:{book:'Bookings & appointments',pay:'Payments & accounts',team:'Team follow-up',track:'Order & status tracking'},sortLbl:'Sort',sortRel:'Best match',sortAz:'A–Z',found:(n,q)=>`<b>${n}</b> results for “${q}”`,popLbl:'Popular searches',recent:'Your recent searches',clearRecent:'Clear',popular:['clinic','restaurant','booking','workshop','payments','school','salon','rent'],seeAll:q=>`See all results for “${q}”`,clearAll:'Clear all',removeF:'Remove',emptyQ:q=>`No ready-made app for “${q}” yet, but we can build it for you.`,emptyTry:'Try:',waCustom:'Hello, I am looking for an app for: ',customBtn:'Request a custom app',stCost:'The result, every day: lost time, lost money, and customers who go elsewhere.',dAll:'Browse all apps',dApps:'ready-made apps',dSecs:'Categories',dPage:'On this page',dContact:'Contact us',dLegal:'Legal',faqAll:n=>`Show all questions (${n})`,faqLess:'Show less',docUpd:'Last updated: October 2026',
  docs:{terms:{t:'Terms and conditions',s:[
  ['About the service','Nº41 provides ready-made apps for businesses, delivered complete: a dashboard, a website and a mobile app, plus related services such as naming, identity, development, store publishing and ads.'],
  ['Demo and agreement','The demo is free and comes with no commitment. Work starts once the client approves a written quote (signed or with a «موافق» / OK message) that sets the app, the plan, the timeline, the cost and what is included.'],
@@ -3598,7 +3791,7 @@ function thread(host,scroller,build,onNode){
 const STORY_D="M876.605 394.131C788.982 335.917 696.198 358.139 691.836 416.303C685.453 501.424 853.722 498.43 941.95 409.714C1016.1 335.156 1008.64 186.907 906.167 142.846C807.014 100.212 712.699 198.494 789.049 245.127C889.053 306.207 986.062 116.979 840.548 43.3233C743.932 -5.58141 678.027 57.1682 672.279 112.188C666.53 167.208 712.538 172.943 736.353 163.088C760.167 153.234 764.14 120.924 746.651 93.3868C717.461 47.4252 638.894 77.8642 601.018 116.979C568.164 150.908 557 201.079 576.467 246.924C593.342 286.664 630.24 310.55 671.68 302.614C756.114 286.446 729.747 206.546 681.86 186.442C630.54 164.898 492 209.318 495.026 287.644C496.837 334.494 518.402 366.466 582.455 367.287C680.013 368.538 771.538 299.456 898.634 292.434C1007.02 286.446 1192.67 309.384 1242.36 382.258C1266.99 418.39 1273.65 443.108 1247.75 474.477C1217.32 511.33 1149.4 511.259 1096.84 466.093C1044.29 420.928 1029.14 380.576 1033.97 324.172C1038.31 273.428 1069.55 228.986 1117.2 216.384C1152.2 207.128 1188.29 213.629 1194.45 245.127C1201.49 281.062 1132.22 280.104 1100.44 272.673C1065.32 264.464 1044.22 234.837 1032.77 201.413C1019.29 162.061 1029.71 131.126 1056.44 100.965C1086.19 67.4032 1143.96 54.5526 1175.78 86.1513C1207.02 117.17 1186.81 143.379 1156.22 166.691C1112.57 199.959 1052.57 186.238 999.784 155.164C957.312 130.164 899.171 63.7054 931.284 26.3214C952.068 2.12513 996.288 3.87363 1007.22 43.58C1018.15 83.2749 1003.56 122.644 975.969 163.376C948.377 204.107 907.272 255.122 913.558 321.045C919.727 385.734 990.968 497.068 1063.84 503.35C1111.46 507.456 1166.79 511.984 1175.68 464.527C1191.52 379.956 1101.26 334.985 1030.29 377.017C971.109 412.064 956.297 483.647 953.797 561.655C951 640 1000 880 950 1050C890 1330 330 1290 285 1580C240 1870 770 1960 830 2250C870 2450 640 2580 600 2720";
 // One eased scroll scene inside the details sheet: scroll sets a target, a frame loop glides toward it.
 function scrollScene(sec,stick,paint,onMeasure){let target=0,cur=-1,raf=0,last=0,top=0,sh=0;
-  const RM=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const RM=()=>matchMedia('(prefers-reduced-motion: reduce)').matches||MQM.matches;
   const measure=()=>{sh=stick.offsetHeight;top=parseFloat(getComputedStyle(stick).top)||0;onMeasure&&onMeasure()};
   const read=()=>{if(!sec.offsetHeight)return false;if(!sh)measure();const r=sec.getBoundingClientRect(),run=Math.max(1,r.height-sh);target=RM()?1:Math.min(1,Math.max(0,(sheet.getBoundingClientRect().top+top-r.top)/run))};
   const tick=now=>{const dt=Math.min(64,now-(last||now));last=now;cur=cur<0?target:cur+(target-cur)*(1-Math.exp(-dt/120));if(Math.abs(target-cur)<.0004)cur=target;paint(cur);raf=cur===target?0:requestAnimationFrame(tick)};
@@ -3675,14 +3868,17 @@ function fitPanel(pn){const f=pn.querySelector('.fit');if(!f)return;const inn=f.
   inn.style.transform='';const iw=inn.offsetWidth,ih=inn.offsetHeight,aw=pn.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight),ah=pn.clientHeight-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom)-(cap?cap.offsetHeight+14:0);
   const k=Math.max(.2,Math.min(1,aw/iw,ah/ih));inn.style.transform='scale('+k.toFixed(4)+')';f.style.width=(iw*k).toFixed(0)+'px';f.style.height=(ih*k).toFixed(0)+'px'}
 function trFx(){if(trOff){trOff();trOff=null}const tr=$('#phTour');if(!tr)return;const stick=tr.querySelector('.tr-stick'),track=tr.querySelector('.tr-track'),panels=[...tr.querySelectorAll('.tr-panel')],dots=[...tr.querySelectorAll('.tr-dot')],bar=tr.querySelector('.tr-bar b'),n=panels.length;
-  const RM=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;let W=0,cur=-1;const HOLD=.07;
+  const RM=()=>matchMedia('(prefers-reduced-motion: reduce)').matches||MQM.matches;let W=0,cur=-1;const HOLD=.07;
   const size=()=>{W=tr.querySelector('.tr-view').clientWidth;if(RM()){tr.style.height='';panels.forEach(fitPanel);return}tr.style.height=(stick.offsetHeight+(n-1)*innerHeight*.62+innerHeight*.18).toFixed(0)+'px';panels.forEach(fitPanel)};
   trOff=scrollScene(tr,stick,p=>{if(RM()){track.style.transform='';return}const pos=Math.min(1,Math.max(0,(p-HOLD)/(1-2*HOLD)))*(n-1),dir=LANG==='ar'?1:-1;
     track.style.transform='translate3d('+(dir*pos*W).toFixed(1)+'px,0,0)';
     panels.forEach((pn,i)=>{const d=Math.min(1,Math.abs(i-pos));pn.style.opacity=(1-.6*d).toFixed(3);pn.firstElementChild.style.transform='scale('+(1-.08*d).toFixed(4)+')'});
     bar.style.transform='scaleX('+(pos/(n-1)).toFixed(4)+')';const on=Math.round(pos);
-    if(on!==cur){cur=on;panels.forEach((pn,i)=>pn.classList.toggle('on',i===on));dots.forEach((d,i)=>{d.classList.toggle('on',i===on);d.setAttribute('aria-current',i===on?'true':'false')})}},size)}
+    if(on!==cur){cur=on;panels.forEach((pn,i)=>pn.classList.toggle('on',i===on));dots.forEach((d,i)=>{d.classList.toggle('on',i===on);d.setAttribute('aria-current',i===on?'true':'false')})}},size);
+  /* phones: the views are swiped sideways; the tabs follow the swipe */
+  if(MQM.matches){const set=on=>{panels.forEach((pn,i)=>pn.classList.toggle('on',i===on));dots.forEach((d,i)=>{d.classList.toggle('on',i===on);d.setAttribute('aria-current',i===on?'true':'false')});bar.style.transform='scaleX('+(on/Math.max(1,n-1)).toFixed(4)+')'};const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)set(panels.indexOf(e.target))}),{root:tr.querySelector('.tr-view'),threshold:.6});panels.forEach(pn=>io.observe(pn));const off=trOff;trOff=()=>{io.disconnect();off()}}}
 document.addEventListener('click',e=>{const d=e.target.closest&&e.target.closest('[data-tr]');if(!d)return;const tr=d.closest('.tour'),stick=tr.querySelector('.tr-stick'),n=tr.querySelectorAll('.tr-panel').length;
+  if(MQM.matches){tr.querySelectorAll('.tr-panel')[+d.dataset.tr].scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'});return}
   if(matchMedia('(prefers-reduced-motion: reduce)').matches){tr.querySelectorAll('.tr-panel')[+d.dataset.tr].scrollIntoView({block:'center'});return}
   const run=tr.offsetHeight-stick.offsetHeight,p=.07+.86*(+d.dataset.tr/(n-1)),top=tr.getBoundingClientRect().top-sheet.getBoundingClientRect().top+sheet.scrollTop-(parseFloat(getComputedStyle(stick).top)||0);
   sheet.scrollTo({top:top+p*run,behavior:'smooth'})});
@@ -3714,6 +3910,7 @@ function sysCards(list){return list.map(([ic,name,head,desc],i)=>`<div class="sy
 
 /* ===== Scroll to a section so its top sits just under the floating header ===== */
 function goTo(el){const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(MQM.matches){const sc=el.closest('section'),id=sc&&sc.id;if(/^(plans|journey|about|faq)$/.test(id)){if(mv!==id)mview(id)}else{if(mv!=='home')mview('home');if(!el.offsetParent){el=id==='products'?$('#mGridH'):null;if(!el){scrollTo({top:0,behavior:RM?'auto':'smooth'});return}}}}
   const y=()=>Math.max(0,scrollY+el.getBoundingClientRect().top-($('.hdr-in').getBoundingClientRect().bottom+(el.id==='jrG'?34:18)));
   scrollTo({top:y(),behavior:RM?'auto':'smooth'});
   // content above may still be settling (lazy images, reveals): re-aim once the scroll ends
@@ -3799,7 +3996,7 @@ function renderStatic(){
    $('#plansG').querySelectorAll('.plan').forEach((el,i)=>{const v=tx(PRICES[i]);if(v)el.querySelector('.ps').insertAdjacentHTML('afterend',`<div class="pfrom"><small>${t('pFrom')}</small><b>${v}</b></div>`)})}
   $('#faqG').innerHTML=t('faq').map(([q,a],i)=>`<details class="fq${i===0?' show':''}"${i===0?' open':''}><summary><span>${q}</span><svg class="fq-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><div class="fq-a"><div><p>${a}</p></div></div></details>`).join('');$('#fSub').textContent=t('fSub');
   {const n=t('faq').length,all=$('#faq').classList.contains('all');$('#faqMore').parentElement.hidden=n<=FAQ_TOP;$('#faqMore').textContent=all?t('faqLess'):t('faqAll')(D(n));$('#faqMore').setAttribute('aria-expanded',String(all))}
-  $('#cTitle').textContent=t('cTitle');['Home','Apps','Demo','Search','Menu'].forEach(k=>$('#tb'+k).textContent=t('tb'+k));$('#mdock').setAttribute('aria-label',t('tabsAria'));$('#hSearchT').textContent=t('search');$('#cSub').textContent=t('cSub');
+  $('#cTitle').textContent=t('cTitle');['Home','Apps','Demo','Plans','Menu'].forEach(k=>$('#tb'+k).textContent=t('tb'+k));$('#mdock').setAttribute('aria-label',t('tabsAria'));$('#hSearchT').textContent=t('search');$('#cSub').textContent=t('cSub');
   $('#footG').innerHTML=`<div><a class="brand" href="#top" aria-label="${t('logo')}">${$('.hdr .bmark').outerHTML}<span>${t('logo')}</span></a><p>${t('fDesc')}</p></div>
    <div><h4>${t('fSectors')}</h4><ul>${Object.entries(S).map(([k,v])=>`<li><a href="#products" data-sec-link="${k}">${v[LANG]}</a></li>`).join('')}</ul></div>
    <div><h4>${t('fCompany')}</h4><ul>${t('fLinks').map(([h,l])=>`<li><a href="${h}">${l}</a></li>`).join('')}</ul></div>
@@ -3814,7 +4011,7 @@ function renderStatic(){
   $('#fSubmit').textContent=t('submit');$('#dCopy').textContent=t('copyMsg');$('#dWa').innerHTML=`${svg('wa')}${t('wa')}`;$('#mClose').setAttribute('aria-label',t('close'));
   $('#fCountry').innerHTML=t('countries').map(c=>`<option>${c}</option>`).join('');
   $('#fProduct').innerHTML=`<option value="">${t('noProd')}</option>`+P.map(p=>`<option value="${p.n}">${L(p).name}</option>`).join('');
-  buildArt();setShop(rotI);
+  buildArt();setShop(rotI);renderMApp();
 }
 
 /* ===== Catalog ===== */
@@ -3945,7 +4142,7 @@ $('#pager').addEventListener('click',e=>{const b=e.target.closest('[data-pg]');i
 /* ===== Explorer: all apps with filters + pages ===== */
 const xp=$('#xp');let xpFrom=null;
 function openXP(sec,from){N41.ev('catalog',{sec:sec||''});xpFrom=from||null;if(typeof tabOn==='function')tabOn('apps');state.sec=sec||null;state.q='';state.need=[];state.sort='rel';$('#q').value='';$('#sort').value='rel';xp.hidden=false;apply();xp.hidden=false;xp.offsetHeight;xp.classList.add('open');root.style.overflow='hidden';setTimeout(()=>$('#q').focus({preventScroll:true}),350)}
-function closeXP(){if(xp.hidden||!xp.classList.contains('open'))return;sugHide();if(typeof tabOn==='function')tabOn('home');if(/^#apps/.test(location.hash))try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}xp.classList.remove('open');root.style.overflow='';setTimeout(()=>{if(xp.classList.contains('open'))return;xp.hidden=true;if(xpFrom&&document.contains(xpFrom))xpFrom.focus({preventScroll:true})},matchMedia('(prefers-reduced-motion: reduce)').matches?0:420)}
+function closeXP(){if(xp.hidden||!xp.classList.contains('open'))return;sugHide();if(typeof tabOn==='function')tabOn(typeof mvTab==='function'?mvTab():'home');if(/^#apps/.test(location.hash))try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}xp.classList.remove('open');root.style.overflow='';setTimeout(()=>{if(xp.classList.contains('open'))return;xp.hidden=true;if(xpFrom&&document.contains(xpFrom))xpFrom.focus({preventScroll:true})},matchMedia('(prefers-reduced-motion: reduce)').matches?0:420)}
 document.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g){const el=document.querySelector(g.dataset.go);if(el){goTo(el);const pl=g.dataset.pulse&&document.querySelector(g.dataset.pulse);if(pl)setTimeout(()=>{pl.classList.remove('pulse');pl.offsetWidth;pl.classList.add('pulse')},900)}return}const o=e.target.closest('[data-xp]');if(o){openXP(o.dataset.xp,o);return}if(e.target.closest('[data-xpclose]'))closeXP()});
 
 /* ===== Global clicks ===== */
@@ -3965,9 +4162,10 @@ $('#hart').addEventListener('pointerover',e=>{const b=e.target.closest('.bay');i
 /* phone tab bar: home, apps, demo, search, more */
 function tabOn(k){document.querySelectorAll('#mdock .tb[data-tab]').forEach(b=>{const on=b.dataset.tab===k;b.classList.toggle('on',on);if(on)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')})}
 document.addEventListener('click',e=>{const b=e.target.closest('[data-tab]');if(!b)return;const k=b.dataset.tab;
-  if(k==='home'){closeMenu();closeXP();tabOn('home');scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})}
+  if(k==='home'){closeMenu();closeXP();mview('home');tabOn('home');scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})}
   else if(k==='apps'){closeMenu();if(!xp.classList.contains('open'))openXP('',b);tabOn('apps')}
-  else if(k==='search'){closeMenu();if(!xp.classList.contains('open'))openXP('',b);else $('#q').focus();tabOn('search')}
+  else if(k==='search'){closeMenu();if(!xp.classList.contains('open'))openXP('',b);else $('#q').focus();tabOn('apps')}
+  else if(k==='plans'){closeMenu();closeXP();mview('plans');if(!MQM.matches)goTo($('#plans'))}
   else if(k==='menu'){drw.classList.contains('open')?closeMenu():openMenu()}});
 /* the menu is a side drawer on every screen: sections, every category, contact and the legal pages */
 const drw=$('#drw'),menuBtn=$('#menuBtn');
@@ -4123,6 +4321,69 @@ function effTheme(){return root.dataset.theme||(matchMedia('(prefers-color-schem
 $('#themeBtn').addEventListener('click',()=>{const n=effTheme()==='dark'?'light':'dark';root.dataset.theme=n;save('mh-theme',n);N41.ev('theme',{to:n})});
 $('#langBtn').addEventListener('click',()=>{window.LANG=LANG==='ar'?'en':'ar';N41.ev('lang',{to:LANG});save('mh-lang',LANG);root.lang=LANG;root.dir=LANG==='ar'?'rtl':'ltr';renderStatic();renderCards();if(!sheet.hidden&&cur)render(cur)});
 
+/* ===== Phone app home (max-width:640px): banner, packages, sectors, two-column apps; other sections open as screens ===== */
+var MQM=matchMedia('(max-width:640px)'),mv='home',mNeed='',mBanT=0;
+var MT={ar:{s:'ابحث عن نشاطك…',ready:'برنامجًا جاهزًا',sup:'دعم مجاني بعد التسليم',cmp:'تفاصيل الباقات',pk:['لوحة تحكم + موقع ويب','+ تطبيق موبايل باسمك','+ هوية وحملة إطلاق'],pkT:['خلال أسبوع','خلال أسبوعين','٣–٤ أسابيع'],
+  bySec:'تصفّح حسب نشاطك',apps:'برامج جاهزة لنشاطك',top:'الأكثر طلبًا',how:'كيف نبدأ معك؟',learn:'اعرف أكثر',team:'من نحن وفريق العمل',faq:'الأسئلة الشائعة',feat:'برنامج مميز',back:'رجوع',adds:'الإضافات الذكية',none:'لا توجد برامج هنا بعد.'},
+ en:{s:'Search your business…',ready:'ready apps',sup:'Free support after delivery',cmp:'Package details',pk:['Dashboard + website','+ Mobile app in your name','+ Brand & launch campaign'],pkT:['In 1 week','In 2 weeks','3–4 weeks'],
+  bySec:'Browse by business',apps:'Ready apps for your business',top:'Most requested',how:'How do we start?',learn:'Learn more',team:'About us & the team',faq:'FAQ',feat:'Featured app',back:'Back',adds:'AI add-ons',none:'No apps here yet.'}};
+function mt(k){return MT[LANG][k]}
+var MSEC={shops:'<path d="M4 9.5 5.5 4h13L20 9.5M4 9.5V20h16V9.5M4 9.5c0 2 4 2 4 0 0 2 4 2 4 0 0 2 4 2 4 0 0 2 4 2 4 0M10 20v-5h4v5"/>',
+ health:'<path d="M12 20s-7.5-4.5-7.5-10A4.2 4.2 0 0 1 12 7.500 4.200 4.200 0 0 1 19.500 10c0 5.500-7.500 10-7.500 10z"/><path d="M9 11.500h2l1-2 1.500 4 1-2h1"/>',
+ edu:'<path d="m2.500 9.500 9.500-4.500 9.500 4.500-9.500 4.500zM6.500 12v4.500c3 2.500 8 2.500 11 0V12"/>',
+ money:'<rect x="3" y="6" width="18" height="12" rx="2.500"/><circle cx="12" cy="12" r="2.500"/><path d="M6.500 9.500v5M17.500 9.500v5"/>',
+ ind:'<circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.600 5.600l2.100 2.100M16.300 16.300l2.100 2.100M5.600 18.400l2.100-2.100M16.300 7.700l2.100-2.100"/>',
+ realty:'<path d="M5 20.500V5.500a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v15M15 10h3a1 1 0 0 1 1 1v9.500M3 20.500h18M8.500 8.500h3M8.500 12h3M8.500 15.500h3"/>'};
+function mSvg(d){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+d+'</svg>'}
+function mList(){return mNeed?P.filter((p,i)=>IDX[i].need.has(mNeed)).slice(0,6):HOME.slice(0,6).map(n=>P[n-1])}
+function mGridFill(){const g=$('#mGrid');if(!g)return;const l=mList();g.innerHTML=l.length?l.map(card).join(''):`<p class="m-empty">${mt('none')}</p>`;cardFx([...g.querySelectorAll('.card')]);
+  document.querySelectorAll('.m-chip').forEach(b=>{const on=b.dataset.mneed===mNeed;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)})}
+function renderMApp(){const m=$('#mapp');if(!m)return;const cnt={};P.forEach(p=>cnt[p.s]=(cnt[p.s]||0)+1);
+  const ar='<span class="arr" aria-hidden="true">←</span>',f=P[0],pl=t('plans'),tr=t('hTrust');
+  $('#mSearchT').textContent=mt('s');$('#mSearch').setAttribute('aria-label',t('searchAria'));$('#mvBackT').textContent=mt('back');
+  m.innerHTML=`<div class="m-tabs"><button type="button" class="on" data-xp="">${t('all')}</button>${Object.entries(S).map(([k,v])=>`<button type="button" data-xp="${k}">${v[LANG]}</button>`).join('')}</div>
+  <div class="m-banw"><div class="m-ban" id="mBan">
+    <div class="m-sl s1"><img src="img/hero-art-960.webp" alt="" decoding="async"><div><small>${D(P.length)} ${mt('ready')}</small><h2>${t('h1a')}<br><em>${t('h1b')} ${t('h1c')}</em></h2><button type="button" class="m-go" data-demo="">${t('demo')} ${ar}</button></div></div>
+    <div class="m-sl s2"><div><small>+1 · ${t('jrOwnK')}</small><h2>${t('jrOwnT')}</h2><button type="button" class="m-go" data-mv="journey" data-mfocus=".jr-own">${t('more')} ${ar}</button></div></div>
+    <div class="m-sl s3"><img src="${f.img}" alt="" loading="lazy" decoding="async"><div><small>${mt('feat')}</small><h2>${L(f).name}</h2><button type="button" class="m-go" data-open="${f.n}">${t('more')} ${ar}</button></div></div>
+  </div><div class="m-dots" id="mDots" aria-hidden="true"><i class="on"></i><i></i><i></i></div></div>
+  <ul class="m-trust"><li>${svg('lang')}${tr[0]}</li><li>${svg('phone')}${tr[1]}</li><li>${svg('dash')}${tr[2]}</li><li>${svg('headset')}${mt('sup')}</li></ul>
+  <div class="m-h"><b>${t('plTitle')}</b><button type="button" data-tab="plans">${mt('cmp')}</button></div>
+  <div class="m-pks">${pl.map((p,i)=>`<button type="button" class="m-pk${p.hl?' hl':''}" data-tab="plans">${p.tag?`<i>${p.tag}</i>`:''}<b>${p.n}</b><small>${mt('pk')[i]||''}</small><span>${mt('pkT')[i]||''}</span></button>`).join('')}</div>
+  <div class="m-h"><b>${mt('bySec')}</b><button type="button" data-xp="">${t('all')} ${D(P.length)}</button></div>
+  <div class="m-cats">${Object.entries(S).map(([k,v])=>`<button type="button" class="m-cat" data-xp="${k}"><span>${mSvg(MSEC[k]||'')}<em>${D(cnt[k]||0)}</em></span><u>${v[LANG]}</u></button>`).join('')}</div>
+  <div class="m-h" id="mGridH"><b>${mt('apps')}</b><button type="button" data-xp="">${t('all')} ${D(P.length)}</button></div>
+  <div class="m-chips"><button type="button" class="m-chip" data-mneed="">${mt('top')}</button>${Object.entries(t('needs')).map(([k,l])=>`<button type="button" class="m-chip" data-mneed="${k}">${l}</button>`).join('')}</div>
+  <div id="mGrid"></div>
+  <div class="m-all"><button type="button" class="btn btn-main" data-xp="">${t('viewAll')} <b class="xp-n">${D(P.length)}</b> ${ar}</button></div>
+  <div class="m-h"><b>${mt('how')}</b><button type="button" data-mv="journey">${t('more')}</button></div>
+  <ol class="m-how">${t('cSteps').map((x,i)=>`<li><b>${D(i+1)}</b>${x}</li>`).join('')}</ol>
+  <div class="m-h"><b>${mt('learn')}</b></div>
+  <div class="m-rows"><button type="button" class="m-row" data-mv="journey" data-mfocus=".jr-own">${svg('spark')}${t('jrOwnT')}${ar}</button><button type="button" class="m-row" data-mv="about">${svg('users')}${mt('team')}${ar}</button><button type="button" class="m-row" data-mv="faq">${svg('chat')}${mt('faq')}${ar}</button></div>`;
+  mGridFill();
+  /* banner: dots follow the swipe; it advances by itself while on screen */
+  const ban=$('#mBan'),dots=[...$('#mDots').children],sl=[...ban.children];let cur=0,seen=false;
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){cur=sl.indexOf(e.target);dots.forEach((d,i)=>d.classList.toggle('on',i===cur))}}),{root:ban,threshold:.6});sl.forEach(x=>io.observe(x));
+  new IntersectionObserver(([e])=>{seen=e.isIntersecting},{threshold:.5}).observe(ban);
+  clearInterval(mBanT);let hold=0;ban.addEventListener('pointerdown',()=>{hold=Date.now()},{passive:true});
+  mBanT=setInterval(()=>{if(!seen||!MQM.matches||mv!=='home'||document.hidden||Date.now()-hold<8000||matchMedia('(prefers-reduced-motion: reduce)').matches||root.style.overflow==='hidden')return;
+    const n=(cur+1)%sl.length;ban.scrollTo({left:n*ban.clientWidth*(LANG==='ar'?-1:1),behavior:'smooth'})},5200);
+  /* packages screen: packages / AI add-ons switch */
+  let seg=$('#mSeg');if(!seg){seg=document.createElement('div');seg.className='m-seg';seg.id='mSeg';$('#plans .sh').after(seg)}
+  seg.innerHTML=`<button type="button" data-mseg="">${t('plKick')}</button><button type="button" data-mseg="add">${mt('adds')}</button>`;mSeg($('#plans').dataset.seg||'');
+}
+function mSeg(v){const p=$('#plans');if(v)p.dataset.seg=v;else delete p.dataset.seg;document.querySelectorAll('#mSeg button').forEach(b=>b.classList.toggle('on',b.dataset.mseg===(v||'')))}
+function mvTab(){return mv==='plans'?'plans':'home'}
+function mview(v,focus){v=/^(plans|journey|about|faq)$/.test(v)?v:'home';const same=v===mv;mv=v;root.dataset.mv=v;if(typeof tabOn==='function')tabOn(mvTab());
+  if(!MQM.matches)return;if(!same||!focus)scrollTo({top:0,behavior:'instant'});const el=focus&&document.querySelector(focus);if(el)setTimeout(()=>goTo(el),80)}
+root.dataset.mv='home';
+document.addEventListener('click',e=>{
+  const c=e.target.closest('[data-mneed]');if(c){mNeed=c.dataset.mneed;mGridFill();return}
+  const s=e.target.closest('[data-mseg]');if(s){mSeg(s.dataset.mseg);return}
+  const b=e.target.closest('button[data-mv]');if(b){mview(b.dataset.mv,b.dataset.mfocus);return}
+  /* phones: in-page links to a section that lives on another screen */
+  const a=MQM.matches&&e.target.closest('a[href^="#"]:not([data-doc]):not([data-demo])');
+  if(a&&!a.closest('#drw')){const h=a.getAttribute('href'),el=h.length>1&&document.querySelector(h);if(el&&el.closest('section,#top')){e.preventDefault();goTo(el)}}});
 renderStatic();renderCards();startRot();
 {const f=$('#feat');let x0=null;
   $('#fTabs').addEventListener('click',e=>{const b=e.target.closest('.ftab');if(b)featShow(+b.dataset.fi,true)});
@@ -4159,8 +4420,8 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
   H.replaceState=function(st,t,u){return rs(st==null?H.state:st,t,u)};
   // the catalog, menu and app page animate out: they count as closed as soon as they lose .open
   const on=el=>!el.hidden&&el.classList.contains('open');
-  const isOpen={xp:()=>on(xp),menu:()=>on(drw),sheet:()=>on(sheet),doc:()=>!doc.hidden,demo:()=>!modal.hidden};
-  const shut={xp:()=>closeXP(),menu:()=>closeMenu(),sheet:()=>closeP(),doc:()=>closeDoc(),demo:()=>closeDemo()};
+  const isOpen={xp:()=>on(xp),menu:()=>on(drw),sheet:()=>on(sheet),doc:()=>!doc.hidden,demo:()=>!modal.hidden,mv:()=>MQM.matches&&mv!=='home'};
+  const shut={xp:()=>closeXP(),menu:()=>closeMenu(),sheet:()=>closeP(),doc:()=>closeDoc(),demo:()=>closeDemo(),mv:()=>mview('home')};
   // one history entry stands for "a layer is open", however many are stacked: Back closes the top layer and
   // re-arms the entry while others remain; closing the last layer from the page takes the entry back off
   const stack=[];let fromPop=false,leaving=0;
@@ -4190,6 +4451,8 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
   [openP,closeP]=wrap('sheet',openP,closeP);
   [openDoc,closeDoc]=wrap('doc',openDoc,closeDoc);
   [openDemo,closeDemo]=wrap('demo',openDemo,closeDemo);
+  {const _mv=mview;mview=function(v,fo){const was=isOpen.mv();const r=_mv(v,fo);const now=isOpen.mv();if(!was&&now)pushLayer('mv');else if(was&&!now)popLayer('mv');return r}}
+  {const hm=/^#(plans|journey|about|faq)$/.exec(location.hash);if(hm&&MQM.matches)mview(hm[1])}
   // a layer opened from a shared link (#product-26, #apps, #terms) gets an entry too, so Back lands on the home page
   ['xp','sheet','doc'].forEach(k=>{if(isOpen[k]())pushLayer(k)});
 })();
